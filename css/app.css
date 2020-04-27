@@ -1,3 +1,4 @@
+body {background: #fdf6f2}
 .jumbotron {background: #fdf6f2; padding:0; text-align: center;padding-bottom: 50px;}
 
 header {background:url(../img/bg_header.png); background-size:18px 44px; height:44px; position:relative;}

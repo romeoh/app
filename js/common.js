@@ -44,7 +44,7 @@ function initQuestion() {
         str += '    <div class="row">'
         str += '        <div class="col" data-weight="' + q[1].weight + '">'
         str += '            <div class="card" style="width: ">'
-        str += '                <img src="../img/source/q10.png" class="card-img-top" alt="...">'
+        str += '                <img src="../img/source/' + q[0].image + '" class="card-img-top" alt="...">'
         str += '                <div class="card-body">'
         str += '                    <p class="card-text">' + q[0].title + '</p>'
         str += '                </div>'
@@ -52,7 +52,7 @@ function initQuestion() {
         str += '        </div>'
         str += '        <div class="col" data-weight="' + q[1].weight + '">'
         str += '            <div class="card" style="width: ">'
-        str += '                <img src="../img/source/q11.png" class="card-img-top" alt="...">'
+        str += '                <img src="../img/source/' + q[1].image + '" class="card-img-top" alt="...">'
         str += '                <div class="card-body">'
         str += '                    <p class="card-text">' + q[1].title + '</p>'
         str += '                </div>'
@@ -89,10 +89,7 @@ function initSwiper() {
     });
     swiper.on('slideChange', function (e) {
         if (swiper.snapIndex == 6) {
-            resultPercent = Math.round(resultValue/maxValue*100)
-            resultIndex = Math.round(results.length * (resultPercent/100))
-            console.log(resultPercent, resultIndex)
-
+            calculateResult()
             shareResult()
             getResult()
         }
@@ -115,14 +112,26 @@ function initResult() {
     $('#result').html(str)
 }
 
+function calculateResult() {
+    var total = 0
+    resultPercent = Math.round(resultValue/maxValue*100)
+    resultArr = resultPercent.toString().split('')
+    resultArr.forEach(function(v) {
+        total = total + parseInt(v, 10)
+    })
+    resultIndex = (total * 2) % results.length
+    //console.log(resultPercent, total, resultIndex)
+}
+
 function getResult() {
     var option = {
         speed: 10,
         duration: 0.5,
         stopImageNumber: resultIndex,
         stopCallback: function ($stopElm) {
+            $('#resultMessage').html(shareMessage.replace(/\n/g, '<br>'))
             $('#resultTxt').html(results[resultIndex].title)
-            $('#resultPercent').html('유형율: ' + resultPercent + '%')
+            //$('#resultPercent').html('유형율: ' + resultPercent + '%')
         }
     }
     $('div.roulette').roulette(option);

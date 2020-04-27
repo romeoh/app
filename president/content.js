@@ -1,63 +1,57 @@
 var results = [
     {
-        index: 0,
-        title: '이승만',
-        image: './img/leesungman.png',
-        content: ''
-    },{
-        index: 1,
-        title: '박정희',
-        image: './img/leesungman.png',
-        content: ''
-    },{
-        index: 1,
         title: '전두환',
-        image: './img/leesungman.png',
-        content: ''
+        image: './img/president3.png'
     },{
-        index: 1,
-        title: '노태우',
-        image: './img/leesungman.png',
-        content: ''
-    },{
-        index: 1,
-        title: '김영삼',
-        image: './img/leesungman.png',
-        content: ''
-    },{
-        index: 1,
         title: '김대중',
-        image: './img/leesungman.png',
-        content: ''
+        image: './img/president6.png'
     },{
-        index: 1,
-        title: '노무현',
-        image: './img/leesungman.png',
-        content: ''
+        title: '이승만',
+        image: './img/president1.png'
     },{
-        index: 1,
-        title: '이명박',
-        image: './img/leesungman.png',
-        content: ''
-    },{
-        index: 1,
-        title: '박근혜',
-        image: './img/leesungman.png',
-        content: ''
-    },{
-        index: 1,
         title: '문재인',
-        image: './img/leesungman.png',
-        content: ''
+        image: './img/president10.png'
+    },{
+        title: '시진핑',
+        image: './img/president13.png'
+    },{
+        title: '박정희',
+        image: './img/president2.png'
+    },{
+        title: '트럼프',
+        image: './img/president11.png'
+    },{
+        title: '노태우',
+        image: './img/president4.png'
+    },{
+        title: '김영삼',
+        image: './img/president5.png'
+    },{
+        title: '노무현',
+        image: './img/president7.png'
+    },{
+        title: '아베',
+        image: './img/president12.png'
+    },{
+        title: '이명박',
+        image: './img/president8.png'
+    },{
+        title: '박근혜',
+        image: './img/president9.png'
+    },{
+        title: '김정은',
+        image: './img/president14.png'
     }
 ]
 
+var shareMessage
 function shareResult() {
     var  president = results[resultIndex].title
-        ,shareMessage = userName + '님과 맞는 대통령은\n' + president + '입니다.\n유형율: ' + resultPercent + '%\n'
         ,hashtag = '대통령테스트'
-        ,url = 'https://ellisonleao.github.io/sharer.js/'
+        ,url = 'https://bit.ly/2xbvz4E'
         ,str = ''
+    
+    shareMessage = userName + '님과 맞는 대통령은\n' + president + '입니다.\n유형율: ' + resultPercent + '%\n'
     
     str += '<button type="button" class="button btn btn-success" data-sharer="twitter" '
     str += 'data-title="' + shareMessage + '" '
