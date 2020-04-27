@@ -40,7 +40,7 @@ function initQuestion() {
         str += '        <img src="../img/question.png" alt="title" style="height:30px">'
         str += '    </h1>'
         str += '    <p>더 좋아하는것을 고르세요.</p>'
-        str += '    <hr class="my-4">'
+        str += '    <hr class="my-2">'
         str += '    <div class="row">'
         str += '        <div class="col" data-weight="' + q[1].weight + '">'
         str += '            <div class="card" style="width: ">'
@@ -81,6 +81,7 @@ function initSwiper() {
             type: 'progressbar',
         },
         clickable: true,
+        autoHeight: true,
         //effect : 'slide',
         allowTouchMove: false,
         mousewheel: false,

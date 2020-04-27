@@ -1,5 +1,5 @@
 body {background: #fdf6f2}
-.jumbotron {background: #fdf6f2; padding:0; text-align: center;padding-bottom: 50px;}
+.jumbotron {background: #fdf6f2; padding:0; text-align: center;padding-bottom: 0px;}
 
 header {background:url(../img/bg_header.png); background-size:18px 44px; height:44px; position:relative;}
 header .gnbMain {background-position:0px 0px; display:block; position:absolute; top:5px; left:5px; width:70px; height:32px;}
