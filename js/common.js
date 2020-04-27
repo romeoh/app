@@ -66,7 +66,7 @@ function initQuestion() {
     $('[data-weight]').on('click', function() {
         var  weight = $(this).attr('data-weight')
         resultValue = resultValue + parseInt(weight, 10)
-        console.log(weight, resultValue, maxValue)
+        //console.log(weight, resultValue, maxValue)
         swiper.slideNext()
     })
 }
