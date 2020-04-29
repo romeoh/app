@@ -1,4 +1,8 @@
-var results = [
+var  pageTitle = '나와 맞는 대통령을 찾아드립니다.'
+    ,resultMsg = '님과 맞는 대통령은 바로!!!'
+    ,appId = 'president'
+    ,duration = 0.5
+    ,results = [
     {
         title: '전두환',
         image: './img/president3.png'

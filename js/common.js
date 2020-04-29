@@ -12,11 +12,15 @@ $(document).ready(function () {
     initQuestion()
     initSwiper()
     initResult()
+    initAppList()
 });
 
 function initUserName() {
     userName = localStorage.getItem('io.github.romeoh.user.name')
     $('#nickname').val(userName)
+
+    $('#pageTitle').html(pageTitle)
+    $('#resultMessage').html(userName + resultMsg)
 }
 
 function initScore() {
@@ -127,7 +131,7 @@ function calculateResult() {
 function getResult() {
     var option = {
         speed: 10,
-        duration: 0.5,
+        duration: duration,
         stopImageNumber: resultIndex,
         stopCallback: function ($stopElm) {
             $('#resultMessage').html(shareMessage.replace(/\n/g, '<br>'))
@@ -137,6 +141,11 @@ function getResult() {
     }
     $('div.roulette').roulette(option);
     $('div.roulette').roulette('start');
+}
+
+function initAppList() {
+    $('#apps').html(appList)
+    $('[data-app-id="' + appId + '"]').addClass('active')
 }
 
 function shuffle(array, length) {
