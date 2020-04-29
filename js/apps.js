@@ -1,5 +1,6 @@
 var  appList = ''
 
+appList += '<a href="https://bit.ly/35h4I3w" data-app-id="vixx" class="list-group-item list-group-item-action">VIXX 테스트</a>'
 appList += '<a href="https://bit.ly/2yWdO9O" data-app-id="cosmicgirls" class="list-group-item list-group-item-action">우주소녀 테스트</a>'
 appList += '<a href="https://bit.ly/2zKoiK9" data-app-id="exo" class="list-group-item list-group-item-action">EXO 테스트</a>'
 appList += '<a href="https://bit.ly/2Yooets" data-app-id="redvelvet" class="list-group-item list-group-item-action">레드벨벳 테스트</a>'
