@@ -5,19 +5,19 @@ var  pageTitle = '나와 맞는 레드벨벳 멤버를 찾아드립니다.'
     ,results = [
     {
         title: '아이린',
-        image: './img/redvelvet1.png'
+        image: './img/redvelvet1.jpg'
     },{
         title: '슬기',
-        image: './img/redvelvet2.png'
+        image: './img/redvelvet2.jpg'
     },{
         title: '웬디',
-        image: './img/redvelvet3.png'
+        image: './img/redvelvet3.jpg'
     },{
         title: '조이',
-        image: './img/redvelvet4.png'
+        image: './img/redvelvet4.jpg'
     },{
         title: '예리',
-        image: './img/redvelvet5.png'
+        image: './img/redvelvet5.jpg'
     }
 ]
 

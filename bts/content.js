@@ -5,25 +5,25 @@ var  pageTitle = '나와 맞는 BTS 멤버를 찾아드립니다.'
     ,results = [
     {
         title: '진',
-        image: './img/bts1.png'
+        image: './img/bts1.jpg'
     },{
         title: '슈가',
-        image: './img/bts2.png'
+        image: './img/bts2.jpg'
     },{
         title: '제이홉',
-        image: './img/bts3.png'
+        image: './img/bts3.jpg'
     },{
         title: 'RM',
-        image: './img/bts4.png'
+        image: './img/bts4.jpg'
     },{
         title: '지민',
-        image: './img/bts5.png'
+        image: './img/bts5.jpg'
     },{
         title: '뷔',
-        image: './img/bts6.png'
+        image: './img/bts6.jpg'
     },{
         title: '정국',
-        image: './img/bts7.png'
+        image: './img/bts7.jpg'
     }
 ]
 

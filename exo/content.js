@@ -5,40 +5,40 @@ var  pageTitle = '나와 맞는 EXO 멤버를 찾아드립니다.'
     ,results = [
     {
         title: '시우민',
-        image: './img/exo1.png'
+        image: './img/exo1.jpg'
     },{
         title: '크리스',
-        image: './img/exo11.png'
+        image: './img/exo11.jpg'
     },{
         title: '수호',
-        image: './img/exo2.png'
+        image: './img/exo2.jpg'
     },{
         title: '레이',
-        image: './img/exo3.png'
+        image: './img/exo3.jpg'
     },{
         title: '백현',
-        image: './img/exo4.png'
+        image: './img/exo4.jpg'
     },{
         title: '첸',
-        image: './img/exo5.png'
+        image: './img/exo5.jpg'
     },{
         title: '루한',
-        image: './img/exo10.png'
+        image: './img/exo10.jpg'
     },{
         title: '찬열',
-        image: './img/exo6.png'
+        image: './img/exo6.jpg'
     },{
         title: '디오',
-        image: './img/exo7.png'
+        image: './img/exo7.jpg'
     },{
         title: '카이',
-        image: './img/exo8.png'
+        image: './img/exo8.jpg'
     },{
         title: '세훈',
-        image: './img/exo9.png'
+        image: './img/exo9.jpg'
     },{
         title: '타오',
-        image: './img/exo12.png'
+        image: './img/exo12.jpg'
     }
 ]
 

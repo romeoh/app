@@ -5,43 +5,43 @@ var  pageTitle = '나와 맞는 세븐틴 멤버를 찾아드립니다.'
     ,results = [
     {
         title: '에스쿱스',
-        image: './img/seventeen1.png'
+        image: './img/seventeen1.jpg'
     },{
         title: '정한',
-        image: './img/seventeen2.png'
+        image: './img/seventeen2.jpg'
     },{
         title: '조슈아',
-        image: './img/seventeen3.png'
+        image: './img/seventeen3.jpg'
     },{
         title: '준',
-        image: './img/seventeen4.png'
+        image: './img/seventeen4.jpg'
     },{
         title: '호시',
-        image: './img/seventeen5.png'
+        image: './img/seventeen5.jpg'
     },{
         title: '원우',
-        image: './img/seventeen6.png'
+        image: './img/seventeen6.jpg'
     },{
         title: '우지',
-        image: './img/seventeen7.png'
+        image: './img/seventeen7.jpg'
     },{
         title: '도겸',
-        image: './img/seventeen8.png'
+        image: './img/seventeen8.jpg'
     },{
         title: '민규',
-        image: './img/seventeen9.png'
+        image: './img/seventeen9.jpg'
     },{
         title: '디에잇',
-        image: './img/seventeen10.png'
+        image: './img/seventeen10.jpg'
     },{
         title: '승관',
-        image: './img/seventeen11.png'
+        image: './img/seventeen11.jpg'
     },{
         title: '버논',
-        image: './img/seventeen12.png'
+        image: './img/seventeen12.jpg'
     },{
         title: '디노',
-        image: './img/seventeen13.png'
+        image: './img/seventeen13.jpg'
     }
 ]
 

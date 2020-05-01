@@ -5,31 +5,31 @@ var  pageTitle = '나와 맞는 트와이스 멤버를 찾아드립니다.'
     ,results = [
     {
         title: '사나',
-        image: './img/twice1.png'
+        image: './img/twice1.jpg'
     },{
         title: '다현',
-        image: './img/twice2.png'
+        image: './img/twice2.jpg'
     },{
         title: '채영',
-        image: './img/twice3.png'
+        image: './img/twice3.jpg'
     },{
         title: '쯔위',
-        image: './img/twice4.png'
+        image: './img/twice4.jpg'
     },{
         title: '나연',
-        image: './img/twice5.png'
+        image: './img/twice5.jpg'
     },{
         title: '모모',
-        image: './img/twice6.png'
+        image: './img/twice6.jpg'
     },{
         title: '미나',
-        image: './img/twice7.png'
+        image: './img/twice7.jpg'
     },{
         title: '정연',
-        image: './img/twice8.png'
+        image: './img/twice8.jpg'
     },{
         title: '지효',
-        image: './img/twice9.png'
+        image: './img/twice9.jpg'
     }
 ]
 

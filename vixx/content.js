@@ -5,22 +5,22 @@ var  pageTitle = '나와 맞는 VIXX 멤버를 찾아드립니다.'
     ,results = [
     {
         title: '엔',
-        image: './img/vixx1.png'
+        image: './img/vixx1.jpg'
     },{
         title: '레오',
-        image: './img/vixx2.png'
+        image: './img/vixx2.jpg'
     },{
         title: '켄',
-        image: './img/vixx3.png'
+        image: './img/vixx3.jpg'
     },{
         title: '라비',
-        image: './img/vixx4.png'
+        image: './img/vixx4.jpg'
     },{
         title: '홍빈',
-        image: './img/vixx5.png'
+        image: './img/vixx5.jpg'
     },{
         title: '혁',
-        image: './img/vixx6.png'
+        image: './img/vixx6.jpg'
     }
 ]
 

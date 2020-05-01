@@ -5,43 +5,43 @@ var  pageTitle = '나와 맞는 우주소녀 멤버를 찾아드립니다.'
     ,results = [
     {
         title: '설아',
-        image: './img/cosmicgirls1.png'
+        image: './img/cosmicgirls1.jpg'
     },{
         title: '보나',
-        image: './img/cosmicgirls2.png'
+        image: './img/cosmicgirls2.jpg'
     },{
         title: '루다',
-        image: './img/cosmicgirls3.png'
+        image: './img/cosmicgirls3.jpg'
     },{
         title: '다원',
-        image: './img/cosmicgirls4.png'
+        image: './img/cosmicgirls4.jpg'
     },{
         title: '미기',
-        image: './img/cosmicgirls5.png'
+        image: './img/cosmicgirls5.jpg'
     },{
         title: '선의',
-        image: './img/cosmicgirls6.png'
+        image: './img/cosmicgirls6.jpg'
     },{
         title: '엑시',
-        image: './img/cosmicgirls7.png'
+        image: './img/cosmicgirls7.jpg'
     },{
         title: '수빈',
-        image: './img/cosmicgirls8.png'
+        image: './img/cosmicgirls8.jpg'
     },{
         title: '성소',
-        image: './img/cosmicgirls9.png'
+        image: './img/cosmicgirls9.jpg'
     },{
         title: '은서',
-        image: './img/cosmicgirls10.png'
+        image: './img/cosmicgirls10.jpg'
     },{
         title: '여름',
-        image: './img/cosmicgirls11.png'
+        image: './img/cosmicgirls11.jpg'
     },{
         title: '다영',
-        image: './img/cosmicgirls12.png'
+        image: './img/cosmicgirls12.jpg'
     },{
         title: '연정',
-        image: './img/cosmicgirls13.png'
+        image: './img/cosmicgirls13.jpg'
     }
 ]
 

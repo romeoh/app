@@ -5,19 +5,19 @@ var  pageTitle = '나와 맞는 B1A4 멤버를 찾아드립니다.'
     ,results = [
     {
         title: '신우',
-        image: './img/b1a41.png'
+        image: './img/b1a41.jpg'
     },{
         title: '진영',
-        image: './img/b1a42.png'
+        image: './img/b1a42.jpg'
     },{
         title: '산들',
-        image: './img/b1a43.png'
+        image: './img/b1a43.jpg'
     },{
         title: '바로',
-        image: './img/b1a44.png'
+        image: './img/b1a44.jpg'
     },{
         title: '공찬',
-        image: './img/b1a45.png'
+        image: './img/b1a45.jpg'
     }
 ]
 

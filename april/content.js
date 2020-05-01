@@ -5,22 +5,22 @@ var  pageTitle = '나와 맞는 에이프릴 멤버를 찾아드립니다.'
     ,results = [
     {
         title: '윤채경',
-        image: './img/april1.png'
+        image: './img/april1.jpg'
     },{
         title: '김채원',
-        image: './img/april2.png'
+        image: './img/april2.jpg'
     },{
         title: '이나은',
-        image: './img/april3.png'
+        image: './img/april3.jpg'
     },{
         title: '양예나',
-        image: './img/april4.png'
+        image: './img/april4.jpg'
     },{
         title: '레이첼',
-        image: './img/april5.png'
+        image: './img/april5.jpg'
     },{
         title: '이진솔',
-        image: './img/april6.png'
+        image: './img/april6.jpg'
     }
 ]
 
