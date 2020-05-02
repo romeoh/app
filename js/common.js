@@ -5,6 +5,7 @@ var  swiper
     ,resultPercent
     ,resultIndex
     ,userName
+    ,secondAnswer = []
 
 $(document).ready(function () {
     initUserName()
@@ -46,7 +47,7 @@ function initQuestion() {
         str += '    <p>더 좋아하는것을 고르세요.</p>'
         str += '    <hr class="my-2">'
         str += '    <div class="row">'
-        str += '        <div class="col" data-weight="' + q[1].weight + '">'
+        str += '        <div class="col" data-weight="' + q[1].weight + '" data-index="0">'
         str += '            <div class="card" style="width: ">'
         str += '                <img src="../img/source/' + q[0].image + '" class="card-img-top" alt="...">'
         str += '                <div class="card-body">'
@@ -54,7 +55,7 @@ function initQuestion() {
         str += '                </div>'
         str += '            </div>'
         str += '        </div>'
-        str += '        <div class="col" data-weight="' + q[1].weight + '">'
+        str += '        <div class="col" data-weight="' + q[1].weight + '" data-index="1">'
         str += '            <div class="card" style="width: ">'
         str += '                <img src="../img/source/' + q[1].image + '" class="card-img-top" alt="...">'
         str += '                <div class="card-body">'
@@ -69,10 +70,28 @@ function initQuestion() {
     
     $('[data-weight]').on('click', function() {
         var  weight = $(this).attr('data-weight')
+            ,index = $(this).attr('data-index')
+            ,other = index == '1' ? '0' : '1'
+        
         resultValue = resultValue + parseInt(weight, 10)
+        secondAnswer[0] = makeString0(questions[1][index])
+        secondAnswer[1] = questions[1][other].title
         //console.log(weight, resultValue, maxValue)
         swiper.slideNext()
     })
+}
+
+function makeString0(str) {
+    if (str.type == '1') {
+        return str.title + '를'
+    }
+    return str.title + '을'
+}
+function makeString1(str) {
+    if (str.type == '1') {
+        return str.title + '와'
+    }
+    return str.title + '과'
 }
 
 function initSwiper() {
