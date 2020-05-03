@@ -33,7 +33,7 @@ var  pageTitle = '나와 맞는 VIXX 멤버를 찾아드립니다.'
 var shareMessage = ''
 function shareResult() {
     var  president = makeString1(results[resultIndex])
-        ,hashtag = 'VIXX 테스트'
+        ,hashtag = 'VIXX'
         ,url = 'https://bit.ly/35h4I3w'
         ,str = ''
     

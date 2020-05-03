@@ -37,7 +37,7 @@ var  pageTitle = '나와 맞는 BTS 멤버를 찾아드립니다.'
 var shareMessage = ''
 function shareResult() {
     var  president = makeString1(results[resultIndex])
-        ,hashtag = 'BTS 테스트'
+        ,hashtag = 'BTS'
         ,url = 'https://bit.ly/2yVVEFa'
         ,str = ''
     

@@ -29,7 +29,7 @@ var  pageTitle = '나와 맞는 B1A4 멤버를 찾아드립니다.'
 var shareMessage = ''
 function shareResult() {
     var  president = makeString1(results[resultIndex])
-        ,hashtag = 'B1A4 테스트'
+        ,hashtag = 'B1A4'
         ,url = 'https://bit.ly/2SjchSd'
         ,str = ''
     

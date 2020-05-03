@@ -81,7 +81,7 @@ var  pageTitle = '나와 맞는 NCT 멤버를 찾아드립니다.'
 var shareMessage = ''
 function shareResult() {
     var  president = makeString1(results[resultIndex])
-        ,hashtag = 'NCT 테스트'
+        ,hashtag = 'NCT'
         ,url = 'https://bit.ly/35hDZnz'
         ,str = ''
     

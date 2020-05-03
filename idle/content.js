@@ -33,7 +33,7 @@ var  pageTitle = '나와 맞는 아이들 멤버를 찾아드립니다.'
 var shareMessage = ''
 function shareResult() {
     var  president = makeString1(results[resultIndex])
-        ,hashtag = '아이들 테스트'
+        ,hashtag = '아이들'
         ,url = 'https://bit.ly/3fezONQ'
         ,str = ''
     

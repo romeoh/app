@@ -33,7 +33,7 @@ var  pageTitle = '나와 맞는 에이프릴 멤버를 찾아드립니다.'
 var shareMessage = ''
 function shareResult() {
     var  president = makeString1(results[resultIndex])
-        ,hashtag = '에이프릴 테스트'
+        ,hashtag = '에이프릴'
         ,url = 'https://bit.ly/3cXoPqg'
         ,str = ''
     
