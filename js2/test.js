@@ -580,7 +580,7 @@ function initReply(){
 					deleteable = deleteAble(result[i]['idx']);
 					str += '<li data-reply="' + result[i]['idx'] + '">';
 					str += '	<div class="profile">';
-					str += '		<div class="photo"><img src="../images/imoticon/' + result[i]['photo'] + '.png" alt=""></div>';
+					str += '		<div class="photo"><img src="https://romeoh.github.io/app/img/imoticon/' + result[i]['photo'] + '.png" alt=""></div>';
 					str += '		<div class="user">';
 					str += '			<span class="uname">' + decodeURIComponent(result[i]['uname']).substr(0, 10) + '</span>';
 					str += '			<span class="date">' + M.dynamicDate(result[i]['regDate']) + '</span>';
