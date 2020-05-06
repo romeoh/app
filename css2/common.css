@@ -1,0 +1,240 @@
+@charset "utf-8";
+
+.gnbMacao, 
+.gnbNew, 
+.gnbMain,
+.gnbMenu {background:url(http://romeoh.github.io/gaeyou/images/common/ico.png); background-size:200px 150px}
+
+body, p, h1, h2, h3, h4, h5, ul, li, dl, dt, dd, header {margin:0; padding:0; font-family: '나눔고딕',NanumGothic,'맑은 고딕','Malgun Gothic','돋움',Dotum,'굴림',Gulim,Helvetica,sans-serif;}
+body {margin:0}
+a {text-decoration:none; cursor:pointer;color:#666}
+li {list-style:none;}
+header {background:url(http://romeoh.github.io/gaeyou/images/common/bg_header.png); background-size:18px 44px; height:44px; position:relative;}
+header .gnbMain {background-position:0px 0px; display:none; position:absolute; top:5px; left:5px; width:70px; height:32px;}
+header .gnbMacao {background-position:129px 0px; display:block; position:absolute; top:5px; right:5px; width:107px; height:32px; display:none}
+header .gnbNew {background-position:85px -107px; display:block; position:absolute; top:5px; right:5px; width:33px; height:33px}
+header .gnbMenu {background-position:116px -35px; display:block; position:absolute; top:5px; left:5px; width:33px; height:33px}
+header .noticeNew {position:absolute; top:5px; right:40px; display:none}
+header .noticeNew img {width:130px}
+header h1 {position:relative; text-align:center; top:-3px}
+header.bo {background:none; height:initial;}
+
+.global .navigation {display: table;width: 100%;height: 35px;border-bottom: 1px solid #2c6a81;background: #74b1c4;background: -webkit-gradient(radial,50% 50%,0px,50% 50%,100%,color-stop(0%,#81b8c9),color-stop(40%,#7fb6c8),color-stop(100%,#74b1c4));line-height: 34px;text-align: center;-webkit-box-shadow: inset 0 2px 3px 0 rgba(0,0,0,.2),inset 0 -1px 0 0 rgba(0,0,0,.1);table-layout: fixed;}
+.global .navigation li {display: table-cell;}
+.global .navigation li.on a {color: #fffc00;text-shadow: 0 -1px 0 rgba(0,0,0,.3);}
+.global .navigation li a {display: block;font-weight: 600;font-size: 14px;color: #245465;text-shadow: 0 1px 0 rgba(255,255,255,.3)}
+
+/* 서브메뉴 */
+.subgnb {border-bottom:1px solid #acaba8; display:table; width:100%; padding:8px; background:#EFF1F1;}
+.subgnb li {display:table-cell; text-align:center;font-weight: 600;font-size: 14px;color: #29282c; width:50%}
+.subgnb li a {display:block; }
+.subgnb li.on a {color: #e6554a;}
+
+
+/* 전체 메뉴보기 */
+.bg {position:absolute; top:0; left:0; background:#000; opacity:0; width:100%; height:100%; z-index:4000}
+.gnb {z-index: 5000;position: absolute;top: 0;left: -200px;width: 250px;height: 100%;background: #fff;box-shadow: 2px 0 8px rgba(0,0,0,.7);}
+.gnb .head {background:#428bca; padding:10px}
+.gnb .welcome {color:#fff}
+.gnb .close {position: absolute;top: 2px;right: 0px;width: 33px;height: 33px; cursor:pointer}
+.gnb .close .imh {background-image: url(http://romeoh.github.io/gaeyou/images/common/sp_imh_v5.png);background-repeat: no-repeat;background-size: 270px 250px;-webkit-background-size: 270px 250px;display: inline-block;width: 16px;height: 17px;margin: 8px 0 0 8px;background-position: -104px -1px;}
+.gnb .menu {}
+.gnb .menu dt {background:#efefef; border-bottom:1px solid #d7d7d7; padding:10px}
+.gnb .menu dd {background:#fff; border-bottom:1px solid #d7d7d7}
+.gnb .menu dd a {color:#444650; padding:10px 20px; display:block}
+.gnb .menu dd a .ico {background-image: url(http://romeoh.github.io/gaeyou/images/common/sp_imh_v5.png);background-repeat: no-repeat;background-size: 270px 250px;display: inline-block;}
+.gnb .menu dd a .ico.arrow {background-position: -41px -49px;width: 7px;height: 17px; margin-right:5px}
+.gnb .menu dd a .ico.new {background-position: -80px -65px;width: 26px;height: 13px; margin-left:7px}
+.gnb .menu dd a .ico.up {background-position: -80px -78px;width: 26px;height: 17px; margin-left:7px}
+.gnb .menu dd a .ico.good {background-position: -80px -92px;width: 33px;height: 17px; margin-left:7px}
+.gnb .member {padding:10px}
+
+/* 회원정보 */
+.gae-level {background:#ed9c28; border:1px solid #d58512; border-radius:10px; color:#fff; padding:1px 10px 1px 5px; font-size:12px; vertical-align:middle; cursor:pointer}
+
+/* 로그인/회원가입 */
+.pop_login {position:relative; z-index:1000;}
+.pop_login .login {position:fixed; top:-250px; left:0px; background:#fff; width:90%; border-radius:3px; z-index:1010;-webkit-box-shadow: -1px -1px 21px 0px rgba(50, 50, 50, 0.9);-moz-box-shadow:-1px -1px 21px 0px rgba(50, 50, 50, 0.9);box-shadow:-1px -1px 21px 0px rgba(50, 50, 50, 0.9);}
+.pop_login .login form {padding:10px 20px}
+.pop_login .login form .form-group {margin-bottom:7px}
+.pop_login .login form .form-group label {margin-bottom:3px}
+.pop_login .bglock {position:absolute; top:0; left:0; background:#000; width:100%; opacity:0}
+.login form .btn-group-justified {margin:15px 0}
+.page_login #cancelLogin {display:none}
+.reply_add .popover {width:auto}
+#nicknameinfo {height:20px}
+
+/* 공통 */
+.kakao_mini {padding:10px; text-align:center; /*display:none*/}
+.kakao_mini a {color:#d9534f; font-size:20px; font-weight:bold}
+
+/* 유저테스트 */
+.user_test {}
+.user_test h2 {overflow: hidden;height: 38px;border-bottom: 1px solid #acaba8;color: #000;line-height: 39px;font-size: 16px;padding-left: 15px;font-weight: bold}
+.user_test .author {text-align:right; padding:5px; color: #666; line-height: 20px;}
+.wrap {margin:10px 20px}
+.wrap h3 {font-weight:bold; padding:10px; text-align:center}
+.wrap .total {padding:10px 0 5px 0; text-align:center}
+.wrap .make_test {padding:10px; text-align:center}
+
+.user_test .btn_area {border-bottom:1px solid #acaba8; padding:10px}
+.user_test .btn_area .margintop {padding:10px 15px 0 15px}
+.user_test .btn_area .margintop a {background:#ECECEC}
+.user_test .btn_area .updown {text-align:center; margin-bottom:20px}
+
+.sprit_li.sel {background:#F1F1F1}
+
+/* 유저 테스트 입력 */
+.list-group {margin:10px 0}
+.list-group button {padding:6px}
+
+.bs-callout-info {background-color: #f4f8fa;border-color: #bce8f1;}
+.bs-callout {margin: 10px 0;padding: 10px;border-left: 3px solid #eee;}
+.user_test [data-list="2"],
+.user_test [data-list="3"],
+.user_test [data-list="4"],
+.user_test [data-list="5"] {display:none}
+
+.test_area {border-top:1px solid #acaba8;}
+.snsbox {text-align:center; padding:20px 0 0px 0; height:69px; overflow:hidden}
+.snsbox .fb-like {display:block}
+.snsbox div:nth-child(2),
+.snsbox div:nth-child(2) iframe {width:71px !important}
+.snsbox iframe:nth-child(3) {width:90px !important}
+.test_add .form-group label {color:#39b3d7; font-size:16px; cursor:pointer}
+.test_add #nickGroup {display:none}
+.popover {max-width:440px !important}
+
+/* 댓글 */
+.reply_area {border-bottom: 1px solid #acaba8; margin-bottom:15px}
+.reply_area h2 {overflow: hidden;height: 38px;border-bottom: 1px solid #acaba8;color: #000;line-height: 39px;font-size: 16px;font-weight: bold; padding-left:15px; background:#DFDFDF}
+.reply_area .profile {position: absolute;}
+.reply_area .profile .photo {float: left;}
+.reply_area .profile .photo img {width: 36px;height: 36px;border-radius: 5px;}
+.reply_area .profile .user {float: left;margin-left: 10px;}
+.reply_area .profile .user .date {color:#CACACA}
+.reply_area .desc {padding: 20px 0 0 46px;}
+.reply_area li {padding: 10px 20px 10px 16px;border-top: 1px solid #dddddf;}
+.reply_area .no_reply {text-align:center; padding:20px; font-weight:bold; font-size:17px; color:#6D6D6D}
+.reply_area .reply_add {position:relative; background:#f0f0f4; padding:4px 10px 5px 10px; border-top: 1px solid #acaba8;}
+.reply_area .reply_add .user {position:absolute; top:11px; left:13px}
+.reply_area .form-group {margin-bottom:5px}
+.reply_area .form-group.btn-reg {text-align:right;}
+#replyNickname {position:absolute; top:4px; left:10px; right:70px; display:none}
+
+/* 신규리스트 */
+.list_area {border-top: 1px solid #acaba8; margin-top:10px; position:relative}
+.list_area .drop {position:absolute; right:1px; top:1px; z-index:2000}
+.list_area .drop .dropdown-menu {right:0; left:inherit}
+.list_area h2 {overflow: hidden;height: 38px;border-bottom: 1px solid #acaba8;color: #000;line-height: 39px;font-size: 16px;font-weight: bold; padding-left:15px; background:#DFDFDF}
+.list_area ul {border-bottom: 1px solid #acaba8; }
+.list_area li {border-bottom: 1px solid #eaeaea; padding:10px}
+.list_area li strong {display:block; font-size:16px}
+.list_area li em {color:#aaa; margin-left:-8px}
+.list_area li em i {margin-left:10px}
+.list_area li em .strong {color:#5cb85c}
+.list_area li .tit i {margin-right:5px}
+
+/* 유머게시판 */
+.contents {padding:15px 0; font-size:18px}
+.imgCon {text-align:center}
+.imgCon img {vertical-align: middle; width: 100%; max-width:400px}
+.wrap .pager {margin:0 0 5px 0}
+.author .delete {cursor:pointer}
+#btnNew {display:none}
+
+/* 유머 업로드 */
+.radio-group {margin-bottom:15px}
+#movieGroup {display:none}
+.btn-regst {margin:20px 0 30px 0}
+#sampleMovie {margin-top:20px; }
+.more {text-align:center}
+
+
+/* 썰픽 리스트 */
+.list_area .first_fic {max-height:39px;display:block;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis; color:#A8A8A8}
+.list_area a:hover {text-decoration:none}
+.novel_con {}
+.novel_con .letter {left:105px !important; width:65% !important}
+.novel_con .info {left:96px !important}
+.novel_con .info i {margin-left:5px}
+.fa-red {color:#F78383}
+.fa-blue {color:#4FC0EC}
+.fa-green {color:#85D321}
+.fa-yellow {color:yellow}
+.alert {position: fixed;z-index:1000;top:188px;left:15px;right:15px;}
+
+/* 썰픽 보기 */
+.story_box {position:relative; border-bottom: 1px solid #777b83; padding:0 0 10px 0; background:#eee; display:; font-size:17px; line-height: 1.5em;}
+.story_box.open_panel {}
+.story_box.close_panel {overflow:hidden; height:60px}
+.story_box .more {position:absolute; bottom:5px; right:5px}
+.story_box .info {padding:5px 5px 0 5px}
+.story_box .info li {text-align:left; padding:5px; overflow: hidden;text-overflow: ellipsis;white-space: nowrap; line-height: 1em;}
+.story_box .trash {padding:5px 10px; color:#999; cursor:pointer; display:none}
+.people {padding:0px 5px 5px 5px; font-size:14px}
+.people dt {padding:5px; color:#2E45F1}
+.people dd {padding:2px 0 2px 20px}
+.people dd span {color:#bbb}
+
+.novel_view {margin:15px 15px 25px 15px; font-size:17px}
+.novel_view .para {margin-top:5px}
+.novel_view p {line-height:1.5em}
+.novel_view .author {color:#ccc; padding:10px 0 0 0px; font-size:13px; text-align:left}
+.novel_view .author span {color:#ADC7FD}
+.novel_view .author i {margin-left:5px}
+.recommand {text-align:center; padding:15px}
+
+.write_book {background:#f0f0f4; border-top:none; padding:0px 15px 22px 15px; position:relative; display:none; margin-bottom:0px !important}
+.write_book h2 {font-size:15px; text-align:left; color:#2d3038; padding:3px 0; background:none}
+.write_book .regist {position:absolute; right:7px; bottom:5px}
+.write_book .plan {position:absolute; top:12px; right:16px; cursor:pointer}
+
+/* 썰픽 쓰기 */
+.bs-callout-info {position:relative}
+.reload {position:absolute; top:10px; right:10px}
+.popover-content strong {color:#d2322d}
+.act_area {}
+.act_area li {background:#f4f8fa; border-radius:5px; padding:10px; margin-bottom:10px}
+.act_button_area {text-align:center}
+.help_popover {color:#E67A77}
+
+
+
+
+
+
+/* inapp */
+/* 썰픽 */
+.sulfic {border-top:3px solid #0aabd5; border-bottom:2px solid #e3e3e3; background: #1fa67a; 
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1fa67a), color-stop(100%,#1a896b)); height:50px}
+.sulfic h1 {top:0px}
+.sul_gaeyou {position:absolute; top:8px; left:8px}
+.sul_new {position:absolute; top:8px; right:8px}
+.sul_gaeyou button,
+.sul_new button {font-weight:bold; color:#DCF4ED; background:none; border:1px solid #DCF4ED; padding:4px 6px}
+
+
+
+
+/* 투표 */
+.poll_wrap {position:relative}
+.poll_wrap .watermark {position:absolute; z-index:-10; top:140px; left:30px; opacity:1; -webkit-transform:rotate(-26deg)}
+.poll_wrap .watermark p {font-size:24px; font-weight:bold; color:#f9f9f9; text-align:center; margin-top:-16px}
+.poll_wrap .watermark span {}
+.likes {position:relative; margin-bottom:17px}
+.likes_title div {font-size:31px}
+.likes img {width:50px}
+.likes .col-gy-2 {position:absolute; top:0px; left:15px}
+.likes .col-gy-10 {padding:7px 15px 0 75px}
+.likes .col-gy-0 {padding-left:15px !important}
+.poll_list {}
+#nicknameGroup {display:none}
+.poll-list {font-size:24px; font-weight:bold; padding:7px 15px 0 80px !important}
+.list1 {color:#f55723}
+.list2 {color:#bbcc28}
+.list3 {color:#f4be06}
+.list4 {color:#009fb0}
+.list5 {color:#93669e}
+.list6 {color:#669C9E; text-align:center; padding:7px 15px 0 0px !important}
+ 
