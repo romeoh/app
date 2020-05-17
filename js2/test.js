@@ -108,7 +108,7 @@ function ready() {
 				.on('click', testExcute)*/
 			M('[data-share]').on('click', testExcute);
 			M('#btnGaeup').html('<span><i class="fa fa-thumbs-up"></i> 깨업(' + M.toCurrency(result['gaeup']) + '회)</span></a>')
-			//M('#btnGaedown').html('<span><em class="ico_gaedown"></em> 깨따(' + M.toCurrency(result['gaedown']) + '회)</span></a>')
+			M('#btnGaedown').html('<span><em class="ico_gaedown"></em> 깨따(' + M.toCurrency(result['gaedown']) + '회)</span></a>')
 			document.getElementById('description').setAttribute('content', cuData.title)
 			
 			getTestList();
@@ -378,8 +378,7 @@ function initGaeup() {
 			,'data': bodyData
 			,'type': 'POST'
 			,'success': function(result){
-				console.log(result);
-				return false;
+				return alert('깨따했습니다.');
 				
 				var  result = M.json(result)
 				setUniq(code + 'GaeupList', cuData['idx']);
