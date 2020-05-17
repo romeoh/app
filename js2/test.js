@@ -378,11 +378,10 @@ function initGaeup() {
 			,'data': bodyData
 			,'type': 'POST'
 			,'success': function(result){
-				return alert('깨따했습니다.');
-				
 				var  result = M.json(result)
 				setUniq(code + 'GaeupList', cuData['idx']);
 				M('#btnGaedown').html('<i class="fa fa-thumbs-down"></i> 깨따('+result['total']+'회)')
+				return alert('깨따했습니다.');
 				//M('#viewGaeup').html(result['total']);
 				alert('"' + member['level'] + '" 깨따했습니다.\n'+member['uname'] + '님은 ' + member['level'] + '일째 연속 출첵중입니다.');
 			}
