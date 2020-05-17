@@ -108,7 +108,7 @@ function ready() {
 				.on('click', testExcute)*/
 			M('[data-share]').on('click', testExcute);
 			M('#btnGaeup').html('<span><i class="fa fa-thumbs-up"></i> 깨업(' + M.toCurrency(result['gaeup']) + '회)</span></a>')
-			M('#btnGaedown').html('<span><em class="ico_gaedown"></em> 깨따(' + M.toCurrency(result['gaedown']) + '회)</span></a>')
+			M('#btnGaedown').html('<span><i class="fa fa-thumbs-down"></i> 깨따(' + M.toCurrency(result['gaedown']) + '회)</span></a>')
 			document.getElementById('description').setAttribute('content', cuData.title)
 			
 			getTestList();
