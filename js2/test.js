@@ -7,7 +7,7 @@ var  pollList = M.storage('pollList') || []
 	
 	// 신규테스트 불러오기
 	,newStart = 0
-	,newTotal = 20
+	,newTotal = 10
 	
 	// 댓글 더보기
 	,replyStart = 0
@@ -15,7 +15,7 @@ var  pollList = M.storage('pollList') || []
 	
 	// 급상승인기테스트 불러오기
 	,hotStart = 0
-	,hotTotal = 20
+	,hotTotal = 10
 	,listFlag = M.storage('listFlag') || 'hot'
 	
 window.addEventListener('DOMContentLoaded', ready, false);
