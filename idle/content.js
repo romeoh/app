@@ -6,27 +6,27 @@ var  pageTitle = '나와 맞는 아이들 멤버를 찾아드립니다.'
     {
         title: '미연',
         type: '2',
-        image: './img/idle1.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/idle/idle1.jpg'
     },{
         title: '민니',
         type: '1',
-        image: './img/idle2.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/idle/idle2.jpg'
     },{
         title: '수진',
         type: '2',
-        image: './img/idle3.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/idle/idle3.jpg'
     },{
         title: '소연',
         type: '2',
-        image: './img/idle4.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/idle/idle4.jpg'
     },{
         title: '우기',
         type: '1',
-        image: './img/idle5.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/idle/idle5.jpg'
     },{
         title: '슈화',
         type: '1',
-        image: './img/idle6.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/idle/idle6.jpg'
     }
 ]
 

@@ -6,59 +6,59 @@ var  pageTitle = '나와 맞는 대통령을 찾아드립니다.'
     {
         title: '전두환',
         type: '2',
-        image: './img/president3.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/president/president3.jpg'
     },{
         title: '김대중 대통령',
         type: '2',
-        image: './img/president6.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/president/president6.jpg'
     },{
         title: '이승만 대통령',
         type: '2',
-        image: './img/president1.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/president/president1.jpg'
     },{
         title: '문재인 대통령',
         type: '2',
-        image: './img/president10.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/president/president10.jpg'
     },{
         title: '시진핑 주석',
         type: '2',
-        image: './img/president13.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/president/president13.jpg'
     },{
         title: '박정희 대통령',
         type: '2',
-        image: './img/president2.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/president/president2.jpg'
     },{
         title: '트럼프 대통령',
         type: '2',
-        image: './img/president11.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/president/president11.jpg'
     },{
         title: '노태우 대통령',
         type: '2',
-        image: './img/president4.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/president/president4.jpg'
     },{
         title: '김영삼 대통령',
         type: '',
-        image: './img/president5.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/president/president5.jpg'
     },{
         title: '노무현 대통령',
         type: '2',
-        image: './img/president7.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/president/president7.jpg'
     },{
         title: '아베 총리',
         type: '1',
-        image: './img/president12.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/president/president12.jpg'
     },{
         title: '이명박 대통령',
         type: '2',
-        image: './img/president8.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/president/president8.jpg'
     },{
         title: '박근혜 대통령',
         type: '2',
-        image: './img/president9.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/president/president9.jpg'
     },{
         title: '김정은 위원장',
         type: '2',
-        image: './img/president14.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/president/president14.jpg'
     }
 ]
 

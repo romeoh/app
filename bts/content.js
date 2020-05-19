@@ -6,31 +6,31 @@ var  pageTitle = '나와 맞는 BTS 멤버를 찾아드립니다.'
     {
         title: '진',
         type: '2',
-        image: './img/bts1.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/bts/bts1.jpg'
     },{
         title: '슈가',
         type: '1',
-        image: './img/bts2.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/bts/bts2.jpg'
     },{
         title: '제이홉',
         type: '2',
-        image: './img/bts3.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/bts/bts3.jpg'
     },{
         title: 'RM',
         type: '2',
-        image: './img/bts4.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/bts/bts4.jpg'
     },{
         title: '지민',
         type: '2',
-        image: './img/bts5.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/bts/bts5.jpg'
     },{
         title: '뷔',
         type: '1',
-        image: './img/bts6.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/bts/bts6.jpg'
     },{
         title: '정국',
         type: '2',
-        image: './img/bts7.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/bts/bts7.jpg'
     }
 ]
 

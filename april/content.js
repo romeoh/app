@@ -6,27 +6,27 @@ var  pageTitle = '나와 맞는 에이프릴 멤버를 찾아드립니다.'
     {
         title: '윤채경',
         type: '2',
-        image: './img/april1.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/april/april1.jpg'
     },{
         title: '김채원',
         type: '2',
-        image: './img/april2.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/april/april2.jpg'
     },{
         title: '이나은',
         type: '2',
-        image: './img/april3.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/april/april3.jpg'
     },{
         title: '양예나',
         type: '1',
-        image: './img/april4.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/april/april4.jpg'
     },{
         title: '레이첼',
         type: '2',
-        image: './img/april5.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/april/april5.jpg'
     },{
         title: '이진솔',
         type: '2',
-        image: './img/april6.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/april/april6.jpg'
     }
 ]
 

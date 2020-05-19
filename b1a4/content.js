@@ -6,23 +6,23 @@ var  pageTitle = '나와 맞는 B1A4 멤버를 찾아드립니다.'
     {
         title: '신우',
         type: '1',
-        image: './img/b1a41.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/b1a4/b1a41.jpg'
     },{
         title: '진영',
         type: '2',
-        image: './img/b1a42.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/b1a4/b1a42.jpg'
     },{
         title: '산들',
         type: '2',
-        image: './img/b1a43.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/b1a4/b1a43.jpg'
     },{
         title: '바로',
         type: '1',
-        image: './img/b1a44.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/b1a4/b1a44.jpg'
     },{
         title: '공찬',
         type: '2',
-        image: './img/b1a45.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/b1a4/b1a45.jpg'
     }
 ]
 

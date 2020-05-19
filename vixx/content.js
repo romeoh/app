@@ -6,27 +6,27 @@ var  pageTitle = '나와 맞는 VIXX 멤버를 찾아드립니다.'
     {
         title: '엔',
         type: '2',
-        image: './img/vixx1.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/vixx/vixx1.jpg'
     },{
         title: '레오',
         type: '1',
-        image: './img/vixx2.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/vixx/vixx2.jpg'
     },{
         title: '켄',
         type: '2',
-        image: './img/vixx3.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/vixx/vixx3.jpg'
     },{
         title: '라비',
         type: '2',
-        image: './img/vixx4.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/vixx/vixx4.jpg'
     },{
         title: '홍빈',
         type: '1',
-        image: './img/vixx5.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/vixx/vixx5.jpg'
     },{
         title: '혁',
         type: '1',
-        image: './img/vixx6.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/vixx/vixx6.jpg'
     }
 ]
 

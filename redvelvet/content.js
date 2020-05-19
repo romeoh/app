@@ -6,23 +6,23 @@ var  pageTitle = '나와 맞는 레드벨벳 멤버를 찾아드립니다.'
     {
         title: '아이린',
         type: '2',
-        image: './img/redvelvet1.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/redvelvet/redvelvet1.jpg'
     },{
         title: '슬기',
         type: '1',
-        image: './img/redvelvet2.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/redvelvet/redvelvet2.jpg'
     },{
         title: '웬디',
         type: '1',
-        image: './img/redvelvet3.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/redvelvet/redvelvet3.jpg'
     },{
         title: '조이',
         type: '1',
-        image: './img/redvelvet4.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/redvelvet/redvelvet4.jpg'
     },{
         title: '예리',
         type: '1',
-        image: './img/redvelvet5.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/redvelvet/redvelvet5.jpg'
     }
 ]
 

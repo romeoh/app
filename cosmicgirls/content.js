@@ -6,55 +6,55 @@ var  pageTitle = '나와 맞는 우주소녀 멤버를 찾아드립니다.'
     {
         title: '설아',
         type: '1',
-        image: './img/cosmicgirls1.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/cosmicgirls/cosmicgirls1.jpg'
     },{
         title: '보나',
         type: '1',
-        image: './img/cosmicgirls2.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/cosmicgirls/cosmicgirls2.jpg'
     },{
         title: '루다',
         type: '1',
-        image: './img/cosmicgirls3.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/cosmicgirls/cosmicgirls3.jpg'
     },{
         title: '다원',
         type: '2',
-        image: './img/cosmicgirls4.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/cosmicgirls/cosmicgirls4.jpg'
     },{
         title: '미기',
         type: '1',
-        image: './img/cosmicgirls5.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/cosmicgirls/cosmicgirls5.jpg'
     },{
         title: '선의',
         type: '1',
-        image: './img/cosmicgirls6.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/cosmicgirls/cosmicgirls6.jpg'
     },{
         title: '엑시',
         type: '1',
-        image: './img/cosmicgirls7.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/cosmicgirls/cosmicgirls7.jpg'
     },{
         title: '수빈',
         type: '2',
-        image: './img/cosmicgirls8.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/cosmicgirls/cosmicgirls8.jpg'
     },{
         title: '성소',
         type: '1',
-        image: './img/cosmicgirls9.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/cosmicgirls/cosmicgirls9.jpg'
     },{
         title: '은서',
         type: '1',
-        image: './img/cosmicgirls10.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/cosmicgirls/cosmicgirls10.jpg'
     },{
         title: '여름',
         type: '2',
-        image: './img/cosmicgirls11.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/cosmicgirls/cosmicgirls11.jpg'
     },{
         title: '다영',
         type: '2',
-        image: './img/cosmicgirls12.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/cosmicgirls/cosmicgirls12.jpg'
     },{
         title: '연정',
         type: '2',
-        image: './img/cosmicgirls13.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/cosmicgirls/cosmicgirls13.jpg'
     }
 ]
 

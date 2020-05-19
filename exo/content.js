@@ -6,51 +6,51 @@ var  pageTitle = '나와 맞는 EXO 멤버를 찾아드립니다.'
     {
         title: '시우민',
         type: '2',
-        image: './img/exo1.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/exo/exo1.jpg'
     },{
         title: '크리스',
         type: '1',
-        image: './img/exo11.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/exo/exo11.jpg'
     },{
         title: '수호',
         type: '1',
-        image: './img/exo2.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/exo/exo2.jpg'
     },{
         title: '레이',
         type: '1',
-        image: './img/exo3.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/exo/exo3.jpg'
     },{
         title: '백현',
         type: '2',
-        image: './img/exo4.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/exo/exo4.jpg'
     },{
         title: '첸',
         type: '2',
-        image: './img/exo5.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/exo/exo5.jpg'
     },{
         title: '루한',
         type: '2',
-        image: './img/exo10.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/exo/exo10.jpg'
     },{
         title: '찬열',
         type: '2',
-        image: './img/exo6.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/exo/exo6.jpg'
     },{
         title: '디오',
         type: '1',
-        image: './img/exo7.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/exo/exo7.jpg'
     },{
         title: '카이',
         type: '1',
-        image: './img/exo8.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/exo/exo8.jpg'
     },{
         title: '세훈',
         type: '2',
-        image: './img/exo9.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/exo/exo9.jpg'
     },{
         title: '타오',
         type: '1',
-        image: './img/exo12.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/exo/exo12.jpg'
     }
 ]
 

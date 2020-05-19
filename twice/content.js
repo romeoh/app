@@ -6,39 +6,39 @@ var  pageTitle = '나와 맞는 트와이스 멤버를 찾아드립니다.'
     {
         title: '사나',
         type: '1',
-        image: './img/twice1.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/twice/twice1.jpg'
     },{
         title: '다현',
         type: '2',
-        image: './img/twice2.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/twice/twice2.jpg'
     },{
         title: '채영',
         type: '2',
-        image: './img/twice3.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/twice/twice3.jpg'
     },{
         title: '쯔위',
         type: '1',
-        image: './img/twice4.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/twice/twice4.jpg'
     },{
         title: '나연',
         type: '2',
-        image: './img/twice5.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/twice/twice5.jpg'
     },{
         title: '모모',
         type: '1',
-        image: './img/twice6.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/twice/twice6.jpg'
     },{
         title: '미나',
         type: '1',
-        image: './img/twice7.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/twice/twice7.jpg'
     },{
         title: '정연',
         type: '2',
-        image: './img/twice8.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/twice/twice8.jpg'
     },{
         title: '지효',
         type: '1',
-        image: './img/twice9.jpg'
+        image: 'http://gaeyoucom2.cdn3.cafe24.com/president/twice/twice9.jpg'
     }
 ]
 
