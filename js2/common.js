@@ -39,7 +39,7 @@ function initNavi() {
 		//str += '	<li data-page="novel"><a href="../novel/list.html">썰픽</a></li>';
 		//str += '	<li data-page="rank"><a href="../r/">랭킹</a></li>';
 		str += '	<li data-page="worldcup"><a href="../w/">월드컵</a></li>';
-		str += '	<li data-page="quiz"><a href="https://quiz.gaeyou.com/">퀴즈</a></li>';
+		//str += '	<li data-page="quiz"><a href="https://quiz.gaeyou.com/">퀴즈</a></li>';
 		//str += '	<li data-page="game"><a href="../game/list.html">웹게임 <i class="fa fa-star fa-yellow"></i></a></li>';
 		//str += '	<li data-page="novel"><a href="../novel/list.html">썰픽</li>';
 		//str += '	<li data-page="friend"><a href="../f/">친구만들기</a></li>';
