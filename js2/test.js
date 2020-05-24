@@ -153,13 +153,13 @@ function ready() {
 	})
 	
 	var games = [
-		'<a href="https://bit.ly/2yWdO9O"><img src="https://romeoh.github.io/app/img/banner_cosmicgirls.png" alt="우주소녀 테스트" style="height: 40px;"></a>',
-		'<a href="https://bit.ly/2zKoiK9"><img src="https://romeoh.github.io/app/img/banner_exo.png" alt="EXO 테스트" style="height: 40px;"></a>',
-		'<a href="https://bit.ly/2Yooets"><img src="https://romeoh.github.io/app/img/banner_redvelvet.png" alt="레드벨벳 테스트" style="height: 40px;"></a>',
-		'<a href="https://bit.ly/3cXoPqg"><img src="https://romeoh.github.io/app/img/banner_april.png" alt="에이프릴 테스트" style="height: 40px;"></a>',
-		'<a href="https://bit.ly/2SjchSd"><img src="https://romeoh.github.io/app/img/banner_b1a4.png" alt="B1A4 테스트" style="height: 40px;"></a>',
-		'<a href="https://bit.ly/2yVVEFa"><img src="https://romeoh.github.io/app/img/banner_bts.png" alt="BTS 테스트" style="height: 40px;"></a>',
-		'<a href="https://bit.ly/2xbvz4E"><img src="https://romeoh.github.io/app/img/banner_president.png" alt="대통령 테스트" style="height: 40px;"></a>',
+		'<a href="https://bit.ly/2yWdO9O" class="link-to-president"><img src="https://romeoh.github.io/app/img/banner_cosmicgirls.png" alt="우주소녀 테스트" style="height: 40px;"></a>',
+		'<a href="https://bit.ly/2zKoiK9" class="link-to-president"><img src="https://romeoh.github.io/app/img/banner_exo.png" alt="EXO 테스트" style="height: 40px;"></a>',
+		'<a href="https://bit.ly/2Yooets" class="link-to-president"><img src="https://romeoh.github.io/app/img/banner_redvelvet.png" alt="레드벨벳 테스트" style="height: 40px;"></a>',
+		'<a href="https://bit.ly/3cXoPqg" class="link-to-president"><img src="https://romeoh.github.io/app/img/banner_april.png" alt="에이프릴 테스트" style="height: 40px;"></a>',
+		'<a href="https://bit.ly/2SjchSd" class="link-to-president"><img src="https://romeoh.github.io/app/img/banner_b1a4.png" alt="B1A4 테스트" style="height: 40px;"></a>',
+		'<a href="https://bit.ly/2yVVEFa" class="link-to-president"><img src="https://romeoh.github.io/app/img/banner_bts.png" alt="BTS 테스트" style="height: 40px;"></a>',
+		'<a href="https://bit.ly/2xbvz4E" class="link-to-president"><img src="https://romeoh.github.io/app/img/banner_president.png" alt="대통령 테스트" style="height: 40px;"></a>',
 	]
 	var gameIdx = process(1,8)
 	$('#kakaoMini').html(games[gameIdx])
