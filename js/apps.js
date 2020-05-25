@@ -1,5 +1,6 @@
 var  appList = ''
 
+appList += '<a href="https://bit.ly/36r3dR6" data-app-id="animal" class="list-group-item list-group-item-action">미래 남편의 동물관상</a>'
 appList += '<a href="https://bit.ly/3fezONQ" data-app-id="idle" class="list-group-item list-group-item-action">아이들 테스트</a>'
 appList += '<a href="https://bit.ly/35hDZnz" data-app-id="nct" class="list-group-item list-group-item-action">NCT 테스트</a>'
 appList += '<a href="https://bit.ly/2SiRoXp" data-app-id="twice" class="list-group-item list-group-item-action">트와이스 테스트</a>'
