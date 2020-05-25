@@ -153,6 +153,7 @@ function ready() {
 	})
 	
 	var games = [
+		'<a href="https://bit.ly/36r3dR6" class="link-to-president"><img src="https://romeoh.github.io/app/img/banner_animal.png" alt="미래 남편의 동물관상" style="height: 40px;"></a>',
 		'<a href="https://bit.ly/2yWdO9O" class="link-to-president"><img src="https://romeoh.github.io/app/img/banner_cosmicgirls.png" alt="우주소녀 테스트" style="height: 40px;"></a>',
 		'<a href="https://bit.ly/2zKoiK9" class="link-to-president"><img src="https://romeoh.github.io/app/img/banner_exo.png" alt="EXO 테스트" style="height: 40px;"></a>',
 		'<a href="https://bit.ly/2Yooets" class="link-to-president"><img src="https://romeoh.github.io/app/img/banner_redvelvet.png" alt="레드벨벳 테스트" style="height: 40px;"></a>',
@@ -161,7 +162,7 @@ function ready() {
 		'<a href="https://bit.ly/2yVVEFa" class="link-to-president"><img src="https://romeoh.github.io/app/img/banner_bts.png" alt="BTS 테스트" style="height: 40px;"></a>',
 		'<a href="https://bit.ly/2xbvz4E" class="link-to-president"><img src="https://romeoh.github.io/app/img/banner_president.png" alt="대통령 테스트" style="height: 40px;"></a>',
 	]
-	var gameIdx = process(1,8)
+	var gameIdx = process(0, games.length)
 	$('#kakaoMini').html(games[gameIdx])
 }
 
