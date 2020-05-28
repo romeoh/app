@@ -8,7 +8,7 @@ function ready() {
 	
 	var lang = navigator.language
 	if (lang.indexOf('ja') != -1) {
-		location.href = 'https://t.gaeyou.com/?yh4XEWb4FwO62uyVQa1P'
+		// location.href = 'https://t.gaeyou.com/?yh4XEWb4FwO62uyVQa1P'
 	}
 	
 	member = isLogin();
