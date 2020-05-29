@@ -261,7 +261,7 @@ function getHotTest() {
 
 // 다른 테스트 리스트 전문통신
 function getNewTest() {
-	return false
+	//return false
 	bodyData = {
 		'total': hotTotal,
 		'start': hotStart,
