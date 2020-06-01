@@ -44,7 +44,7 @@ function initNavi() {
 		//str += '	<li data-page="novel"><a href="../novel/list.html">썰픽</li>';
 		//str += '	<li data-page="friend"><a href="../f/">친구만들기</a></li>';
 		//str += '	<li data-page="tab"><a href="../tab/">탭탭탭!!!<span class="new"></span></a></li>';
-		str += '	<li data-page="game"><a href="http://game.gaeyou.com">깨임<span class="new"></span></a></li>';
+		str += '	<li data-page="game"><a href="http://game.gaeyou.com">깨유깨임<span class="new"></span></a></li>';
 		str += '</ul>';
 		str += '<div></div>';
 		M('[data-global]').html(str);
