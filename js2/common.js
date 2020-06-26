@@ -33,6 +33,7 @@ function initNavi() {
 			,page = M('[data-global]').data('global')
 		
 		str += '<ul class="navigation">';
+		str += '	<li data-page="gag"><a href="../g/"><i class="fa fa-bell" style="color: #fd4aff"></i> 게시판</a></li>';
 		str += '	<li data-page="test"><a href="../t/">깨알테스트</a></li>';
 		//str += '	<li data-page="sa"><a href="../su/">베스트유머</a></li>';
 		//str += '	<li data-page="poll"><a href="../poll/">카스투표</a></li>';
@@ -44,7 +45,7 @@ function initNavi() {
 		//str += '	<li data-page="novel"><a href="../novel/list.html">썰픽</li>';
 		//str += '	<li data-page="friend"><a href="../f/">친구만들기</a></li>';
 		//str += '	<li data-page="tab"><a href="../tab/">탭탭탭!!!<span class="new"></span></a></li>';
-		str += '	<li data-page="game"><a href="http://game.gaeyou.com"><i class="fa fa-gamepad" aria-hidden="true" style="font-size: 22px; color: #fd4aff"></i> 깨유깨임<span class="new"></span></a></li>';
+		//str += '	<li data-page="game"><a href="http://game.gaeyou.com"><i class="fa fa-gamepad" aria-hidden="true" style="font-size: 22px; color: #fd4aff"></i> 깨유깨임<span class="new"></span></a></li>';
 		str += '</ul>';
 		str += '<div></div>';
 		M('[data-global]').html(str);
