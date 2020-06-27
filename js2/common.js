@@ -33,7 +33,7 @@ function initNavi() {
 			,page = M('[data-global]').data('global')
 		
 		str += '<ul class="navigation">';
-		str += '	<li data-page="gag"><a href="../g/"><i class="fa fa-bell" style="color: #fd4aff"></i> 게시판</a></li>';
+		str += '	<li data-page="gag"><a href="../g/"><i class="fa fa-microphone" style="color: #fd4aff"></i> 아이돌 게시판</a></li>';
 		str += '	<li data-page="test"><a href="../t/">깨알테스트</a></li>';
 		//str += '	<li data-page="sa"><a href="../su/">베스트유머</a></li>';
 		//str += '	<li data-page="poll"><a href="../poll/">카스투표</a></li>';
