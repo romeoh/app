@@ -585,7 +585,7 @@ function initReply(){
 				str += '<li>';
 				str += '	<div class="no_reply" id="noReply">';
 				str += '		<i class="fa fa-frown-o"></i> 처음으로 댓글을 써보세요.';
-				str += '		<p>이제 <a href="/g">#아무말 게시판</a>에서 댓글을 모아볼수 있어요.</p>';
+				str += '		<p>이제 <a href="/g">#아무말 게시판</a>에서 댓글도 모아볼 수 있네요.</p>';
 				str += '	</div>';
 				str += '</li>';
 				
@@ -630,7 +630,7 @@ function initReply(){
 				}
 				str += '<li>';
 				str += '	<div style="padding: 10px 0 10px 44px;">';
-				str += '		<p>이제 <a href="/g">#아무말 게시판</a>에서 댓글을 모아볼수 있어요.</p>';
+				str += '		<p>이제 <a href="/g">#아무말 게시판</a>에서 댓글도 모아볼 수 있네요.</p>';
 				str += '	</div>';
 				str += '</li>';
 				M('#replyList').html(str + M('#replyList').html());
