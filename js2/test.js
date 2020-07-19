@@ -58,9 +58,15 @@ function ready() {
 	
 	checkLogin()
 	
+	// 댓글 콜백임
+	var isReplyCallback = hash.split('&')[1]
+	if (isReplyCallback) {
+		
+	}
+	
 	// 현재 테스트 전문통신
 	bodyData = {
-		'idx': hash
+		'idx': hash.split('&')[0]
 	}
 	$.ajax({
 		 'url': apiurl + code + '_get.php'
@@ -577,7 +583,10 @@ function initReply(){
 			
 			if (result.length == 0) {
 				str += '<li>';
-				str += '	<div class="no_reply" id="noReply"><i class="fa fa-frown-o"></i> 처음으로 댓글을 써보세요.</div>';
+				str += '	<div class="no_reply" id="noReply">';
+				str += '		<i class="fa fa-frown-o"></i> 처음으로 댓글을 써보세요.';
+				str += '		<p>이제 <a href="/g">#댓글 게시판</a>에서 댓글을 모아볼수 있어요.</p>';
+				str += '	</div>';
 				str += '</li>';
 				
 				M('#replyList').html(str)
@@ -619,6 +628,11 @@ function initReply(){
 					}*/
 					str += '</li>';
 				}
+				str += '<li>';
+				str += '	<div style="padding: 10px 0 10px 44px;">';
+				str += '		<p>이제 <a href="/g">#댓글 게시판</a>에서 댓글을 모아볼수 있어요.</p>';
+				str += '	</div>';
+				str += '</li>';
 				M('#replyList').html(str + M('#replyList').html());
 				
 				// 댓글 더보기
