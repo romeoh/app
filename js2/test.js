@@ -2,6 +2,8 @@ var  pollList = M.storage('pollList') || []
 	,code = 'test'
 	,hash
 	,testReplyList = M.storage('testReplyList') || []
+	,userId = localStorage.getItem('user_id')
+	,testTitle
 	,cuTest
 	,cuData = {}
 	
@@ -31,6 +33,11 @@ function ready() {
 		return false;
 	}*/
 	
+	if (!userId) {
+		this.userId = new Date().getTime()
+        localStorage.setItem('user_id', this.userId)
+	}
+	
 	var uname = M.storage('uname') || ''
 	hash = window.location.hash.replace('#', '')
 	if (hash) {
@@ -46,6 +53,7 @@ function ready() {
 				M.storage('uname', mp.val())
 			})
 			.val(uname)
+		M('#nickname').val(uname)
 	}
 	
 	checkLogin()
@@ -73,6 +81,7 @@ function ready() {
 			cuData.uname = decodeURIComponent(result.uname);
 			cuData.kasid = decodeURIComponent(result.kasid);
 			cuData.title = decodeURIComponent(result.title);
+			testTitle = cuData.title
 			cuData.exp = decodeURIComponent(result.exp);
 			cuData.result = decodeURIComponent(result.result);
 			cuData.view = result.view;
@@ -520,6 +529,8 @@ function initReply(){
 			'idx': cuData['idx'],
 			'uname': uname,
 			'kasid': '',
+			'userId': userId,
+			'testTitle': testTitle,
 			'photo': encodeURIComponent(imoticon),
 			'text': encodeURIComponent(inpReply),
 			'ua': navigator.userAgent,
