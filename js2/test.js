@@ -496,6 +496,7 @@ function testExcute(evt, mp) {
 
 
 // 댓글 가져오기 전문통신
+var readyReply = true
 function initReply(){
 	// set
 	if (!member) {
@@ -504,6 +505,9 @@ function initReply(){
 	}
 	
 	M('#btnRegReply').on('click', function(evt, mp){
+		if (!readyReply) {
+			return
+		}
 		var inpReply = M('#inpReply').val().replace(/\n/g, '<br>').substr(0, 170)
 		if (!!member) {
 			uname = member['nickname'];
@@ -536,6 +540,7 @@ function initReply(){
 			'ua': navigator.userAgent,
 			'url': window.location.href
 		}
+		readyReply = false
 		$.ajax({
 			 'url': apiurl + code + '_reply_add.php'
 			,'contentType': 'application/x-www-form-urlencoded'
@@ -545,6 +550,7 @@ function initReply(){
 				var  result = M.json(result)
 					,key = code + 'ReplyList'
 				
+				readyReply = true
 				setUniq(key, result['id']);
 				window.location.reload();
 			}
