@@ -33,13 +33,13 @@ function initNavi() {
 			,page = M('[data-global]').data('global')
 		
 		str += '<ul class="navigation">';
-		str += '	<li data-page="gag"><a href="../g/"><i class="fa fa-microphone" style="color: #fd4aff"></i> 아무말 게시판</a></li>';
 		str += '	<li data-page="test"><a href="../t/">깨알테스트</a></li>';
 		//str += '	<li data-page="sa"><a href="../su/">베스트유머</a></li>';
 		//str += '	<li data-page="poll"><a href="../poll/">카스투표</a></li>';
 		//str += '	<li data-page="novel"><a href="../novel/list.html">썰픽</a></li>';
 		//str += '	<li data-page="rank"><a href="../r/">랭킹</a></li>';
 		str += '	<li data-page="worldcup"><a href="../w/">월드컵</a></li>';
+		str += '	<li data-page="mbti"><a href="/mbti/ko/"><i class="fa fa-microphone" style="color: #fd4aff"></i> MBTI 테스트</a></li>';
 		//str += '	<li data-page="quiz"><a href="https://quiz.gaeyou.com/">퀴즈</a></li>';
 		//str += '	<li data-page="game"><a href="../game/list.html">웹게임 <i class="fa fa-star fa-yellow"></i></a></li>';
 		//str += '	<li data-page="novel"><a href="../novel/list.html">썰픽</li>';
