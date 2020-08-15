@@ -9,7 +9,7 @@ var  pollList = M.storage('pollList') || []
 	
 	// 신규테스트 불러오기
 	,newStart = 0
-	,newTotal = 10
+	,newTotal = 40
 	
 	// 댓글 더보기
 	,replyStart = 0
