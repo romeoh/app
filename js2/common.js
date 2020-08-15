@@ -1,4 +1,4 @@
-var  apiurl = 'http://gaeyou.com/api2/'
+var  apiurl = '/api2/'
 	,hash
 	,admin = M.storage('admin') == 'romeoh' ? admin = true : admin = false
 	,member
