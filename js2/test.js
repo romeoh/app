@@ -9,7 +9,7 @@ var  pollList = M.storage('pollList') || []
 	
 	// 신규테스트 불러오기
 	,newStart = 0
-	,newTotal = 40
+	,newTotal = 30
 	
 	// 댓글 더보기
 	,replyStart = 0
@@ -471,7 +471,7 @@ function testExcute(evt, mp) {
 	}
 	
 	post += getSpecial() + ' ' + cuData['title'] + '\n'
-	post += '────────────────────\n'
+	post += '──────────────────\n'
 	post += result;
 	//post += 'http://gaeyou.com/t/?' + cuData['idx'];
 	

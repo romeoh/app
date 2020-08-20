@@ -1079,7 +1079,7 @@ function shareData(_obj, _opt) {
 		test += msg + '\n'
 		test += '-----------\n'
 		test += 'url: ' + url + '\n'
-		test += '--------------------------------------------\n'
+		test += '------------------------------------------\n'
 		console.log(test)
 		return false;
 	}
@@ -1127,7 +1127,7 @@ function shareData(_obj, _opt) {
 		test += 'title: ' + title + '\n'
 		test += 'desc: ' + desc + '\n'
 		test += 'img: ' + img + '\n'
-		test += '--------------------------------------------\n'
+		test += '------------------------------------------\n'
 		console.log(test);
 		
 		return false;
