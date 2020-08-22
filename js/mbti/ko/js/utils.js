@@ -1,4 +1,4 @@
-define(["handlebars_4.7.6"], function(Handlebars) {
+define(["https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"], function(Handlebars) {
   var Utils = function() {
     this.getFile = function(file, callback) {
       var that = this;
