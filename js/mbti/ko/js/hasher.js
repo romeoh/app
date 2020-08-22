@@ -6,7 +6,7 @@
  */
 
 (function (define) {
-    define('hasher', ['signals'], function(signals){
+    define('hasher', ['https://romeoh.github.io/app/js/mbti/ko/js/signals.js'], function(signals){
 
 /*jshint white:false*/
 /*global signals:false, window:false*/

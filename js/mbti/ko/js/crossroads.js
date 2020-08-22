@@ -6,7 +6,7 @@
  */
 
 (function (define) {
-define(['signals'], function (signals) {
+define(['https://cdnjs.cloudflare.com/ajax/libs/js-signals/1.0.0/js-signals.min.js'], function (signals) {
 
     var crossroads,
         UNDEF;

@@ -4,13 +4,13 @@
 
 
 define([
-   "https://romeoh.github.io/app/js/mbti/animation.js"
-  ,"https://romeoh.github.io/app/js/mbti/utils.js"
-  ,"https://romeoh.github.io/app/js/mbti/data/questions.js"
-  ,"https://romeoh.github.io/app/js/mbti/signals.js"
+   "https://romeoh.github.io/app/js/mbti/ko/js/animation.js"
+  ,"https://romeoh.github.io/app/js/mbti/ko/js/utils.js"
+  ,"https://romeoh.github.io/app/js/mbti/ko/data/questions.js"
+  ,"https://romeoh.github.io/app/js/mbti/ko/js/signals.js"
   ,"hasher"
-  ,"https://romeoh.github.io/app/js/mbti/crossroads.js"
-  ,"https://romeoh.github.io/app/js/mbti/data/description.js"
+  ,"https://romeoh.github.io/app/js/mbti/ko/js/crossroads.js"
+  ,"https://romeoh.github.io/app/js/mbti/ko/data/description.js"
   ,"https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"
   //,""
 ], function(slide, utils, questions, signals, hasher, crossroads, description) {
