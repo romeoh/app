@@ -1,0 +1,271 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400);
+
+body {
+  background:transparent url('../images/pattern.png') repeat !important;
+  font-family: "Lato", "helvetica neue", helvetica, sans-serif;
+  padding-top: 44px;
+  margin: 0;
+  height: 370px;
+}
+
+h1, h2, h3, h4, h5, h6, p, label {
+  color: #2A2A2A;
+  margin-top: 0;
+}
+
+h2 {
+  font-weight: 300;
+  font-size: 29px;
+  margin-bottom: 10px;
+  line-height: 31px;
+  color: #58717A;
+  text-align: center;
+}
+
+.none {
+  display: none;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+.clear {
+  clear: both;
+  margin-top: -1px;
+}
+
+.form {
+  margin: 0;
+  padding: 0;
+}
+
+.titleContainer {
+  padding: 10px;
+  border-bottom: 1px solid #DBDBDB;
+}
+
+h1 {
+  margin-top: 25px;
+  font-size: 40px;
+}
+
+.panel {
+  width: 300px;
+  overflow: hidden;
+}
+
+.panel h2 {
+  display: none;
+  margin-top: 11px;
+}
+
+.panel li {
+  padding: 0 10px;
+}
+
+.panel li input {
+  position: absolute;
+  left: -99999px;
+}
+
+body .highlighted:not(.buttonInline) {
+  background: #218AB9 !important;
+}
+
+header {
+  position: fixed;
+  height: 25px;
+  width: 100%;
+  text-align: center;
+  top: 0;
+  left: 0;
+  background: #6F7070;
+  padding: 13px 0;
+  z-index: 200;
+}
+
+header h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  color: #f4f4f4;
+  line-height: 20px;
+}
+
+header .toolbar-controls {
+  position: absolute;
+  top: 7px;
+}
+
+header .toolbar-controls .btn {
+  margin-top: -4px;
+}
+
+header .controls-left {
+  margin-left: 10px;
+  color: #fff;
+}
+
+header .controls-right {
+  right: 0px;
+  margin-right: 10px;
+}
+
+#introduction {
+  position: absolute;
+}
+
+#introduction,
+#final {
+  padding: 10px;
+  width: 100%;
+}
+#introduction p.intro {text-align: center;}
+/*
+button,
+.btn {
+  display: inline-block;
+  *display: inline;
+  padding: 4px 10px 4px;
+  margin-bottom: 0;
+  *margin-left: .3em;
+  font-size: 13px;
+  line-height: 18px;
+  *line-height: 20px;
+  color: #333333;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  *background-color: #e6e6e6;
+  background-image: -ms-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  border: 1px solid #cccccc;
+  *border: 0;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-bottom-color: #b3b3b3;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+  *zoom: 1;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+     -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+#header button,
+#header .btn {
+  display: inline-block;
+  *display: inline;
+  padding: 4px 10px 4px;
+  margin-bottom: 0;
+  *margin-left: .3em;
+  font-size: 13px;
+  line-height: 18px;
+  *line-height: 20px;
+  color: #f4f4f4;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 0;
+  background-image: transparent;
+  background: #494949;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+  *zoom: 1;
+  -webkit-box-shadow: inset 0 0 6px 0px #181818;
+     -moz-box-shadow: inset 0 0 6px 0px #181818;
+          box-shadow: inset 0 0 6px 0px #181818;
+}
+
+a.btn {
+  text-decoration: none;
+}
+
+.buttons {
+  padding-top: 10px;
+  margin-top: 10px;
+  border-top: 1px solid #C3C3C3;
+}
+*/
+#final {
+  z-index: 5;
+}
+
+#final table {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+#final td {
+  font-size: 10px;
+  vertical-align: top;
+}
+
+#final td p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 34px;
+}
+
+#final td div {
+  background: #218AB9;
+  text-align: center;
+  font-size: 30px;
+}
+
+#final .type {
+  text-transform: uppercase;
+}
+
+#counter {
+  text-align: right;
+  padding-right: 30px;
+}
+
+body {margin:0; padding:0;}
+header {background-image: linear-gradient(99deg, #7777f1, #a277f1); height:44px; position:relative;}
+header .gnbMain {background-position:0px 0px; display:none; position:absolute; top:5px; left:5px; width:70px; height:32px;}
+header .gnbMacao {background-position:129px 0px; display:block; position:absolute; top:5px; right:5px; width:107px; height:32px; display:none}
+header .gnbNew {background-position:85px -107px; display:block; position:absolute; top:5px; right:5px; width:33px; height:33px}
+header .gnbMenu {background-position:116px -35px; display:block; position:absolute; top:5px; left:5px; width:33px; height:33px}
+header .noticeNew {position:absolute; top:5px; right:40px; display:none}
+header .noticeNew img {width:130px}
+header .gnbLang {position:absolute; top:3px; right:5px}
+header h1 {position:relative; text-align:center; top:-3px}
+header h1 img {vertical-align: middle; margin-left: -47px;}
+header h1 .gaeyou {background: url(http://romeoh.github.io/app/img/logo.png) 11px 9px no-repeat #6b6bd8; background-size: 26px; width: 47px; height: 44px; margin-top: 3px; float: left; margin-top: -10px;}
+header.bo {background:none; height:initial;}
+.progress.step {margin: 15px 10px 6px 10px; visibility: hidden;}
+.dropdown-menu.show {left: -100px;}
+
+.people {padding: 15px; display: none}
+.people .card {display: inherit;}
+.list-group-item.active {background-color: #a8d2ff; border-color: #aabacc}
+
+
+
+
+
+
+
+
+
+
