@@ -1,6 +1,6 @@
 var  apiurl = '/api2/'
 	,hash
-	,admin = M.storage('admin') == 'romeoh' ? admin = true : admin = false
+	,admin = false
 	,member
 	
 window.addEventListener('DOMContentLoaded', ready, false);
@@ -28,49 +28,10 @@ function initBanner() {
 }
 
 function initNavi() {
-	if (M('[data-global]').selector.length > 0) {
-		var  str = ''
-			,page = M('[data-global]').data('global')
-		
-		str += '<ul class="navigation">';
-		str += '	<li data-page="test"><a href="../t/">깨알테스트</a></li>';
-		//str += '	<li data-page="sa"><a href="../su/">베스트유머</a></li>';
-		//str += '	<li data-page="poll"><a href="../poll/">카스투표</a></li>';
-		//str += '	<li data-page="novel"><a href="../novel/list.html">썰픽</a></li>';
-		//str += '	<li data-page="rank"><a href="../r/">랭킹</a></li>';
-		str += '	<li data-page="worldcup"><a href="../w/">월드컵</a></li>';
-		str += '	<li data-page="mbti"><a href="/mbti/ko/"><i class="fa fa-microphone" style="color: #fd4aff"></i> MBTI 테스트</a></li>';
-		//str += '	<li data-page="quiz"><a href="https://quiz.gaeyou.com/">퀴즈</a></li>';
-		//str += '	<li data-page="game"><a href="../game/list.html">웹게임 <i class="fa fa-star fa-yellow"></i></a></li>';
-		//str += '	<li data-page="novel"><a href="../novel/list.html">썰픽</li>';
-		//str += '	<li data-page="friend"><a href="../f/">친구만들기</a></li>';
-		//str += '	<li data-page="tab"><a href="../tab/">탭탭탭!!!<span class="new"></span></a></li>';
-		//str += '	<li data-page="game"><a href="http://game.gaeyou.com"><i class="fa fa-gamepad" aria-hidden="true" style="font-size: 22px; color: #fd4aff"></i> 깨유깨임<span class="new"></span></a></li>';
-		str += '</ul>';
-		str += '<div></div>';
-		M('[data-global]').html(str);
-		M('[data-page="' + page + '"]').addClass('on');
-	}
 }
 
 // 이름과 카카오 아이디 설정
 function initUserName() {
-	if (M('[data-uname]').selector.length > 0) {
-		var uname = M.storage('uname') || '';
-		M('[data-uname]')
-			.val(uname)
-			.on('blur', function(evt, mp){
-				M.storage('uname', M('[data-uname]').val())
-			})
-	}
-	if (M('[data-kasid]').selector.length > 0) {
-		var uname = M.storage('kasid') || '';
-		M('[data-kasid]')
-			.val(uname)
-			.on('blur', function(){
-				M.storage('kasid', M('[data-kasid]').val())
-			})
-	}
 }
 
 // hash 가져오기
@@ -448,15 +409,6 @@ function cancelLogin() {
 
 // 로그인 확인
 function isLogin() {
-	var member = M.storage('member') || {}
-	member = M.json(member);
-	if (member['uid'] && 
-		member['level'] &&
-		member['maxlevel'] &&
-		member['email']
-		) {
-			return member;
-	}
 	return false;
 }
 
@@ -843,131 +795,6 @@ function setReply(code, hash, cd) {
 
 // 전체 메뉴보기
 function initMenu() {
-	var  gnb = M('[data-gnb]')
-		,speed = '0.5s'
-	
-	if (gnb.selector.length > 0) {
-		gnb.on('click', function(){
-			showGnb();
-		})
-	}
-	
-	function showGnb() {
-		var  str = ''
-			,uname = M.storage('uname')
-		
-		M('body')
-			.prepend('div', {
-				'className': 'bg',
-				'id': 'bg'
-			})
-			.prepend('div', {
-				'className': 'gnb',
-				'id': 'gnb'
-			})
-		
-		M('#bg').animate({
-				'opacity': '0.7',
-				'time': speed
-			})
-			.on('click', function(){
-				hideGnb();
-			})
-		M('#gnb').animate({
-			'left': '0',
-			'time': speed
-		})
-		
-		if (!!isLogin()) {
-			str += '<div class="head">';
-			str += '	<div class="welcome" id="user">';
-			str += '		' + member['nickname'] + '님, 안녕하세요. ';
-			str += '	</div>';
-			str += '	<button type="button" class="close" aria-hidden="true" id="btnClose">&times;</button>';
-			str += '</div>';
-			str += '<div class="member">';
-			str += '	<button type="button" class="btn btn-default btn-block" id="btnLogout">로그아웃</button>';
-			str += '</div>';	
-		} else {
-			str += '<div class="head">';
-			str += '	<div class="welcome" id="user">';
-			str += '		안녕하세요. ';
-			str += '	</div>';
-			str += '	<button type="button" class="close" aria-hidden="true" id="btnClose">&times;</button>';
-			str += '</div>';
-			str += '<div class="member">';
-			str += '	<button type="button" class="btn btn-success btn-block" id="btnPopLogin">로그인</button>';
-			str += '	로그인 하시면 계급에 따라 <br><i class="fa fa-thumbs-up"></i> 깨업 / <i class="fa fa-thumbs-down"></i> 깨따 할수있는 갯수가 달라집니다.';
-			str += '</div>';
-		}
-		
-		str += '<div class="menu">';
-		str += '	<dl>';
-		str += '		<dt>깨알테스트</dt>';
-		str += '		<dd><a href="/t"><span class="ico arrow"></span>내가만든 테스트</a></dd>';
-		str += '		<dd><a href="http://romeoh.github.io/kakaoStory/html/makeme.html"><span class="ico arrow"></span>깨알테스트</a></dd>';
-		
-		str += '		<dt>유머게시판</dt>';
-		str += '		<dd><a href="/s"><span class="ico arrow"></span>베스트유머</a></dd>';
-		//str += '		<dd><a href="/s2"><span class="ico arrow"></span>움직이는 짤방 <i class="fa fa-thumbs-up fa-red"></i></a></dd>';
-		
-		str += '		<dt>설치가 필요없는: 웹게임</dt>';
-		str += '		<dd><a href="/game/list.html"><span class="ico arrow"></span>웹게임 <i class="fa fa-star fa-red"></i></a></dd>';
-		
-		str += '		<dt>함께쓰는 소설: 썰픽</dt>';
-		str += '		<dd><a href="/novel/list.html"><span class="ico arrow"></span>썰픽</a></dd>';
-		
-		str += '		<dt>슈퍼랭킹</dt>';
-		str += '		<dd><a href="/w"><span class="ico arrow"></span>슈퍼랭킹</a></dd>';
-		str += '		<dd><a href="/r"><span class="ico arrow"></span>깨알랭킹</a></dd>';
-		
-		//str += '		<dt>탭탭탭!!!</dt>';
-		//str += '		<dd><a href="/tab"><span class="ico arrow"></span>탭탭탭!!!<span class="ico new"></span></a></dd>';
-		//str += '		<dd><a href="/tab/history.html"><span class="ico arrow"></span>역대전적</a></dd>';
-		//str += '		<dd><a href="/tab/bunker.html"><span class="ico arrow"></span>우리학교 벙커</a></dd>';
-		
-		str += '		<dt>친구만들기</dt>';
-		str += '		<dd><a href="/f2"><span class="ico arrow"></span>카스 품앗이</a></dd>';
-		str += '		<dd><a href="/f"><span class="ico arrow"></span>카톡 친구만들기</a></dd>';
-		
-		str += '	</dl>';
-		str += '</div>';
-		
-		M('#gnb').html(str);
-		//if (uname) {
-		//	M('#user').html(uname + '님, 안녕하세요.')
-		//}
-		M('#gnb').css('height', M('body').css('height'))
-		M('#bg').css('height', M('body').css('height'))
-		
-		M('#btnClose').on('click', function(){
-			hideGnb()
-		})
-		M('#btnLogout').on('click', function(){
-			M.storage('member', '');
-			window.location.reload();
-		})
-		M('#btnPopLogin').on('click', function(){
-			hideGnb();
-			initLogin();
-		})
-	}
-	
-	function hideGnb() {
-		M('#bg').animate({
-			'opacity':'0',
-			'time': speed
-		}, function(evt, mp){
-			mp.remove();
-		})
-		M('#gnb').animate({
-			'left': '-250px',
-			'time': speed
-		}, function(evt, mp){
-			mp.remove()
-		}
-		);
-	}
 }
 
 
