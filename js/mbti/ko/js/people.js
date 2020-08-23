@@ -78,7 +78,7 @@ function getList() {
         for (var i=0; i<result.length; i++) {
             str += '<a href="people.html?idx=' + result[i].idx + '" class="list-group-item d-flex justify-content-between align-items-center">'
             str += '    ' + result[i].name
-            str += '    <span class="badge badge-primary badge-pill">' + result[i].reply + '</span>'
+            str += '    <span class="badge badge-primary badge-pill">' + result[i].gaeup + '</span>'
             str += '</a>'
         }
         $('.people-lists').html(str)
