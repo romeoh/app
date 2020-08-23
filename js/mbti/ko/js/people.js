@@ -1,6 +1,24 @@
 var  params = getParameter()
     ,apiUrl = '../api/v1/share.php'
     ,peopleDetail
+    ,categoryName = {
+        'ENTJ': '엔티제',
+        'ENTP': '엔팁',
+        'INTJ': '인티제',
+        'INTP': '인팁',
+        'ENFP': '엔프피',
+        'ENFJ': '엔프제',
+        'INFP': '인프피',
+        'INFJ': '인프제',
+        'ESTJ': '엣티제',
+        'ESFJ': '엣프제',
+        'ISTJ': '잇티제',
+        'ISFJ': '잇프제',
+        'ESTP': '엣팁',
+        'ESFP': '엣프피',
+        'ISTP': '잇팁',
+        'ISFP': '잇프피'
+    }
 
 if (params.idx) {
     // 상세보기
@@ -54,6 +72,7 @@ function getList() {
     };
     $.ajax(settings).done(function (res) {
         var  result = JSON.parse(res)
+            ,title = categoryName[params.category] + '[' + params.category + ']'
             ,str = ''
 
         for (var i=0; i<result.length; i++) {
@@ -63,7 +82,7 @@ function getList() {
             str += '</a>'
         }
         $('.people-lists').html(str)
-        $('.people-type').html(params.category)
+        $('.people-type').html(title)
         console.log(params.category)
     });
 }
