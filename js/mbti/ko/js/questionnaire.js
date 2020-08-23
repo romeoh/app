@@ -21,6 +21,24 @@ define([
       endEvent = hasTouch ? 'touchend' : 'mouseup',
       cancelEvent = hasTouch ? 'touchcancel' : 'mouseup';
   
+  var categoryName = {
+        'ENTJ': '엔티제',
+        'ENTP': '엔팁',
+        'INTJ': '인티제',
+        'INTP': '인팁',
+        'ENFP': '엔프피',
+        'ENFJ': '엔프제',
+        'INFP': '인프피',
+        'INFJ': '인프제',
+        'ESTJ': '엣티제',
+        'ESFJ': '엣프제',
+        'ISTJ': '잇티제',
+        'ISFJ': '잇프제',
+        'ESTP': '엣팁',
+        'ESFP': '엣프피',
+        'ISTP': '잇팁',
+        'ISFP': '잇프피'
+      }
   var TOTAL_QUESTIONS = questions.questions.length;
   
   var DATA_NAMESPACE = "questionnaire";
@@ -659,6 +677,7 @@ define([
     //console.log('finish')
     var percentages = getPercentages(computedMetrics);
     var type = getType(computedMetrics);
+    var typeString = categoryName[type]
     var stringResults = getStringResults(computedMetrics);
     var metricsJson = JSON.stringify(this.userMetrics);
     var nickname = this.userName || localStorage.getItem('uname')
@@ -687,6 +706,7 @@ define([
           metricsJson: metricsJson,
           nickname: nickname,
           type: type,
+          typeString: typeString,
           viewCount: viewCount,
           mbtiType: mbtiType,
           description: description,
