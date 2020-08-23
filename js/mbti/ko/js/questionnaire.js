@@ -346,7 +346,7 @@ define([
 
       $.ajax(settings).done(function (res) {
         var result = JSON.parse(res)[0]
-        location.href = '?metrics=' + result.metrics + '&uname=' + result.uname
+        location.href = '?metrics=' + result.metrics + '&uname=' + result.uname + '&view=' + result.view
       });
       return
     }
@@ -368,6 +368,9 @@ define([
     this.counter.total.text(TOTAL_QUESTIONS);
     
     // TODO Use crossroads to route this.
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
     if (index > 0) {
       var data = window.location.href.substring(index+9, window.location.href.length);
       params = data.split('&')
@@ -376,6 +379,9 @@ define([
       this.userMetrics = data;
       if (params[1]) {
         this.userName = decodeURIComponent(params[1].replace('uname=', '').replace('uname1=', '').replace('#/results', ''))
+      }
+      if (params[2]) {
+        this.view = numberWithCommas(decodeURIComponent(params[2].replace('view=', '').replace('#/results', '')))
       }
       this.finish();
     } else if (savedData) {
@@ -656,6 +662,7 @@ define([
     var stringResults = getStringResults(computedMetrics);
     var metricsJson = JSON.stringify(this.userMetrics);
     var nickname = this.userName || localStorage.getItem('uname')
+    var viewCount = this.view
     var mbtiType = showDescription(type, 'type')
     var description = showDescription(type, 'description')
     //var people = showDescription(type, 'people')
@@ -680,6 +687,7 @@ define([
           metricsJson: metricsJson,
           nickname: nickname,
           type: type,
+          viewCount: viewCount,
           mbtiType: mbtiType,
           description: description,
           people: res
