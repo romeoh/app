@@ -368,6 +368,15 @@ define([
       });
       return
     }
+
+    // facebook에서 옴
+    // http://gaeyou.com/mbti/ko_/result.html?fbclid=IwAR2KzscZqPn5O4YcSBkAVa41v6TQk7zm5rU2FSkBjnRTN1RHwlsp54i8aPk
+    // http://gaeyou.com/mbti/ko_/result.html#/results
+    if (location.pathname.indexOf('result.html') != -1) {
+      if (location.hash != '#/results') {
+        return location.href = './'
+      }
+    }
     var url = window.location.href;
     var index = url.lastIndexOf("?metrics=");
     var that = this;
