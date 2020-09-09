@@ -260,7 +260,12 @@ header.bo {background:none; height:initial;}
 .people .card {display: inherit;}
 .list-group-item.active {background-color: #a8d2ff; border-color: #aabacc}
 
-
+.gnbNew {color: #fff; font-size: 20px}
+.global .navigation {display: table;width: 100%;height: 35px;border-bottom: 1px solid #dbdcdf;background: #74b1c4;background: #fff;line-height: 34px;text-align: center;table-layout: fixed; padding: 0; margin: 0;}
+.global .navigation li {display: table-cell;}
+.global .navigation li.on a {color: #ee7378;}
+.global .navigation li a {display: block;font-weight: 600;font-size: 14px;color: #000;}
+.global > div {height: 8px; background: #eaecef}
 
 
 
