@@ -1,0 +1,61 @@
+@charset "utf-8";
+
+.gnbMacao, 
+.gnbNew, 
+.gnbMain,
+.gnbMenu {background:url(http://romeoh.github.io/app/img/ico_v2.png); background-size:200px 150px}
+
+body, p, h1, h2, h3, h4, h5, ul, li, dl, dt, dd, header {margin:0; padding:0; line-height: inherit; font-family: '나눔고딕',NanumGothic,'맑은 고딕','Malgun Gothic','돋움',Dotum,'굴림',Gulim,Helvetica,sans-serif;}
+body {margin:0}
+a {text-decoration:none; cursor:pointer;color:#666}
+li {list-style:none;}
+header {background-image: linear-gradient(99deg, #7777f1, #a277f1); height:44px; position:relative;}
+header .gnbMain {background-position:0px 0px; display:none; position:absolute; top:5px; left:5px; width:70px; height:32px;}
+header .gnbMacao {background-position:129px 0px; display:block; position:absolute; top:5px; right:5px; width:107px; height:32px; display:none}
+header .gnbNew {background-position:85px -107px; display:block; position:absolute; top:5px; right:5px; width:33px; height:33px}
+header .gnbMenu {background-position:116px -35px; display:block; position:absolute; top:5px; left:5px; width:33px; height:33px}
+header .noticeNew {position:absolute; top:5px; right:40px; display:none}
+header .noticeNew img {width:130px}
+header h1 {position:relative; text-align:center; top:-3px}
+header h1 img {vertical-align: middle; margin-left: -47px;}
+header h1 .gaeyou {background: url(http://romeoh.github.io/app/img/logo.png) 11px 9px no-repeat #6b6bd8; background-size: 26px; width: 47px; height: 44px; margin-top: 3px; float: left}
+header.bo {background:none; height:initial;}
+
+.global .navigation {display: table;width: 100%;height: 35px;border-bottom: 1px solid #dbdcdf;background: #74b1c4;background: #fff;line-height: 34px;text-align: center;table-layout: fixed;}
+.global .navigation li {display: table-cell;}
+.global .navigation li.on a {color: #ee7378;}
+.global .navigation li a {display: block;font-weight: 600;font-size: 14px;color: #000;}
+.global > div {height: 8px; background: #eaecef}
+
+.container {padding: 10px;}
+.card.active {background: #81de81}
+#linkModal {margin-top: 70px}
+
+.mine img {transform:rotate(0deg); -moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1);   
+filter: FlipH; -ms-filter: "FlipH";}
+.card .card-name {text-align: center;}
+
+/* 유형테스트 */
+.card-group {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+}
+.card-group>.card:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.card-group>.card+.card {
+    margin-left: 0;
+    border-left: 0;
+}
+.card-group>.card {
+    -ms-flex: 1 0 0%;
+    flex: 1 0 0%;
+    margin-bottom: 0;
+}
+
+.share-buttons {text-align: center; margin-top: 20px}
+.share-buttons a {}
+
