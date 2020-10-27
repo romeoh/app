@@ -206,7 +206,7 @@ define([
       if (!result) {
         return
       }
-      var shortUrl = 'http://gaeyou.com/mbti/ko/?metric=' + result
+      var shortUrl = 'https://gaeyou.com/mbti/ko/?metric=' + result
       var resultString = content.nickname + '님의 MBTI 성격유형은 ' + content.type + '\n'
       var title = content.nickname + '님의 MBTI 결과입니다.'
       //console.log(content.nickname, content.type)
@@ -267,11 +267,11 @@ define([
       var resultString = content.nickname + '님의 MBTI 성격유형은 ' + content.type + '\n'
       var title = content.nickname + '님의 MBTI 결과입니다.'
       //console.log(content.nickname, content.type)
-      $('[data-url]').attr('data-url', 'http://gaeyou.com/mbti/ko/')
+      $('[data-url]').attr('data-url', 'https://gaeyou.com/mbti/ko/')
       $('[data-title]').attr('data-title', resultString + content.results)
       $('[data-caption]').attr('data-caption', title)
       $('[data-subject]').attr('data-subject', title)
-      $('[data-twitter]').attr('data-title', resultString + content.results.substring(0, 102) + '...\n' + 'http://gaeyou.com/mbti/ko/')
+      $('[data-twitter]').attr('data-title', resultString + content.results.substring(0, 102) + '...\n' + 'https://gaeyou.com/mbti/ko/')
       
       window.Sharer.init();
 
@@ -287,7 +287,7 @@ define([
             description: resultString + content.results,
             imageUrl:'',
             link: {
-              mobileWebUrl: 'http://gaeyou.com/mbti/ko/',
+              mobileWebUrl: 'https://gaeyou.com/mbti/ko/',
               androidExecParams: '',
             },
           },
@@ -296,7 +296,7 @@ define([
             {
               title: '웹으로 이동',
               link: {
-                mobileWebUrl: 'http://gaeyou.com/mbti/ko/',
+                mobileWebUrl: 'https://gaeyou.com/mbti/ko/',
               },
             },
           ],
@@ -309,8 +309,8 @@ define([
         }
         if (sharer == 'kakaostory') {
           Kakao.Story.share({
-            url: 'http://gaeyou.com/mbti/ko/',
-            text: resultString + content.results + '\n' + 'http://gaeyou.com/mbti/ko/'
+            url: 'https://gaeyou.com/mbti/ko/',
+            text: resultString + content.results + '\n' + 'https://gaeyou.com/mbti/ko/'
           });
         } else if (sharer == 'kakaotalk') {
           Kakao.Link.sendDefault(DefaultFeedSettings);
@@ -370,8 +370,8 @@ define([
     }
 
     // facebook에서 옴
-    // http://gaeyou.com/mbti/ko_/result.html?fbclid=IwAR2KzscZqPn5O4YcSBkAVa41v6TQk7zm5rU2FSkBjnRTN1RHwlsp54i8aPk
-    // http://gaeyou.com/mbti/ko_/result.html#/results
+    // https://gaeyou.com/mbti/ko_/result.html?fbclid=IwAR2KzscZqPn5O4YcSBkAVa41v6TQk7zm5rU2FSkBjnRTN1RHwlsp54i8aPk
+    // https://gaeyou.com/mbti/ko_/result.html#/results
     if (location.pathname.indexOf('result.html') != -1) {
       if (location.hash != '#/results') {
         return location.href = './'
