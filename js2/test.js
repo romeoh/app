@@ -41,8 +41,13 @@ function ready() {
 		$('#adBottom').html('<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2760623096296279" data-ad-slot="7510070164" data-ad-format="auto" data-full-width-responsive="true"></ins>')
 		setTimeout(function() {		
 			(adsbygoogle = window.adsbygoogle || []).push({});
-		}, 500)
-	}, 300)
+			
+			$('#adLast').html('<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2760623096296279" data-ad-slot="7510070164" data-ad-format="auto" data-full-width-responsive="true"></ins>')
+			setTimeout(function() {		
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			}, 300)
+		}, 300)
+	}, 200)
 	// Adsense Code
 	
 	if (!userId) {
