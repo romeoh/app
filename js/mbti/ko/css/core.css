@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400);
+@import url(//fonts.googleapis.com/css?family=Lato:300,400);
 
 body {
   background:transparent url('../images/pattern.png') repeat !important;
@@ -251,7 +251,7 @@ header .noticeNew img {width:130px}
 header .gnbLang {position:absolute; top:3px; right:5px}
 header h1 {position:relative; text-align:center; top:-3px}
 header h1 img {vertical-align: middle; margin-left: -47px;}
-header h1 .gaeyou {background: url(http://romeoh.github.io/app/img/logo.png) 11px 9px no-repeat #6b6bd8; background-size: 26px; width: 47px; height: 44px; margin-top: 3px; float: left; margin-top: -10px;}
+header h1 .gaeyou {background: url(//romeoh.github.io/app/img/logo.png) 11px 9px no-repeat #6b6bd8; background-size: 26px; width: 47px; height: 44px; margin-top: 3px; float: left; margin-top: -10px;}
 header.bo {background:none; height:initial;}
 .progress.step {margin: 15px 10px 6px 10px; visibility: hidden;}
 .dropdown-menu.show {left: -100px;}
