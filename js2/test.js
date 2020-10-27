@@ -473,14 +473,14 @@ function testExcute(evt, mp) {
 	post += getSpecial() + ' ' + cuData['title'] + '\n'
 	post += '──────────────────\n'
 	post += result;
-	//post += 'http://gaeyou.com/t/?' + cuData['idx'];
+	//post += 'https://gaeyou.com/t/?' + cuData['idx'];
 	
 	data['media'] = mp.data('share');
 	data.post = post;
 	data.desc = cuData['exp'];
-	data.img = 'http://www.gaeyou.com/upload/fonts/'+cuData['idx']+'.png';
+	data.img = 'https://www.gaeyou.com/upload/fonts/'+cuData['idx']+'.png';
 	data.title = getSpecial() + ' ' +cuData['title'];
-	data.url = 'http://gaeyou.com/t/?'+hash;
+	data.url = 'https://gaeyou.com/t/?'+hash;
 	data.app = '깨알테스트'
 	
 	// 테스트 전문 통신
@@ -558,7 +558,7 @@ function initReply(){
 				
 				readyReply = true
 				setUniq(key, result['id']);
-				window.location.href = 'http://gaeyou.com/t/?' + cuData['idx'] + '#reply'
+				window.location.href = 'https://gaeyou.com/t/?' + cuData['idx'] + '#reply'
 				//window.location.reload();
 			}
 		})

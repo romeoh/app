@@ -5,7 +5,7 @@ var  apiurl = '/api2/'
 	
 window.addEventListener('DOMContentLoaded', ready, false);
 function ready() {
-	
+	goSecre()
 	var lang = navigator.language
 	if (lang.indexOf('ja') != -1) {
 		// location.href = 'https://t.gaeyou.com/?yh4XEWb4FwO62uyVQa1P'
@@ -18,6 +18,13 @@ function ready() {
 	initUserName();
 	//initReplyBox();
 	initMenu();
+}
+
+function goSecre() {
+	if (location.href.indexOf('http:') == 0) {
+		var sUrl = location.href.replace('http:', 'https:')
+		window.location.replace(sUrl)
+	}
 }
 
 function initBanner() {
@@ -46,7 +53,7 @@ function initNavi() {
 		//str += '	<li data-page="novel"><a href="../novel/list.html">썰픽</li>';
 		//str += '	<li data-page="friend"><a href="../f/">친구만들기</a></li>';
 		//str += '	<li data-page="tab"><a href="../tab/">탭탭탭!!!<span class="new"></span></a></li>';
-		//str += '	<li data-page="game"><a href="http://game.gaeyou.com"><i class="fa fa-gamepad" aria-hidden="true" style="font-size: 22px; color: #fd4aff"></i> 깨유깨임<span class="new"></span></a></li>';
+		//str += '	<li data-page="game"><a href="https://game.gaeyou.com"><i class="fa fa-gamepad" aria-hidden="true" style="font-size: 22px; color: #fd4aff"></i> 깨유깨임<span class="new"></span></a></li>';
 		str += '</ul>';
 		str += '<div></div>';
 		M('[data-global]').html(str);
@@ -906,7 +913,7 @@ function initMenu() {
 		str += '	<dl>';
 		str += '		<dt>깨알테스트</dt>';
 		str += '		<dd><a href="/t"><span class="ico arrow"></span>내가만든 테스트</a></dd>';
-		str += '		<dd><a href="http://romeoh.github.io/kakaoStory/html/makeme.html"><span class="ico arrow"></span>깨알테스트</a></dd>';
+		str += '		<dd><a href="https://romeoh.github.io/kakaoStory/html/makeme.html"><span class="ico arrow"></span>깨알테스트</a></dd>';
 		
 		str += '		<dt>유머게시판</dt>';
 		str += '		<dd><a href="/s"><span class="ico arrow"></span>베스트유머</a></dd>';
