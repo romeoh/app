@@ -3,13 +3,13 @@
 .gnbMacao, 
 .gnbNew, 
 .gnbMain,
-.gnbMenu {background:url(http://romeoh.github.io/gaeyou/images/common/ico.png); background-size:200px 150px}
+.gnbMenu {background:url(//romeoh.github.io/gaeyou/images/common/ico.png); background-size:200px 150px}
 
 body, p, h1, h2, h3, h4, h5, ul, li, dl, dt, dd, header {margin:0; padding:0; font-family: '나눔고딕',NanumGothic,'맑은 고딕','Malgun Gothic','돋움',Dotum,'굴림',Gulim,Helvetica,sans-serif;}
 body {margin:0}
 a {text-decoration:none; cursor:pointer;color:#666}
 li {list-style:none;}
-header {background:url(http://romeoh.github.io/gaeyou/images/common/bg_header.png); background-size:18px 44px; height:44px; position:relative;}
+header {background:url(//romeoh.github.io/gaeyou/images/common/bg_header.png); background-size:18px 44px; height:44px; position:relative;}
 header .gnbMain {background-position:0px 0px; display:none; position:absolute; top:5px; left:5px; width:70px; height:32px;}
 header .gnbMacao {background-position:129px 0px; display:block; position:absolute; top:5px; right:5px; width:107px; height:32px; display:none}
 header .gnbNew {background-position:85px -107px; display:block; position:absolute; top:5px; right:5px; width:33px; height:33px}
@@ -37,12 +37,12 @@ header.bo {background:none; height:initial;}
 .gnb .head {background:#428bca; padding:10px}
 .gnb .welcome {color:#fff}
 .gnb .close {position: absolute;top: 2px;right: 0px;width: 33px;height: 33px; cursor:pointer}
-.gnb .close .imh {background-image: url(http://romeoh.github.io/gaeyou/images/common/sp_imh_v5.png);background-repeat: no-repeat;background-size: 270px 250px;-webkit-background-size: 270px 250px;display: inline-block;width: 16px;height: 17px;margin: 8px 0 0 8px;background-position: -104px -1px;}
+.gnb .close .imh {background-image: url(//romeoh.github.io/gaeyou/images/common/sp_imh_v5.png);background-repeat: no-repeat;background-size: 270px 250px;-webkit-background-size: 270px 250px;display: inline-block;width: 16px;height: 17px;margin: 8px 0 0 8px;background-position: -104px -1px;}
 .gnb .menu {}
 .gnb .menu dt {background:#efefef; border-bottom:1px solid #d7d7d7; padding:10px}
 .gnb .menu dd {background:#fff; border-bottom:1px solid #d7d7d7}
 .gnb .menu dd a {color:#444650; padding:10px 20px; display:block}
-.gnb .menu dd a .ico {background-image: url(http://romeoh.github.io/gaeyou/images/common/sp_imh_v5.png);background-repeat: no-repeat;background-size: 270px 250px;display: inline-block;}
+.gnb .menu dd a .ico {background-image: url(//romeoh.github.io/gaeyou/images/common/sp_imh_v5.png);background-repeat: no-repeat;background-size: 270px 250px;display: inline-block;}
 .gnb .menu dd a .ico.arrow {background-position: -41px -49px;width: 7px;height: 17px; margin-right:5px}
 .gnb .menu dd a .ico.new {background-position: -80px -65px;width: 26px;height: 13px; margin-left:7px}
 .gnb .menu dd a .ico.up {background-position: -80px -78px;width: 26px;height: 17px; margin-left:7px}
