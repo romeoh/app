@@ -3,7 +3,7 @@
 .gnbMacao, 
 .gnbNew, 
 .gnbMain,
-.gnbMenu {background:url(http://romeoh.github.io/app/img/ico_v2.png); background-size:200px 150px}
+.gnbMenu {background:url(//romeoh.github.io/app/img/ico_v2.png); background-size:200px 150px}
 
 body, p, h1, h2, h3, h4, h5, ul, li, dl, dt, dd, header {margin:0; padding:0; line-height: inherit; font-family: '나눔고딕',NanumGothic,'맑은 고딕','Malgun Gothic','돋움',Dotum,'굴림',Gulim,Helvetica,sans-serif;}
 body {margin:0}
