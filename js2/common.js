@@ -22,7 +22,7 @@ function ready() {
 
 function goSecre() {
 	if (location.host == 'gaeyou.com') {
-		var percent = process(0, 2)
+		var percent = process(0, 10)
 		
 		if (percent != 1) {
 			// Gaeim으로 이동
