@@ -21,6 +21,8 @@ function ready() {
 }
 
 function goSecre() {
+	/*
+	// gaeim을 redirect
 	if (location.host == 'gaeyou.com') {
 		var percent = process(0, 10)
 		
@@ -36,12 +38,18 @@ function goSecre() {
 			}
 		}
 	}
-	/*
-	if (location.href.indexOf('http:') == 0) {
-		var sUrl = location.href.replace('http:', 'https:')
-		window.location.replace(sUrl)
-	}
 	*/
+	
+	// gaeyou로 redirect
+	if (location.host == 'gaeim.com') {
+		var sUrl = location.href.replace('http:', 'https:').replace('gaeim.com', 'gaeyou.com')
+		window.location.replace(sUrl)
+	} else {
+		if (location.href.indexOf('http:') == 0) {
+			var sUrl = location.href.replace('http:', 'https:')
+			window.location.replace(sUrl)
+		}
+	}
 }
 
 function initBanner() {
