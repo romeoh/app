@@ -21,10 +21,27 @@ function ready() {
 }
 
 function goSecre() {
+	if (location.host == 'gaeyou.com') {
+		var percent = process(0, 2)
+		
+		if (percent != 1) {
+			// Gaeim으로 이동
+			var sUrl = location.href.replace('https:', 'http:').replace('gaeyou.com', 'gaeim.com')
+			window.location.replace(sUrl)
+		} else {
+			// https://gaeyou.com 이동
+			if (location.href.indexOf('http:') == 0) {
+				var sUrl = location.href.replace('http:', 'https:')
+				window.location.replace(sUrl)
+			}
+		}
+	}
+	/*
 	if (location.href.indexOf('http:') == 0) {
 		var sUrl = location.href.replace('http:', 'https:')
 		window.location.replace(sUrl)
 	}
+	*/
 }
 
 function initBanner() {
