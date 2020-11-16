@@ -111,6 +111,8 @@ function ready() {
 			
 			// 스코어 불러오기
 			M('#btnScore').on('click', function(){
+				$('#btnScore').hide()
+				$('#btnLoading').show()
 				getScore();	
 			})
 						
