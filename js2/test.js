@@ -81,7 +81,7 @@ function ready() {
 				,author = ''
 			
 			if (result['idx'] == undefined) {
-				window.location.href = '/t';
+				window.location.href = '/t?20701';
 				return false;
 			}
 			hash = result.idx
