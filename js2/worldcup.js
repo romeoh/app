@@ -6,7 +6,7 @@ var  code = 'worldcup'
 	,pageStart = 0
 	
 	// 신규 월드컵 가져오기
-	,hotTotal = 30
+	,hotTotal = 20
 	,hotStart = 0
 	
 	// 댓글 더보기
