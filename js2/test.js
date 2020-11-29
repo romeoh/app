@@ -81,8 +81,7 @@ function ready() {
 				,author = ''
 			
 			if (result['idx'] == undefined) {
-				window.location.href = '/t?20701';
-				return false;
+				return window.location.href = '/t?20701';
 			}
 			hash = result.idx
 			cuData.idx = result.idx;
@@ -132,7 +131,7 @@ function ready() {
 			getTestAll();
 			initReply();
 			initGaeup();
-			initView();
+			//initView();
 			
 			if (deleteAble) {
 				// 삭제하기
