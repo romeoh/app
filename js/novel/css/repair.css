@@ -1,0 +1,82 @@
+ul {margin: 0;}
+em {margin: 0 3px;}
+
+header {background-image: linear-gradient(99deg, #71849e, #454967);}
+header h1 .gaeyou {background: url(//romeoh.github.io/app/img/logo.png) 11px 9px no-repeat #556781; background-size: 26px;}
+
+
+.gnbNew {color: #fff; font-size: 20px}
+.global .navigation {display: table;width: 100%;height: 35px;border-bottom: 1px solid #dbdcdf;background: #74b1c4;background: #fff;line-height: 34px;text-align: center;table-layout: fixed; padding: 0}
+.global .navigation li {display: table-cell;}
+.global .navigation li.on a {color: #3024d4;}
+.global .navigation li a {display: block;font-weight: 600;font-size: 14px;color: #000;}
+.global > div {height: 8px; background: #eaecef}
+
+.icon-require {position: absolute; right: 25px; top: 14px; color: #ff5071}
+.icon-done {position: absolute; right: 18px; top: 14px}
+
+.image-box {position: relative; display: none}
+.image-box .del {position:absolute; background: #e4e4e4; right: 0px; top: 0px; color: #42424; font-size: xx-large; padding: 0 10px;}
+
+.card-fill .card-header,
+.mbti-list .card-header {background-color: #e2e2e2}
+.mbti-list>div>h2>button {color: #2a2a2a}
+.mbti-style-button {}
+.mbti-style-button .mbti-info {position: absolute; right: 18px; top: 16px;}
+
+
+.card-deck .card {
+    flex: inherit !important;
+}
+.fa-red {color: #b980b9;}
+.fa-green {color: #A0D5EC;}
+.dropdown-view {position: absolute; top: 9px; right: 11px;}
+
+.blockquote-footer {color: #caced2; margin-bottom: 0px}
+.lead {color: #000; line-height: 1.8em;}
+.novel_view {margin-top: 20px}
+
+.reply_area {background: #f0f0f4; border-top: 1px solid #acaba8; padding: 10px;}
+.plan {position: absolute; right: 12px;}
+.card-reply {position: relative; color: #bdbdbd; font-size: 0.9em;}
+.reply-info {position: absolute; right: 0px; top: 0px;}
+.card-title {margin-bottom: 0px; font-size: 0.9em;}
+
+.test_add {padding: 10px;}
+.charactor-add {text-align: center;}
+.reload {position: absolute; right: 0px; top: 30px;}
+.novel-example {position: relative;}
+.jumbotron {padding: 18px 0 1px 0; border-radius: 10px;}
+.act_area {padding: 15px;}
+.test_add label {color: #33a3af;}
+.act_area li {margin: 0 0 40px 0;}
+
+.alert {position: fixed; z-index: 999; top: 150px; left: 20px; right: 20px; opacity: 1 !important}
+.write_book {display: none;}
+.btn_area {margin-bottom: 30px}
+.info {list-style: none; padding: 0;}
+.info li {padding: 3px;}
+.info li i {color: #9C9C9D;}
+
+.add-title {text-align: left; padding: 10px; margin-bottom: 0; font-size: 27px;}
+.alert-float {position: inherit; top: inherit; left: inherit; right: inherit;}
+.replyContainer .card-text {border-bottom: 1px solid #d2d2d2}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
