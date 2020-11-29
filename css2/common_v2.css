@@ -116,7 +116,7 @@ header.bo {background:none; height:initial;}
 .reply_area .profile .photo img {width: 36px;height: 36px;border-radius: 5px;}
 .reply_area .profile .user {float: left;margin-left: 10px;}
 .reply_area .profile .user .date {color:#CACACA}
-.reply_area .desc {padding: 20px 0 0 46px;}
+.reply_area .desc {padding: 20px 0 0 46px; line-height: 20px;}
 .reply_area li {padding: 10px 20px 10px 16px;border-top: 1px solid #dddddf;}
 .reply_area .no_reply {text-align:center; padding:20px; font-weight:bold; font-size:17px; color:#6D6D6D}
 .reply_area .reply_add {position:relative; background:#f0f0f4; padding:4px 10px 5px 10px; border-top: 1px solid #acaba8;}
