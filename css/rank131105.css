@@ -232,7 +232,7 @@ select {float: none;width: 70%;height: 31px;margin-left: 6px;margin-bottom: 15px
 .list_box .list_area .sprit_li a {display: block;overflow: hidden;padding: 16px 10px 15px 10px;background: url(http://romeoh.github.io/gaeyou/images/common/bu_arr7.gif) no-repeat 100% 28px;background-size: 23px 12px;-webkit-background-size: 23px 12px;}
 .list_box .list_area .sprit_li .txt_bx {display: block;margin-right: 23px;}
 .list_box .list_area .sprit_li .tit {display: block;overflow: hidden;font-size: 17px;color: #000;white-space: nowrap;text-overflow: ellipsis;}
-.list_box .list_area .sprit_li .dsc {display: block;overflow: hidden;margin-top: 8px;font-size: 13px;color: #999;white-space: nowrap;text-overflow: ellipsis;}
+.list_box .list_area .sprit_li .dsc {display: block;overflow: hidden;margin-top: 5px;font-size: 13px;color: #999;white-space: nowrap;text-overflow: ellipsis;}
 .list_box .list_area .sprit_li .dsc .s4 {color:#CF0DFF}
 .list_box .list_area .sprit_li .dsc .s8 {color:#01C228}
 .list_box .list_area .sprit_li .dsc .s16 {color:#E7990D}
