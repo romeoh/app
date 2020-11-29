@@ -81,10 +81,10 @@ function ready() {
 			cuData['total'] = result.total;
 			
 			// 조회수 업데이트
-			setView(code, cuData['idx'], cbSetView);
-			function cbSetView(result){
-				//console.log(result)
-			}
+			//setView(code, cuData['idx'], cbSetView);
+			//function cbSetView(result){
+			//	console.log(result)
+			//}
 			deleteAble = checkUniq('worldcup', cuData['idx'])
 			
 			M('#qtitle').html( cuData['title'] );
