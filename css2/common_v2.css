@@ -132,7 +132,7 @@ header.bo {background:none; height:initial;}
 .list_area h2 {overflow: hidden;height: 38px;border-bottom: 1px solid #acaba8;color: #000;line-height: 39px;font-size: 16px;font-weight: bold; padding-left:15px; background:#DFDFDF}
 .list_area ul {border-bottom: 1px solid #acaba8; }
 .list_area li {border-bottom: 1px solid #eaeaea; padding:10px}
-.list_area li strong {display:block; font-size:16px}
+.list_area li strong {display:block; font-size:16px; line-height: 26px;}
 .list_area li em {color:#aaa; margin-left:-8px}
 .list_area li em.dsc {margin-left:0px}
 .list_area li em i {margin-left:10px}
