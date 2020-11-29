@@ -30,7 +30,7 @@ function initNovel() {
 	
 	hash = getHash();
 	novelComp = JSON.parse(novelComp);
-	
+
 	checkLogin();
 	
 	$('#btnDetail').on('click', function(evt, mp){
@@ -53,6 +53,7 @@ function initNovel() {
 }
 
 function getNovelInfo() {
+	if (!hash) return window.location.href = './list.html';
 	// 소설 전문통신
 	databody = {
 		'idx': hash
