@@ -81,7 +81,7 @@ function ready() {
 				,author = ''
 			
 			if (result['idx'] == undefined) {
-				return window.location.href = '/t?20701';
+				return window.location.href = '/';
 			}
 			hash = result.idx
 			cuData.idx = result.idx;
