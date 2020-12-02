@@ -112,6 +112,8 @@ function ready() {
 			//author += ' | <span>깨업: <span id="viewGaeup">' + M.toCurrency(result['gaeup']) + '</span>회</span>';
 			if (deleteAble) {
 				author += ' | <span data-delrank="' + cuData['idx'] + '">삭제</span>';
+			} else {
+				author += ' | <span data-declaration="' + cuData['idx'] + '">신고</span>';
 			}
 			/*if (admin) {
 				author += ' | <span data-good="' + cuData['idx'] + '">추천</span>';
@@ -165,6 +167,15 @@ function ready() {
 					})
 				})
 			}
+			M('[data-declaration]').on('click', function() {
+				var  str = ''
+					,twit = []
+				
+				twit.push('@gaeyoukr ' + location.href + ' 사유: ')
+				str += 'https://twitter.com/intent/tweet?text=';
+				str += encodeURIComponent(twit.join(''))
+				top.location.href = str;
+			})
 		}
 	})
 	
