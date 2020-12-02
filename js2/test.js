@@ -167,11 +167,11 @@ function ready() {
 					})
 				})
 			}
-			M('[data-declaration]').on('click', function() {
+			M('[data-declaration]').on('click', function(evt, mp) {
 				var  str = ''
 					,twit = []
 				
-				twit.push('@gaeyoukr ' + location.href + ' 사유: ')
+				twit.push('@gaeyoukr ' + location.origin + location.pathname + '?' + mp.data('declaration') + ' 사유: ')
 				str += 'https://twitter.com/intent/tweet?text=';
 				str += encodeURIComponent(twit.join(''))
 				top.location.href = str;
