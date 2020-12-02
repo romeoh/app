@@ -113,7 +113,7 @@ function ready() {
 			if (deleteAble) {
 				author += ' | <span data-delrank="' + cuData['idx'] + '">삭제</span>';
 			} else {
-				author += ' | <span data-declaration="' + cuData['idx'] + '">신고</span>';
+				//author += ' | <span data-declaration="' + cuData['idx'] + '">신고</span>';
 			}
 			/*if (admin) {
 				author += ' | <span data-good="' + cuData['idx'] + '">추천</span>';
