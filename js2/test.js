@@ -171,7 +171,7 @@ function ready() {
 				var  str = ''
 					,twit = []
 				
-				twit.push('@gaeyoukr ' + location.origin + location.pathname + '?' + mp.data('declaration') + ' 사유: ')
+				twit.push('@gaeyoukr ' + location.origin + location.pathname + '?' + mp.data('declaration') + ' 신고사유: ')
 				str += 'https://twitter.com/intent/tweet?text=';
 				str += encodeURIComponent(twit.join(''))
 				top.location.href = str;
