@@ -1,4 +1,10 @@
 var  code = 'novel'
+	// 인기리스트 가져오기
+    ,hotTotal = 5
+    ,hotStart = 0
+    ,listFlag = localStorage.getItem('listFlag') || 'hot'
+    ,adult = localStorage.getItem('novel_adult_block') || 'true'
+
 	,hash
 	,cuData = {}
 	,novelComp = localStorage.getItem('novel_comp') || '{}'
@@ -22,6 +28,8 @@ function ready() {
 	
 	// 소설쓰기
 	initWriteFiction();
+
+	getHotList();
 }
 
 // 초기화
@@ -496,7 +504,7 @@ function initReply() {
 			replys['regDate'] = result[i]['regDate'];
 			//cuData['replyList'].push(replys);
             rstr += '       <div class="card-reply">';
-			rstr += '		  <h5 class="card-title">' + replys['uname'] + '</h5>';
+			rstr += '		  <h5 class="card-title reply-author">' + replys['uname'] + '</h5>';
             rstr += '           <div class="reply-info">';
             //rstr += '		     <span>' + moment(replys['regDate'], 'YYYY-MM-DD HH:mm:SS').locale('ko').fromNow() + '</span>';
 			if (deleteAble || admin) {

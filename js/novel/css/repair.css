@@ -41,6 +41,7 @@ header h1 .gaeyou {background: url(//romeoh.github.io/app/img/logo.png) 11px 9px
 .card-reply {position: relative; color: #bdbdbd; font-size: 0.9em;}
 .reply-info {position: absolute; right: 0px; top: 0px;}
 .card-title {margin-bottom: 0px; font-size: 0.9em;}
+.reply-author {color:#A9A9AB;}
 
 .test_add {padding: 10px;}
 .charactor-add {text-align: center;}
