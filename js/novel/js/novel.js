@@ -182,7 +182,7 @@ function getNovelInfo() {
 					bodyData = {
 						'idx': id,
 						'ua': navigator.userAgent,
-                        'author': member.uid,
+                        'author': member.nickname,
                         'admin': admin
 					}
 					$.ajax({
