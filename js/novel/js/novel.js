@@ -300,7 +300,7 @@ function getFiction() {
 				'idx': idx,
 				'novelIdx': cuData['idx'],
 				'ua': navigator.userAgent,
-                'author': member.uid,
+                'author': member.nickname,
 				'url': window.location.href
 			}
 			$.ajax({
