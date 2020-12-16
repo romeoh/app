@@ -76,9 +76,17 @@ function getList() {
             ,str = ''
 
         for (var i=0; i<result.length; i++) {
-            str += '<a href="people.html?idx=' + result[i].idx + '" class="list-group-item d-flex justify-content-between align-items-center">'
+            str += '<a href="people.html?idx=' + result[i].idx + '" class="list-group-item list-group-item-action">'
+            str += '    <div class="d-flex w-100 justify-content-between"><h5 class="mb-1">'
             str += '    ' + result[i].name
-            str += '    <span class="badge badge-primary badge-pill">' + result[i].gaeup + '</span>'
+            str += '    </h5></div>'
+            //str += '    <span class="badge badge-primary badge-pill">' + result[i].gaeup + '</span>'
+            str += '    <small class="mb-1">'
+            str += '        <i class="far fa-eye"></i> ' + result[i].view
+            str += '        <span class="divide">|</span><i class="far fa-thumbs-up"></i> ' + result[i].gaeup
+            str += '        <span class="divide">|</span><i class="far fa-thumbs-down"></i> ' + result[i].gaedown
+            str += '        <span class="divide">|</span><i class="far fa-comments"></i> ' + result[i].reply
+            str += '    </small>'
             str += '</a>'
         }
         $('.people-lists').html(str)
@@ -356,6 +364,8 @@ function getReplyList() {
  * 글쓴이 확인
  */
 function isOwner(flag, gagId) {
+    if (!localStorage.getItem(flag)) return false
+        
     var myGag = JSON.parse(localStorage.getItem(flag).replace(/\\r/gi, ''))
 
     if (myGag) {
