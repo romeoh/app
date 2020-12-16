@@ -45,7 +45,7 @@ function ready() {
 		window.location.replace('/t/?' + hash)
 		return;
 	}
-	hash = window.location.search.replace('?', '')
+	hash = getParam();
 	
 	M('#btnNew').css('display', 'block')
 	

@@ -118,11 +118,14 @@ function getHash() {
 
 // hash 가져오기
 function getParam() {
-	var hash = window.location.search.replace('?', '')
-	if (hash == '') {
+	var  hash = window.location.search.replace('?', '')
+		,hash1 = hash.split('=')[0]
+		,hash2 = hash1.split('&')[0]
+		
+	if (hash2 == '') {
 		return '';
 	}
-	return hash;
+	return hash2;
 }
 
 // 로그인창 호출
