@@ -53,7 +53,7 @@ function getHotList() {
             str.push('    <p class="mb-1">' + sulfirst + '</p>')
             str.push('    <small>')
             str.push('                   <i class="fas fa-book"></i> ' + result[i].fic_count)
-            //str.push('        <em>|</em> <i class="far fa-eye"></i> ' + result[i].view)
+            str.push('        <em>|</em> <i class="far fa-eye"></i> ' + result[i].view)
             str.push('        <em>|</em> <i class="far fa-comments"></i> ' + result[i].reply)
             str.push('        <em>|</em> <i class="far fa-thumbs-up"></i> ' + result[i].gaeup)
             str.push('        <em>|</em> <i class="far fa-thumbs-down"></i> ' + result[i].gaedown)
