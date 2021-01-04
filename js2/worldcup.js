@@ -66,8 +66,7 @@ function ready() {
 				,result = M.json(result)
 			
 			if (result['idx'] == undefined) {
-				//window.location.href = '/w/';
-				//return false;
+				return window.location.href = '/w/'
 			}
 			
 			//console.log(result)
