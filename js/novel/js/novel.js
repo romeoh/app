@@ -165,6 +165,9 @@ function getNovelInfo() {
 		$('#btnGoReply').attr('href', './reply.html#'+cuData['idx']);
 		$('#btnGaeup').html('<i class="fa fa-thumbs-up"></i> 깨업 (' + cuData['gaeup'] + '회)')
 		$('#btnGaedown').html('<i class="fa fa-thumbs-down"></i> 깨따 (' + cuData['gaedown'] + ')')
+		$('#goReport').html('신고하기').on('click', function() {
+			location.href = '/report/?title=' + encodeURIComponent(cuData['title']) + '&url=' + encodeURIComponent('https://gaeyou.com/novel?' + cuData['idx'])
+		})
 		//console.log(cuData)
 		if (deleteAble || admin) {
 			$('#trash').html('<a id="delfic"><i class="fas fa-trash-alt"></i> 소설 삭제</a>')
