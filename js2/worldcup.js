@@ -93,6 +93,7 @@ function ready() {
 			if (deleteAble || admin) {
 				author += ' | <span data-delrank="' + cuData['idx'] + '">삭제</span>';
 			}
+			author += ' | <a href="/report/?title=' + result.title + '&url=' + encodeURIComponent('https://gaeyou.com/w/?' + result.idx) + '">신고하기</a>';
 			M('#qauthor').html(author);
 			if (cuData['total'] == '4') {
 				M('#readytxt').html( cuData['title'] + '<p>준결승전(4강)을 시작합니다.<p>' )
