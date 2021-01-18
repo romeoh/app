@@ -571,7 +571,7 @@ function initReply(){
 				
 				readyReply = true
 				setUniq(key, result['id']);
-				window.location.href = 'https://gaeyou.com/t/?' + cuData['idx'] + '#reply'
+				window.location.href = 'https://gaeyou.com/t/?' + cuData['idx']
 				//window.location.reload();
 			}
 		})
