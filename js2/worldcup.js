@@ -90,6 +90,7 @@ function ready() {
 			
 			author = '작성자: ' + cuData['uname'];
 			author += ' | 조회: ' + M.toCurrency(cuData['view']);
+			author += ' | 경기수: ' + M.toCurrency(cuData['excute']);
 			if (deleteAble || admin) {
 				author += ' | <span data-delrank="' + cuData['idx'] + '">삭제</span>';
 			}
