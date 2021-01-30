@@ -65,7 +65,7 @@ function initNavi() {
 			,page = M('[data-global]').data('global')
 		
 		str += '<ul class="navigation">';
-		str += '	<li data-page="/xe/index.php?act=dispMenuMenu"><a href="/xe/?m"><i class="fa fa-comments-o" style="color: #fd4aff"></i> 익명게시판</a></li>';
+		str += '	<li data-page="xe"><a href="/xe/index.php?act=dispMenuMenu"><i class="fa fa-comments-o" style="color: #fd4aff"></i> 익명게시판</a></li>';
 		str += '	<li data-page="test"><a href="../t/">깨알테스트</a></li>';
 		//str += '	<li data-page="sa"><a href="../su/">베스트유머</a></li>';
 		//str += '	<li data-page="poll"><a href="../poll/">카스투표</a></li>';
