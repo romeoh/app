@@ -6,6 +6,7 @@ var  pollList = M.storage('pollList') || []
 	,testTitle
 	,cuTest
 	,cuData = {}
+	,searchKeyword = ''
 	
 	// 신규테스트 불러오기
 	,newStart = 0
@@ -135,6 +136,7 @@ function ready() {
 			getTestAll();
 			initReply();
 			initGaeup();
+			initSearch();
 			//initView();
 			
 			// 검색키워드 처리
@@ -260,7 +262,8 @@ function getTestAll() {
 function getHotTest() {
 	bodyData = {
 		'total': newTotal,
-		'start': newStart
+		'start': newStart,
+		'searchKeyword': searchKeyword
 	}
 	$.ajax({
 		 'url': apiurl + code + '_get_all_hot.php'
@@ -758,6 +761,30 @@ dataThum = [
 ]
 
 
+/**
+ * 검색
+ */
+function initSearch() {
+	$('#searchKeyword').on('keyup', function(e) {
+		if (e.keyCode == 13) {
+			onSearch()
+		}
+	})
+	$('#btnSearch').on('click', onSearch)
+}
+
+function onSearch() {
+	searchKeyword = $('#searchKeyword').val()
+	if (!searchKeyword) return;
+
+	newStart = 0
+	newTotal = 20
+	M('#hotContainer').html('');
+	$('#searchKeyword').val('')
+	$('#myModal').modal('hide')
+	
+	getHotTest()
+}
 
 // 유니크 저장소 체크하기
 function checkUniq(key, value) {
