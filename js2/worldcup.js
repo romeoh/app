@@ -1,6 +1,7 @@
 var  code = 'worldcup'
 	,cuData = {}
-
+	,searchKeyword = ''
+	
 	// 월드컵 리스트 가져오기
 	,pageTotal = 20
 	,pageStart = 0
@@ -111,6 +112,9 @@ function ready() {
 			// 댓글 불러오기
 			//getReply();
 			
+			// 검색
+			initSearch()
+			
 			// 스코어 불러오기
 			M('#btnScore').on('click', function(){
 				$('#btnScore').hide()
@@ -218,7 +222,8 @@ function getHotList() {
 	// 다른 랭킹 리스트 전문통신
 	bodyData = {
 		'total': hotTotal,
-		'start': hotStart
+		'start': hotStart,
+		'searchKeyword': searchKeyword
 	}
 	$.ajax({
 		 'url': apiurl + code + '_get_list_hot.php'
@@ -837,7 +842,30 @@ function initEvent() {
 	})
 }
 
+/**
+ * 검색
+ */
+function initSearch() {
+	$('#searchKeyword').on('keyup', function(e) {
+		if (e.keyCode == 13) {
+			onSearch()
+		}
+	})
+	$('#btnSearch').on('click', onSearch)
+}
 
+function onSearch() {
+	searchKeyword = $('#searchKeyword').val()
+	if (!searchKeyword) return;
+
+	hotTotal = 20
+	hotStart = 0
+	M('#hotContainer').html('');
+	$('#searchKeyword').val('')
+	$('#myModal').modal('hide')
+	
+	getHotList()
+}
 
 
 
