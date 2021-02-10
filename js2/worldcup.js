@@ -156,7 +156,8 @@ function ready() {
 }
 
 function getKeyword(keyword) {
-	return keyword.replace(/ /gi, '')
+	return keyword.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, '')
+	
 }
 
 function getList(idx){

@@ -219,7 +219,7 @@ function ready() {
 }
 
 function getKeyword(keyword) {
-	return keyword.replace(/#이름#|#항목1#|#항목2#|#항목3#|#항목4#|#항목5#| /gi, '')
+	return keyword.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, '')
 }
 
 // 현재 테스트 항목 가져오기
