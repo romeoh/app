@@ -78,6 +78,7 @@ function ready() {
 			cuData['gaeup'] = result.gaeup;
 			cuData['excute'] = result.excute;
 			cuData['total'] = result.total;
+			cuData['keyword'] = result.keyword;
 			
 			// 조회수 업데이트
 			//setView(code, cuData['idx'], cbSetView);
@@ -154,6 +155,9 @@ function ready() {
 	initEvent();
 }
 
+function getKeyword(keyword) {
+	return keyword.replace(/ /gi, '')
+}
 
 function getList(idx){
 	// 현재 월드컵 리스트 전문통신
@@ -173,6 +177,29 @@ function getList(idx){
 			M('#start').on('click', function(evt, mp){
 				initStart()
 			})
+			
+			// 검색키워드 처리
+			if (!cuData['keyword']) {
+				var  keytitle = getKeyword(cuData.title)
+				
+				cuData.keyword = keytitle
+				
+				stone.forEach(function(event, index) {
+					cuData.keyword += getKeyword(decodeURIComponent(event.text))
+				})
+				
+				bodyData = {
+					'idx': cuData.idx,
+					'keyword': cuData.keyword
+				}
+				$.ajax({
+					 'url': apiurl + code + '_update_keyword.php'
+					,'contentType': 'application/x-www-form-urlencoded'
+					,'data': bodyData
+					,'type': 'POST'
+					,'success': function(result) {}
+				})
+			}
 		}
 	})
 }
