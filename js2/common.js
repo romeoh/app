@@ -65,13 +65,13 @@ function initNavi() {
 			,page = M('[data-global]').data('global')
 		
 		str += '<ul class="navigation">';
-		str += '	<li data-page="xe"><a href="/xe/index.php?act=dispMenuMenu"><i class="fa fa-comments-o" style="color: #fd4aff"></i> 익명게시판</a></li>';
-		str += '	<li data-page="test"><a href="../t/">깨알테스트</a></li>';
+		str += '	<li data-page="xe"><a href="https://gaeyou.com/xe/index.php?act=dispMenuMenu"><i class="fa fa-comments-o" style="color: #fd4aff"></i> 익명게시판</a></li>';
+		str += '	<li data-page="test"><a href="https://gaeyou.com/t/">깨알테스트</a></li>';
 		//str += '	<li data-page="sa"><a href="../su/">베스트유머</a></li>';
 		//str += '	<li data-page="poll"><a href="../poll/">카스투표</a></li>';
 		//str += '	<li data-page="novel"><a href="../novel/list.html">썰픽</a></li>';
 		//str += '	<li data-page="rank"><a href="../r/">랭킹</a></li>';
-		str += '	<li data-page="worldcup"><a href="../w/">월드컵</a></li>';
+		str += '	<li data-page="worldcup"><a href="https://gaeyou.com/w/">월드컵</a></li>';
 		//str += '	<li data-page="novel"><a href="../novel/list.html"><i class="fa fa-book" style="color: #fd4aff"></i> 깨알소설</a></li>';
 		//str += '	<li data-page="srp"><a href="../s/add.html"><i class="fa fa-microphone" style="color: #fd4aff"></i> 깨위바위보</a></li>';
 		//str += '	<li data-page="mbti"><a href="/mbti/ko/"><i class="fa fa-microphone" style="color: #fd4aff"></i> MBTI 테스트</a></li>';
