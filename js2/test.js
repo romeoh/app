@@ -99,6 +99,7 @@ function ready() {
 			cuData.regDate = result.regDate;
 			cuData.resultLeng = result.resultLeng;
 			cuData.good = result.good;
+			cuData.keyword = result.keyword;
 			
 			deleteAble = checkUniq('test', cuData['idx']);
 			if (admin) {
@@ -135,6 +136,27 @@ function ready() {
 			initReply();
 			initGaeup();
 			//initView();
+			
+			// 검색키워드 처리
+			if (!cuData.keyword) {
+				var  keytitle = getKeyword(cuData.title)
+					,keyexp = getKeyword(cuData.exp)
+					
+				cuData.keyword = keytitle + keyexp
+				
+				bodyData = {
+					'idx': cuData.idx,
+					'keyword': cuData.keyword
+				}
+				$.ajax({
+					 'url': apiurl + code + '_update_keyword.php'
+					,'contentType': 'application/x-www-form-urlencoded'
+					,'data': bodyData
+					,'type': 'POST'
+					,'success': function(result) {}
+				})
+			}
+			
 			
 			if (deleteAble) {
 				// 삭제하기
@@ -194,6 +216,9 @@ function ready() {
 	$('#kakaoMini').html(games[gameIdx])
 }
 
+function getKeyword(keyword) {
+	return keyword.replace(/#이름#|#항목1#|#항목2#|#항목3#|#항목4#|#항목5#| /gi, '')
+}
 
 // 현재 테스트 항목 가져오기
 function getTestList(){
@@ -622,7 +647,7 @@ function initReply(){
 					str += '	<div class="profile">';
 					str += '		<div class="photo"><img src="https://romeoh.github.io/app/img/imoticon/' + result[i]['photo'] + '.png" alt=""></div>';
 					str += '		<div class="user">';
-					str += '			<span class="uname">' + decodeURIComponent(result[i]['uname']).substr(0, 10) + '</span>';
+					str += '			<span class="uname">' + result[i]['uname'].substr(0, 10) + '</span>';
 					str += '			<span class="date">' + M.dynamicDate(result[i]['regDate']) + '</span>';
 					str += '			<span class="date">';
 					//str += '				<span>신고</span>';
