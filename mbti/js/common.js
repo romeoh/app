@@ -166,7 +166,11 @@ $.storage = function(key, value) {
             return localStorage.getItem(key)
         }
     }
-    localStorage.setItem(key, JSON.stringify(value))
+    if (typeof value == 'string') {
+        localStorage.setItem(key, value)
+    } else {
+        localStorage.setItem(key, JSON.stringify(value))
+    }
 }
 
 $.getType = function (answers) {
