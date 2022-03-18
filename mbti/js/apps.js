@@ -185,7 +185,7 @@ $(function(){
             
             //console.log(res)
             $('[data-description-type]').html(uname + '님은 ' + typeString + '(' + type + ')타입 입니다.')
-            $('[data-description]').html(resultMbti.description)
+            $('[data-description]').html(resultMbti.description.replace(/\n/g, '<br>'))
             if (resultMbti.picture) {
                 $('[data-result-picture]').show().attr('src', photoUrl + resultMbti.picture)
             }
