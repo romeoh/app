@@ -341,10 +341,15 @@ $(function(){
                 redata.gaedownCurrency = $.currency(redata.gaedown)
                 redata.viewCurrency = $.currency(redata.view)
                 redata.questionCountCurrency = $.currency(redata.questionCount)
+                if (mbtiIndex == redata.idx) {
+                    redata.active = 'active'
+                } else {
+                    redata.active = ''    
+                }
                 //console.log(redata)
             })
             start = total + start;
-
+            
             $.each(res, function(index, obj) {
                 var  container = $('#container-list')
                     ,template = $('#template-list')
