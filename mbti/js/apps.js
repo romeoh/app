@@ -4,7 +4,7 @@ $(function(){
     $.goSecre()
     getMbti()
 
-    var  total = 10
+    var  total = 20
         ,start = 0
         ,commentTotal = 10
         ,commentStart = 0
