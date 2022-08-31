@@ -521,7 +521,7 @@ function testExcute(evt, mp) {
 	data.desc = cuData['exp'];
 	data.img = 'https://www.gaeyou.com/upload/fonts/'+cuData['idx']+'.png';
 	data.title = getSpecial() + ' ' +cuData['title'];
-	data.url = 'https://gaeyou.com/t/?'+hash;
+	data.url = 'https://www.gaeyou.com/t/?'+hash;
 	data.app = '깨알테스트'
 	
 	// 테스트 전문 통신
