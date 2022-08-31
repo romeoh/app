@@ -65,7 +65,7 @@ function initNavi() {
 			,page = M('[data-global]').data('global')
 		
 		str += '<ul class="navigation">';
-		str += '	<li data-page="mbti"><a href="https://gaeyou.com/apps/mbti">MBTI</a></li>';
+		str += '	<li data-page="mbti"><a href="https://www.gaeyou.com/apps/mbti">MBTI</a></li>';
 		str += '	<li data-page="test"><a href="https://www.gaeyou.com/t/">깨알테스트</a></li>';
 		//str += '	<li data-page="sa"><a href="../su/">베스트유머</a></li>';
 		//str += '	<li data-page="poll"><a href="../poll/">카스투표</a></li>';
