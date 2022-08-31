@@ -111,7 +111,7 @@ function ready() {
 				author = '작성자: ' + cuData['uname'] + ' | ';
 			}
 			author += '<span>조회: <span id="viewCount">' + M.toCurrency(result['view']) + '</span>회</span>';
-			author += ' | <a href="/report/?title=' + result.title + '&url=' + encodeURIComponent('https://gaeyou.com/t/?' + result.idx) + '">신고하기</a>';
+			author += ' | <a href="/report/?title=' + result.title + '&url=' + encodeURIComponent('https://www.gaeyou.com/t/?' + result.idx) + '">신고하기</a>';
 			//author += ' | <span>깨업: <span id="viewGaeup">' + M.toCurrency(result['gaeup']) + '</span>회</span>';
 			if (deleteAble) {
 				author += ' | <span data-delrank="' + cuData['idx'] + '">삭제</span>';
@@ -599,7 +599,7 @@ function initReply(){
 				
 				readyReply = true
 				setUniq(key, result['id']);
-				window.location.href = 'https://gaeyou.com/t/?' + cuData['idx']
+				window.location.href = 'https://www.gaeyou.com/t/?' + cuData['idx']
 				//window.location.reload();
 			}
 		})

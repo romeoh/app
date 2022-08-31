@@ -42,7 +42,7 @@ function goSecre() {
 	
 	// gaeyou로 redirect
 	if (location.host == 'gaeim.com') {
-		var sUrl = location.href.replace('http:', 'https:').replace('gaeim.com', 'gaeyou.com')
+		var sUrl = location.href.replace('http:', 'https:').replace('gaeim.com', 'www.gaeyou.com')
 		window.location.replace(sUrl)
 	} else {
 		if (location.href.indexOf('http:') == 0) {
@@ -66,12 +66,12 @@ function initNavi() {
 		
 		str += '<ul class="navigation">';
 		str += '	<li data-page="mbti"><a href="https://gaeyou.com/apps/mbti">MBTI</a></li>';
-		str += '	<li data-page="test"><a href="https://gaeyou.com/t/">깨알테스트</a></li>';
+		str += '	<li data-page="test"><a href="https://www.gaeyou.com/t/">깨알테스트</a></li>';
 		//str += '	<li data-page="sa"><a href="../su/">베스트유머</a></li>';
 		//str += '	<li data-page="poll"><a href="../poll/">카스투표</a></li>';
 		//str += '	<li data-page="novel"><a href="../novel/list.html">썰픽</a></li>';
 		//str += '	<li data-page="rank"><a href="../r/">랭킹</a></li>';
-		str += '	<li data-page="worldcup"><a href="https://gaeyou.com/w/">월드컵</a></li>';
+		str += '	<li data-page="worldcup"><a href="https://www.gaeyou.com/w/">월드컵</a></li>';
 		//str += '	<li data-page="novel"><a href="../novel/list.html"><i class="fa fa-book" style="color: #fd4aff"></i> 깨알소설</a></li>';
 		//str += '	<li data-page="srp"><a href="../s/add.html"><i class="fa fa-microphone" style="color: #fd4aff"></i> 깨위바위보</a></li>';
 		//str += '	<li data-page="mbti"><a href="/mbti/ko/"><i class="fa fa-microphone" style="color: #fd4aff"></i> MBTI 테스트</a></li>';
