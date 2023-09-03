@@ -1,4 +1,5 @@
 var  apiUrl = './api/v1/share.php'
+	,listApiUrl = './api/v1/list.php'
 	,myName
 	,yourName
 	,percents
@@ -129,6 +130,13 @@ function init() {
 		$('#myName').val(onlyKorean(myName))
 		myName = onlyKorean(myName)
 	}
+	
+	var url = new URL(window.location.href);
+	var your = url.searchParams.get('your')
+	if (your) {
+		$('#yourName').val(onlyKorean(your))
+		yourName = onlyKorean(your)
+	}
 
 	$('#myName').on('change', function() {
 		var value = $(this).val()
@@ -222,9 +230,52 @@ function init() {
 	})
 }
 
+// 이름 목록 가져오기
+function getNameList() {
+	var  url = listApiUrl
+        ,data = {
+             flag: 'list'
+            ,total: 50
+            ,start: 0
+        }
+
+    $.get(url, data, function(res) {
+		var str = ''
+        res = JSON.parse(res)
+        res.forEach((redata, index) => {
+	        var order = index + 1
+	        var count = parseInt(redata.CNT).toLocaleString()
+            str += `
+            <div class="card-body p-0">
+	            <div class="border-top p-3 px-md-4 mx-0">
+	                <a class="row justify-content-between small mb-2" href="index.html?your=${redata.YOUR_NAME}">
+	                    <h5 class="col">
+	                        <em style="color: #aaa">${order}위 </em>
+	                        <span class="mr-3">${redata.YOUR_NAME}</span> 
+	                        <i class="fa-regular fa-share-from-square"></i>
+	                    </h5>
+	                    <div class="col-auto">
+	                        ${count} 회
+	                    </div>
+	                </a>
+	            </div>
+	        </div>
+	        `
+        })
+        $('#container-list').html(str)
+    })
+}
+
 
 window.addEventListener('DOMContentLoaded', function() {
-    init()
+	if ($('#container-list').length === 0) {
+		// index
+		init()	
+	} else {
+		// 목록
+		getNameList()
+	}
+    
 }, false);
 
 
