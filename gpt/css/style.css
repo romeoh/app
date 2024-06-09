@@ -24,29 +24,34 @@ body.main .card-body p .icon {width: 16px; margin: 0 5px 0 7px}
 
 .header {padding: 20px 0; position: relative;background-size: 50px;}
 .header h1 {font-size: 1.5rem; font-weight: bold; text-align: left; display: inline-block;}
+.header .new-concern {position: absolute; right: 0px; top: 16px}
 .card {background: none; border: none;}
-.card-body {padding: 15px 0}
+.card-body {padding: 5px 0 15px 0}
 .card-body h5 {font-size: 1.75rem; margin-top: 10px;}
+.card-body h5 a {font-size: 1rem; padding-left: 20px; color: #8a8a8a}
+.card-body .concern-info {text-align: right; color: #7c7c7c; font-size: 14px}
+.card-body .concern-info span {cursor: pointer}
 .card-body .post-title {color: #666; border-bottom: 1px solid #C7C7C7; padding-bottom: 10px}
 .form-group {margin-bottom: 10px}
 .form-group textarea ,
 .form-group input {border-radius: 23px; padding: 13px; resize: none;}
-.submit-button {margin-top: 10px; text-align: right; position: relative}
+.submit-button {margin: 10px 0 20px 0; text-align: right; position: relative}
 .submit-button small {position: absolute; top: 0px; left: 4px}
 .btn-submit {background-color: #FFBE30; border: none; font-size: 1rem; padding: 10px 20px; border-radius: 20px;}
 
-.comments {margin-top: 100px}
-.result-comments {margin: 30px 0}
+.comments {margin: 20px 0}
+.comments .title {display: flex; justify-content: space-between}
+.comments .title a {color: #868686; text-decoration: underline}
+.result-comments {margin: 10px 0 30px 0}
 .comments h2 {font-weight: normal;}
-.post {background: none;border-bottom: 1px solid #C7C7C7;margin-bottom: 10px;padding: 20px 0px;display: inline-block;}
+.post {background: none;border-bottom: 1px solid #C7C7C7;margin-bottom: 10px;padding: 20px 0px;display: inline-block; width: 100%}
 .post h5 {font-size: 1rem;font-weight: normal;line-height: 1; overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;}
 .post p {font-size: 1rem;color: #999;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;}
+.post p.comment {overflow: initial;text-overflow: initial;display: initial;-webkit-box-orient: initial;}
 .post .details {font-size: 0.875rem;color: #888;display: flex;justify-content: space-between;margin-top: 10px;}
-.post .details span {margin-right: 10px;}
+.post .details span {margin-right: 10px; cursor: pointer}
 .post .details span i {margin: 0 3px;}
-.btn-more {background-color: #FFBE30;border: none;font-size: 1rem;padding: 5px 20px;border-radius: 20px;
-	display: block;margin: 20px auto;text-align: center;
-}
+.btn-more {background-color: #FFBE30;border: none;font-size: 1rem;padding: 5px 20px;border-radius: 20px; display: block;margin: 20px auto;text-align: center; color: #000;}
 .no-concern {text-align:center; padding: 40px}
 
 ul.navi {padding: 0 0 20px 0}
@@ -54,14 +59,14 @@ ul.navi li {list-style: none; float: left; border: 1px solid #B3B3B3; padding: 3
 ul.navi li.active {background: #FFBE30}
 
 .share-buttons {text-align: center}
-.btn-share { background-color: #FFBE30;border: none;font-size: 1rem;padding: 4px 20px;border-radius: 20px;margin-top: 20px;display: inline-block;}
+.btn-share { background-color: #FFBE30;border: none;font-size: 1rem;padding: 4px 20px;border-radius: 20px;margin-top: 20px;display: inline-block; color: #000;}
 .interaction-icons {display: flex;justify-content: center;align-items: center;margin-top: 20px;}
-.interaction-icons span {font-size: 1rem;display: flex;align-items: center;margin-left: 10px; cursor: pointer}
+.interaction-icons span {font-size: 1rem;display: flex;align-items: center;margin-left: 10px; cursor: pointer;}
 .interaction-icons span img {margin-right: 5px;}
 
 .nickname {position: relative; padding-right: 73px; padding-bottom: 45px}
 .nickname input {float: left; padding: 11px; margin-right: 50px;}
-.nickname button {position: absolute; right: 0; top: 0}
+.nickname button {position: absolute; right: 0; top: 0; color: #000;}
 .no-comment {padding: 30px; text-align: center}
 
 .progress {display: none; position: fixed; background: none; width: 100%; height: 100%; z-index: 999; display: flex; justify-content: center; align-items: center}
