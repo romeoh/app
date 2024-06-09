@@ -54,7 +54,7 @@ body.main .card-body p .icon {width: 16px; margin: 0 5px 0 7px}
 .btn-more {background-color: #FFBE30;border: none;font-size: 1rem;padding: 5px 20px;border-radius: 20px; display: block;margin: 20px auto;text-align: center; color: #000;}
 .no-concern {text-align:center; padding: 40px}
 
-ul.navi {padding: 0 0 20px 0}
+ul.navi {padding:0; display: inline-block;}
 ul.navi li {list-style: none; float: left; border: 1px solid #B3B3B3; padding: 3px 15px; border-radius: 30px; margin: 0 10px 10px 0; min-width: 120px; text-align: center}
 ul.navi li.active {background: #FFBE30}
 
