@@ -86,6 +86,13 @@ function ready() {
 			}
 			hash = result.idx
 			cuData.idx = result.idx;
+
+			// 주소에 idx 없이 들어온 경우(/t/) 현재 테스트 idx를 주소에 반영.
+			// 새로고침해도 같은 테스트가 유지되도록. 히스토리는 늘리지 않는다.
+			if (!getParam() && window.history && history.replaceState) {
+				history.replaceState(null, '', '/t/?' + result.idx)
+			}
+
 			cuData.uname = decodeURIComponent(result.uname);
 			cuData.kasid = decodeURIComponent(result.kasid);
 			cuData.title = decodeURIComponent(result.title);
