@@ -4,6 +4,8 @@
  *   <nav id="gyGnb" data-current="w"></nav>
  *   <script src="//romeoh.github.io/app/js2/gnb.js?v=20261021"></script>
  * - data-current: 아래 MENUS의 id. 없으면 URL 경로로 자동 판별
+ * - data-header="1": 공통 타이틀(깨알유머) 바도 함께 그림. 자체 헤더가 없는 페이지용
+ *   색상은 MENUS의 header: [그라데이션 시작, 끝, 로고 배경]
  * - 의존성 없음(jQuery/Bootstrap 버전 무관), ES5
  */
 (function (window, document) {
@@ -18,14 +20,22 @@
 		{ id: 'apps/mbti', name: '심리테스트', href: '/apps/mbti/' },
 		{ id: 'novel',     name: '소설',       href: '/novel/' },
 		{ id: 'game',      name: '깨임',       href: '/game/' },
-		{ id: 'gpt',       name: '고민상담소', href: '/gpt/' },
+		{ id: 'gpt',       name: '고민상담소', href: '/gpt/', header: ['#ffb13b', '#ff7e45', '#e88f2a'] },
 		{ id: 'merit',     name: '나의장점',   href: '/merit/' },
 		{ id: 'saju',      name: '사주운세',   href: '/saju/' },
 		{ id: 's',         name: '깨위바위보', href: '/s/add.html' },
 		{ id: 'iq',        name: '아이큐테스트', href: '/iq/', hidden: true } // 수리 후 hidden 제거
 	];
 
+	var DEFAULT_HEADER = ['#ff6eda', '#ff6868', '#d66db8'];
+	var IMG = '//romeoh.github.io/app/img/';
+
 	var CSS = '' +
+		'.gy-hd{position:relative;height:44px;margin:0;padding:0;text-align:center;line-height:0}' +
+		'.gy-hd-logo{position:absolute;left:0;top:0;width:47px;height:44px;' +
+			'background:url(' + IMG + 'logo.png) 11px 9px/26px no-repeat}' +
+		'.gy-hd-title{display:inline-block;height:44px;padding-top:9px}' +
+		'.gy-hd-title img{display:inline-block;width:90px;height:auto;vertical-align:top;border:0}' +
 		'#gyGnb{display:block;margin:0;padding:0}' +
 		'.gy-gnb{display:flex;align-items:stretch;height:40px;background:#fff;border-bottom:1px solid #dbdcdf;' +
 			'font-family:"나눔고딕",NanumGothic,"맑은 고딕","Malgun Gothic",Helvetica,sans-serif;box-sizing:border-box;' +
@@ -82,7 +92,14 @@
 			else if (!m.hidden) rest.push(m);
 		}
 
-		var html = '<div class="gy-gnb">';
+		var html = '';
+		if (el.getAttribute('data-header') === '1') {
+			var hc = (cur && cur.header) || DEFAULT_HEADER;
+			html += '<div class="gy-hd" style="background-image:linear-gradient(99deg,' + esc(hc[0]) + ',' + esc(hc[1]) + ')">' +
+				'<a class="gy-hd-logo" href="/" style="background-color:' + esc(hc[2]) + '" aria-label="깨알유머 홈"></a>' +
+				'<a class="gy-hd-title" href="/"><img src="' + IMG + 'logo_title_v2.png" alt="깨알유머"></a></div>';
+		}
+		html += '<div class="gy-gnb">';
 		if (cur) {
 			html += '<div class="gy-gnb-cur">' +
 				'<a href="' + esc(cur.href) + '" aria-current="page">' + esc(cur.name) + '</a></div>';
