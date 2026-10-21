@@ -110,7 +110,7 @@ function ready() {
 			getWorldcupList();
 			
 			// 댓글 불러오기
-			//getReply();
+			initReply();
 			
 			// 검색
 			initSearch()
@@ -318,9 +318,79 @@ function getNewList() {
 }
 
 
-function getReply(){
+// 댓글 (깨알테스트 initReply 이식)
+var readyReply = true
+function initReply(){
+	if (!document.getElementById('replyList')) {
+		return;
+	}
+	if (!cuData['idx']) {
+		M('#replyArea').css('display', 'none');
+		return;
+	}
+	// 첫 호출에만 등록 이벤트 바인딩 (더보기 시 재호출됨)
+	if (replyStart == 0) {
+		if (!member) {
+			M('#replyNickname').css('display', 'block');
+			M('#replyName').css('display', 'none');
+		}
+		
+		M('#btnRegReply').on('click', function(evt, mp){
+			if (!readyReply) {
+				return
+			}
+			var inpReply = M('#inpReply').val().replace(/\n/g, '<br>').substr(0, 170)
+				,uname
+			if (!!member) {
+				uname = member['nickname'];
+			} else {
+				M('#replyNickname').css('display', 'block');
+				
+				if (M('#nickname').val() == '') {
+					alert('닉네임을 입력하세요.');
+					M('#nickname').focus();
+					return false;
+				}
+				uname = M('#nickname').val();
+			}
+			if (inpReply == '') {
+				alert('댓글을 입력하세요.');
+				M('#inpReply').focus();
+				return false;
+			}
+			
+			var imoticon = dataPhoto[process(dataPhoto)]
+			bodyData = {
+				'idx': cuData['idx'],
+				'uname': uname,
+				'kasid': '',
+				'photo': encodeURIComponent(imoticon),
+				'text': encodeURIComponent(inpReply),
+				'ua': navigator.userAgent,
+				'url': window.location.href
+			}
+			readyReply = false
+			$.ajax({
+				 'url': apiurl + code + '_reply_add.php'
+				,'contentType': 'application/x-www-form-urlencoded'
+				,'data': bodyData
+				,'type': 'POST'
+				,'success': function(result){
+					var result = M.json(result)
+					
+					readyReply = true
+					setUniq(code + 'ReplyList', result['id']);
+					window.location.href = 'https://gaeyou.com/w/?' + cuData['idx']
+				}
+				,'error': function(){
+					readyReply = true
+					alert('댓글 등록에 실패했습니다. 잠시 후 다시 시도해 주세요.');
+				}
+			})
+		})
+	}
 	
-	// 댓글 가져오기 전문통신
+	// get
 	bodyData = {
 		'idx': cuData['idx'],
 		'total': replyTotal,
@@ -336,42 +406,41 @@ function getReply(){
 				,result = M.json( result )
 			
 			replyStart = replyTotal + replyStart;
+			
 			if (result.length == 0) {
-				str += '<li>';
-				str += '	<div class="noReply">처음으로 댓글을 써보세요.</div>';
-				str += '</li>';
-				M('#replyList').html(str)
-			} else {
-				if (result.length < replyTotal) {
-					//str += '<li class="more">마지막입니다.</li>';
-				} else {
-					str += '<li class="more" data-replymore>댓글 더 불러오기</li>';
-				}
-				for (var i=result.length-1; i>=0; i--) {
-				//for (var i=5; i>0; i--) {
-					deleteable = deleteAble(result[i]['idx']);
+				if (M('#replyList').html().replace(/\s/g, '') == '') {
+					str += '<li>';
+					str += '	<div class="no_reply" id="noReply">';
+					str += '		<i class="fa fa-frown-o"></i> 처음으로 댓글을 써보세요.';
+					str += '	</div>';
+					str += '</li>';
 					
+					M('#replyList').html(str)
+					M('#noReply').on('click', function(){
+						M('#inpReply').focus();
+					})
+				}
+			} else {
+				if (result.length >= replyTotal) {
+					str += '<li class="more" data-replymore><button class="btn btn-default btn-block">댓글 더 불러오기</button></li>';
+				}
+				
+				for (var i=result.length-1; i>=0; i--) {
+					var deleteable = deleteAble(result[i]['idx']);
 					str += '<li data-reply="' + result[i]['idx'] + '">';
 					str += '	<div class="profile">';
-					str += '		<div class="photo"><img src="../images/imoticon/' + result[i]['photo'] + '.png" alt=""></div>';
+					str += '		<div class="photo"><img src="https://romeoh.github.io/app/img/imoticon/' + escHtml(safeDecode(result[i]['photo'])) + '.png" alt=""></div>';
 					str += '		<div class="user">';
-					str += '			<span class="uname">' + decodeURIComponent(result[i]['uname']).substr(0, 10) + '</span>';
+					str += '			<span class="uname">' + escHtml(safeDecode(result[i]['uname']).substr(0, 10)) + '</span>';
 					str += '			<span class="date">' + M.dynamicDate(result[i]['regDate']) + '</span>';
 					str += '			<span class="date">';
-					//str += '				<span>신고</span>';
 					if (deleteable || admin) {
 						str += '				<span data-delreply="' + result[i]['idx'] + '">삭제</span>';
 					}
 					str += '			</span>';
 					str += '		</div>';
 					str += '	</div>';
-					str += '	<div class="desc">' + decodeURIComponent(result[i]['text']) + '</div>';
-					
-					if (result[i]['kasid'] == '') {
-						//str += '	<div class="kas">☞ ' + decodeURIComponent(result[i]['uname']).substr(0, 4) + '</div>';
-					} else {
-						str += '	<div class="kas"><a href="u.html#' + result[i]['kasid'] + '">☞ ' + decodeURIComponent(result[i]['uname']).substr(0, 4) + '님카스</a></div>';
-					}
+					str += '	<div class="desc">' + escHtml(safeDecode(result[i]['text'])).replace(/&lt;br&gt;/g, '<br>') + '</div>';
 					str += '</li>';
 				}
 				M('#replyList').html(str + M('#replyList').html());
@@ -379,7 +448,7 @@ function getReply(){
 				// 댓글 더보기
 				M('[data-replymore]').on('click', function(evt, mp){
 					mp.remove()
-					getReply();
+					initReply();
 				})
 				
 				// 댓글 삭제
@@ -388,10 +457,8 @@ function getReply(){
 						return false;
 					}
 					
-					id = mp.data('delreply');
-					
 					bodyData = {
-						'idx': id
+						'idx': mp.data('delreply')
 					}
 					$.ajax({
 						 'url': apiurl + code + '_reply_del.php'
@@ -399,10 +466,13 @@ function getReply(){
 						,'data': bodyData
 						,'type': 'POST'
 						,'success': function(result){
-							var result = M.json(result)
-								replyList = M.json(M.storage(code + 'ReplyList'))
-								popList = []
-								
+							var  result = M.json(result)
+								,replyList = M.storage(code + 'ReplyList') || []
+								,popList = []
+							
+							if (typeof replyList === 'string') {
+								replyList = M.json(replyList);
+							}
 							for (var i=0; i<replyList.length; i++) {
 								if (result['id'] != replyList[i]) {
 									popList.push(replyList[i])
@@ -428,8 +498,24 @@ function getReply(){
 				}
 				return false;
 			}
+			replyTotal = 20;
 		}
 	})
+}
+
+// 2017년 댓글은 닉네임까지 URL 인코딩되어 있음
+// 서버 keyReplace()가 ( ) = < > { } 를 &#40; 등으로 저장하므로 원래 문자로 되돌린 뒤 escHtml로 이스케이프
+function safeDecode(str) {
+	try {
+		str = decodeURIComponent(str);
+	} catch (e) {}
+	return String(str).replace(/&#(\d+);/g, function (m, code) {
+		return String.fromCharCode(code);
+	});
+}
+
+function escHtml(str) {
+	return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 
