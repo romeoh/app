@@ -1,0 +1,134 @@
+/*!
+ * 깨알유머 공통 네비게이션 (GNB)
+ * 사용법:
+ *   <nav id="gyGnb" data-current="w"></nav>
+ *   <script src="//romeoh.github.io/app/js2/gnb.js?v=20261021"></script>
+ * - data-current: 아래 MENUS의 id. 없으면 URL 경로로 자동 판별
+ * - 의존성 없음(jQuery/Bootstrap 버전 무관), ES5
+ */
+(function (window, document) {
+	'use strict';
+
+	// 메뉴 순서 = 노출 순서. hidden:true 는 노출 안 함
+	var MENUS = [
+		{ id: 't',         name: '깨알테스트', href: '/t/' },
+		{ id: 'w',         name: '월드컵',     href: '/w/' },
+		{ id: 'm',         name: '이름궁합',   href: '/m/' },
+		{ id: 'mbti',      name: 'MBTI',       href: '/mbti/ko/' },
+		{ id: 'apps/mbti', name: '심리테스트', href: '/apps/mbti/' },
+		{ id: 'novel',     name: '소설',       href: '/novel/' },
+		{ id: 'game',      name: '깨임',       href: '/game/' },
+		{ id: 'gpt',       name: '고민상담소', href: '/gpt/' },
+		{ id: 'merit',     name: '나의장점',   href: '/merit/' },
+		{ id: 'saju',      name: '사주운세',   href: '/saju/' },
+		{ id: 's',         name: '깨위바위보', href: '/s/add.html' },
+		{ id: 'iq',        name: '아이큐테스트', href: '/iq/', hidden: true } // 수리 후 hidden 제거
+	];
+
+	var CSS = '' +
+		'#gyGnb{display:block;margin:0;padding:0}' +
+		'.gy-gnb{display:flex;align-items:stretch;height:40px;background:#fff;border-bottom:1px solid #dbdcdf;' +
+			'font-family:"나눔고딕",NanumGothic,"맑은 고딕","Malgun Gothic",Helvetica,sans-serif;box-sizing:border-box;' +
+			'position:relative;overflow:hidden;-webkit-user-select:none;user-select:none;margin:0;padding:0}' +
+		'.gy-gnb *{box-sizing:border-box}' +
+		'.gy-gnb a{display:flex;align-items:center;height:100%;padding:0 14px;font-size:14px;font-weight:600;' +
+			'line-height:1;color:#222;text-decoration:none;white-space:nowrap;-webkit-tap-highlight-color:transparent}' +
+		'.gy-gnb a:hover,.gy-gnb a:focus{text-decoration:none;color:#000}' +
+		'.gy-gnb-cur{flex:0 0 auto;position:relative;z-index:2;background:#e6e8eb;box-shadow:2px 0 4px rgba(0,0,0,.08)}' +
+		'.gy-gnb-cur a,.gy-gnb-cur a:hover,.gy-gnb-cur a:focus{color:#111;font-weight:800}' +
+		'.gy-gnb-scroll{flex:1 1 auto;min-width:0;display:flex;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;' +
+			'scrollbar-width:none;-ms-overflow-style:none;list-style:none;margin:0;padding:0 24px 0 4px}' +
+		'.gy-gnb-scroll::-webkit-scrollbar{display:none}' +
+		'.gy-gnb-scroll li{flex:0 0 auto;margin:0;padding:0}' +
+		'.gy-gnb-fade{position:absolute;top:0;right:0;bottom:0;width:36px;pointer-events:none;z-index:1;' +
+			'background:linear-gradient(to right,rgba(255,255,255,0),#fff 75%);transition:opacity .2s}' +
+		'.gy-gnb-fade:after{content:"\\203A";position:absolute;right:6px;top:50%;margin-top:-11px;font-size:20px;' +
+			'line-height:20px;color:#aaa}' +
+		'.gy-gnb.is-end .gy-gnb-fade{opacity:0}' +
+		'.gy-gnb-gap{height:8px;background:#eaecef}';
+
+	function detectCurrent() {
+		var path = window.location.pathname.replace(/^\/+/, '');
+		var i, id;
+		for (i = 0; i < MENUS.length; i++) {
+			id = MENUS[i].id;
+			if (path === id || path.indexOf(id + '/') === 0) return id;
+		}
+		return null;
+	}
+
+	function esc(s) {
+		return String(s).replace(/[&<>"]/g, function (c) {
+			return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+		});
+	}
+
+	function injectCss() {
+		if (document.getElementById('gyGnbCss')) return;
+		var style = document.createElement('style');
+		style.id = 'gyGnbCss';
+		style.appendChild(document.createTextNode(CSS));
+		(document.head || document.getElementsByTagName('head')[0]).appendChild(style);
+	}
+
+	function render(el) {
+		if (el.getAttribute('data-gnb-ready')) return;
+		var curId = el.getAttribute('data-current') || detectCurrent();
+		var cur = null, rest = [], i, m;
+
+		for (i = 0; i < MENUS.length; i++) {
+			m = MENUS[i];
+			if (m.id === curId) cur = m;
+			else if (!m.hidden) rest.push(m);
+		}
+
+		var html = '<div class="gy-gnb">';
+		if (cur) {
+			html += '<div class="gy-gnb-cur">' +
+				'<a href="' + esc(cur.href) + '" aria-current="page">' + esc(cur.name) + '</a></div>';
+		}
+		html += '<ul class="gy-gnb-scroll">';
+		for (i = 0; i < rest.length; i++) {
+			html += '<li><a href="' + esc(rest[i].href) + '">' + esc(rest[i].name) + '</a></li>';
+		}
+		html += '</ul><span class="gy-gnb-fade"></span></div><div class="gy-gnb-gap"></div>';
+
+		// 기존 헤더의 float 로고(.gaeyou)가 3px 넘쳐 네비를 밀어내는 것 방지
+		var prev = el.previousElementSibling;
+		if (prev && prev.tagName === 'HEADER') prev.style.overflow = 'hidden';
+
+		el.innerHTML = html;
+		el.setAttribute('data-gnb-ready', '1');
+		bindScroll(el.querySelector('.gy-gnb'), el.querySelector('.gy-gnb-scroll'));
+	}
+
+	function bindScroll(bar, scroller) {
+		function update() {
+			var end = scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 2;
+			bar.className = end ? 'gy-gnb is-end' : 'gy-gnb';
+		}
+		scroller.addEventListener('scroll', update);
+		window.addEventListener('resize', update);
+		window.addEventListener('load', update);
+		// PC: 세로 휠을 가로 스크롤로 변환
+		scroller.addEventListener('wheel', function (e) {
+			if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && scroller.scrollWidth > scroller.clientWidth) {
+				scroller.scrollLeft += e.deltaY;
+				e.preventDefault();
+			}
+		}, { passive: false });
+		update();
+	}
+
+	function init() {
+		injectCss();
+		var el = document.getElementById('gyGnb');
+		if (el) render(el);
+	}
+
+	window.GaeyouGnb = { menus: MENUS, init: init };
+	init();
+	if (!document.getElementById('gyGnb') && document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', init);
+	}
+})(window, document);
