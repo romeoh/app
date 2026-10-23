@@ -46,6 +46,12 @@
 	// 서비스 JS가 GaeyouGnb.pageView(제목)를 부른다. 4초 안에 안 부르면 기본 제목으로 보낸다.
 	var GA_LATE_VIEW = ['t', 'w'];
 	var SERVICE_NAMES = { t: '깨알테스트', w: '월드컵' };
+	// GA 보고서의 페이지 제목 앞에 붙이는 서비스 표시 (브라우저 탭 제목에는 안 붙음). 루모(🔮)는 lumo/src/analytics.php
+	var SERVICE_EMOJI = { t: '🧪', w: '🏆', m: '💞', mbti: '🧠', apps_mbti: '🧩', novel: '📖', game: '🎮', gpt: '💬', merit: '🌟', s: '✊', saju: '🔯' };
+	function gaTitle(t) {
+		var e = gaBase && SERVICE_EMOJI[gaBase.service];
+		return (e ? e + ' ' : '') + t;
+	}
 	var gaViewSent = true;
 	var gaBase = null;
 
@@ -79,6 +85,8 @@
 			var cfg = {}, k;
 			for (k in gaBase) if (gaBase.hasOwnProperty(k)) cfg[k] = gaBase[k];
 			if (/[?&]ga_debug=1/.test(window.location.search)) cfg.debug_mode = true;
+			cfg.page_title = gaTitle(document.title);
+			window.gtag('set', { page_title: cfg.page_title });   // 이벤트에도 같은 제목
 			if (GA_LATE_VIEW.indexOf(cur) >= 0 && gaBase.content_id) {
 				cfg.send_page_view = false;
 				gaViewSent = false;
@@ -107,7 +115,9 @@
 		}
 		var m = /^\?(\d+)/.exec(window.location.search) || /[?&](?:id|idx)=(\d+)/.exec(window.location.search) || /^#(\d+)/.exec(window.location.hash);
 		if (m) gaBase.content_id = m[1];
-		track('page_view', { page_title: title ? title + ' - ' + name : name, page_location: window.location.href, content_title: title || '' });
+		var pt = gaTitle(title ? title + ' - ' + name : name);
+		window.gtag('set', { page_title: pt });
+		track('page_view', { page_title: pt, page_location: window.location.href, content_title: title || '' });
 	}
 
 	/** 이벤트 보내기. opts.next: 곧 같은 사이트 다른 화면으로 이동 → 다음 화면이 보냄 */
