@@ -39,7 +39,7 @@
 
 	// ---- 통계 (GA4) ----
 	var GA_ID = 'G-HDR3T58QC9';
-	var GA_SERVICES = ['t'];   // 여기 있는 서비스만 gnb.js가 gtag를 넣는다. 다음: 'w', 'm', ...
+	var GA_SERVICES = ['t', 'w'];   // 여기 있는 서비스만 gnb.js가 gtag를 넣는다. 다음: 'w', 'm', ...
 	var gaBase = null;
 
 	function gaHasTag() {

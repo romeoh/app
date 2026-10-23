@@ -15,6 +15,25 @@ var  code = 'worldcup'
 	,replyTotal = 15
 	,listFlag = M.storage('listFlag') || 'hot'
 
+// 통계: 공통 메뉴(gnb.js)의 GA 도우미. 이벤트 목록은 lumo/docs/analytics-gaeyou.md
+function gyTrack(name, params, opts) {
+	if (window.GaeyouGnb && window.GaeyouGnb.track) window.GaeyouGnb.track(name, params || {}, opts);
+}
+document.addEventListener('click', function (e) {
+	var a = e.target;
+	while (a && a !== document && a.tagName !== 'A') a = a.parentNode;
+	if (!a || a === document) return;
+	var href = a.getAttribute('href') || '';
+	var list = document.getElementById('hotContainer');
+	if (list && list.contains(a) && /^\/w\/\?\d+/.test(href)) {
+		var items = list.querySelectorAll('a[href^="/w/?"]'), idx = 0;
+		for (var i = 0; i < items.length; i++) if (items[i] === a) idx = i;
+		return gyTrack('select_content', { content_type: 'worldcup', item_id: href.replace(/^\/w\/\?/, ''),
+			list_name: searchKeyword ? 'search' : 'list_' + listFlag, index: idx }, { next: true });
+	}
+	if (/(^|\/)add\.html/.test(href)) gyTrack('create_start', { place: a.className.indexOf('gnbNew') >= 0 ? 'header' : 'page' }, { next: true });
+}, false);
+
 window.addEventListener('DOMContentLoaded', ready, false);
 window.addEventListener('hashchange', function() {
 	location.reload();
@@ -117,6 +136,7 @@ function ready() {
 			
 			// 스코어 불러오기
 			M('#btnScore').on('click', function(){
+				gyTrack('wc_score_view', {});
 				$('#btnScore').hide()
 				$('#btnLoading').show()
 				getScore();	
@@ -260,6 +280,7 @@ function getHotList() {
 			M('#hotContainer').html( M('#hotContainer').html() + str );
 			
 			M('[data-morehot]').on('click', function(evt, mp){
+				gyTrack('wc_load_more', { list_name: 'hot' });
 				mp.remove();
 				getHotList();
 			})
@@ -310,6 +331,7 @@ function getNewList() {
 			M('#replyContainer').html( M('#replyContainer').html() + str );
 			
 			M('[data-morenew]').on('click', function(evt, mp){
+				gyTrack('wc_load_more', { list_name: 'new' });
 				mp.remove();
 				getNewList();
 			})
@@ -380,6 +402,7 @@ function initReply(){
 					
 					readyReply = true
 					setUniq(code + 'ReplyList', result['id']);
+					gyTrack('comment_add', {}, { next: true });
 					window.location.href = 'https://gaeyou.com/w/?' + cuData['idx']
 				}
 				,'error': function(){
@@ -617,6 +640,7 @@ var  data
 function initStart() {
 	data = shuffle(cuData['list']);
 	cuStage = parseInt(cuData['total'], 10);
+	gyTrack('wc_start', { rounds: cuStage });
 	if (cuStage == 32) {
 		for (var i=0; i<data.length; i++) {
 			arr32.push(data[i]['seq']);
@@ -713,6 +737,7 @@ function selPic(evt, mp){
 		
 		winner.names = stone[mp.data('seq')]['text']
 		winner.idx = mp.data('seq')
+		gyTrack('wc_finish', { rounds: parseInt(cuData['total'], 10) });
 		
 		// 준우승
 		if (winner.idx == arr2[0]) {
@@ -751,6 +776,7 @@ function selPic(evt, mp){
 }
 
 function fight(round, final){
+	if (Number(round) === 0 && Number(final) < parseInt(cuData['total'], 10)) gyTrack('wc_stage', { stage: Number(final), rounds: parseInt(cuData['total'], 10) });
 	var  left = (Number(round)+Number(1)) * 2 - 2
 		,right = (Number(round)+Number(1)) * 2 - 1
 
@@ -867,6 +893,7 @@ function initEvent() {
 	// 카스로 보내기
 	M('#btnKakaoStory').on('click', function(){
 		var post = ''
+		gyTrack('share', { method: 'story', content_type: 'worldcup', played: winner.names == undefined ? 'no' : 'yes' }, { beacon: true });
 		if (winner.names == undefined) {
 			//alert('경기 진행중입니다.');
 			getScore(1);
@@ -905,6 +932,7 @@ function initEvent() {
 	M('#btnTwitter').on('click', function(){
 		var post = ''
 		var data = {}
+		gyTrack('share', { method: 'twitter', content_type: 'worldcup', played: winner.names == undefined ? 'no' : 'yes' }, { beacon: true });
 		
 		if (winner.names == undefined) {
 			//alert('경기 진행중입니다.');
@@ -943,6 +971,7 @@ function initSearch() {
 function onSearch() {
 	searchKeyword = $('#searchKeyword').val()
 	if (!searchKeyword) return;
+	gyTrack('wc_search', {});
 
 	hotTotal = 20
 	hotStart = 0

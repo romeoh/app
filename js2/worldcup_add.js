@@ -124,6 +124,7 @@ function ready() {
 					,'type': 'POST'
 					,'success': function(){
 						addComplete(code, result.result);
+						if (window.GaeyouGnb && window.GaeyouGnb.track) window.GaeyouGnb.track('wc_create', {}, { next: true });
 						alert('등록되었습니다.');
 						window.location.href = 'http://gaeyou.com/w/#' + result.result;
 					}
