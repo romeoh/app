@@ -138,6 +138,15 @@
 			if (!a || a === el) return;
 			var params = { menu: a.getAttribute('data-gnb'), from: curId || 'none', link_url: a.getAttribute('href'), transport_type: 'beacon' };
 			if (typeof window.gtag === 'function') {
+				// 이동하면서 이벤트가 사라지지 않게: 보낸 뒤(최대 0.7초) 이동
+				if (!(e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button) && !a.target) {
+					e.preventDefault();
+					var href = a.href, gone = false;
+					var go = function () { if (!gone) { gone = true; window.location.href = href; } };
+					params.event_callback = go;
+					params.event_timeout = 600;
+					setTimeout(go, 700);
+				}
 				window.gtag('event', 'gnb_click', params);
 			} else if (window.dataLayer && window.dataLayer.push) {
 				window.dataLayer.push({ event: 'gnb_click', gnb_menu: params.menu, gnb_from: params.from });
