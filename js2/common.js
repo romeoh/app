@@ -1073,6 +1073,22 @@ function validation(data) {
 }*/
 
 // 공유
+function copyShareText(text) {
+	var done = function () { alert('결과를 복사했어요. 원하는 곳에 붙여 넣어 공유하세요.') }
+	if (navigator.clipboard && navigator.clipboard.writeText) {
+		navigator.clipboard.writeText(text).then(done, function () { window.prompt('아래 내용을 복사해 공유하세요.', text) })
+		return
+	}
+	var ta = document.createElement('textarea')
+	ta.value = text
+	ta.style.position = 'fixed'
+	ta.style.opacity = '0'
+	document.body.appendChild(ta)
+	ta.select()
+	try { document.execCommand('copy'); done() } catch (e) { window.prompt('아래 내용을 복사해 공유하세요.', text) }
+	document.body.removeChild(ta)
+}
+
 function shareData(_obj, _opt) {
 	var  obj = _obj || {}
 		,media = obj.media || 'story'
@@ -1196,6 +1212,27 @@ function shareData(_obj, _opt) {
 		test += twit + '\n'
 		test += '-----------\n'
 		console.log(test)
+		return false;
+	}
+
+	// 스레드 (2026-10-24). 글쓰기 창을 연다. 본문 500자 제한
+	if (media == 'threads') {
+		var  thPost = (obj.twit || obj.post || '').replace(/\n\n/g, '\n')
+		if (thPost.length > 450) thPost = thPost.substr(0, 450) + '...'
+		top.location.href = 'https://www.threads.com/intent/post?text=' + encodeURIComponent(thPost) + '&url=' + encodeURIComponent(url);
+		return false;
+	}
+
+	// 폰 기본 공유창 (2026-10-24). 클릭 직후에 불러야 열린다(비동기 뒤면 막힘). 지원 안 하면 복사
+	if (media == 'native') {
+		var  nvText = (obj.twit || obj.post || '').replace(/\n\n/g, '\n')
+		if (navigator.share) {
+			navigator.share({ title: title, text: nvText, url: url })['catch'](function (e) {
+				if (!e || e.name !== 'AbortError') copyShareText(nvText + '\n' + url)
+			})
+		} else {
+			copyShareText(nvText + '\n' + url)
+		}
 		return false;
 	}
 

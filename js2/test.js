@@ -557,6 +557,8 @@ function testExcute(evt, mp) {
 	data.url = 'https://gaeyou.com/t/?'+hash;
 	data.app = '깨알테스트'
 	
+	// 폰 공유창은 클릭 직후에 열어야 해서 실행 수 기록을 기다리지 않는다
+	if (data['media'] == 'native') shareData(data);
 	// 테스트 전문 통신
 	bodyData = {
 		'idx': cuData['idx']
@@ -568,7 +570,7 @@ function testExcute(evt, mp) {
 		,'type': 'POST'
 		,'success': function(result){
 			var  result = M.json(result);
-			shareData(data);
+			if (data['media'] != 'native') shareData(data);
 		}
 	})
 }
