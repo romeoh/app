@@ -278,15 +278,15 @@ $(function(){
         //desc.push('https://gaeyou.com/apps/mbti/?' + mbtiIndex)
         shareData = desc.join('\n')
         
+        // 공유 (2026-10-24): X·쓰레드·폰 공유창 (예전 트위터·카카오톡)
         if (platform == 'twitter') {
             if (shareData.length > textLimit) {
                 shareData = shareData.substr(0, textLimit) + '...'
             }
-            shareData += '\n\n' + url
-            console.log(shareData)
-            str  = 'https://twitter.com/intent/tweet?text=';
-            str += encodeURIComponent(shareData);
-            top.location.href = str;
+            GaeyouGnb.share('twitter', { text: shareData + '\n', url: url });
+        }
+        if (platform == 'threads' || platform == 'native') {
+            GaeyouGnb.share(platform, { title: title, text: shareData, url: url });
         }
         if (platform == 'kakaotalk') {
             if (resultMbti.picture) {

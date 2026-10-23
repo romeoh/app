@@ -216,6 +216,7 @@ define([
       $('[data-caption]').attr('data-caption', title)
       $('[data-subject]').attr('data-subject', title)
       $('[data-twitter]').attr('data-title', resultString + content.results.substring(0, 101) + '...\n' + shortUrl)
+      gyMbtiShare = { title: title, text: resultString + content.results, url: shortUrl }   // 공유 버튼(2026-10-24)이 쓴다
       
       window.Sharer.init();
 
@@ -273,6 +274,7 @@ define([
       $('[data-caption]').attr('data-caption', title)
       $('[data-subject]').attr('data-subject', title)
       $('[data-twitter]').attr('data-title', resultString + content.results.substring(0, 102) + '...\n' + 'https://gaeyou.com/mbti/ko/')
+      gyMbtiShare = { title: title, text: resultString + content.results, url: 'https://gaeyou.com/mbti/ko/' }
       
       window.Sharer.init();
 
@@ -799,4 +801,13 @@ define([
   
   return window.q = new Q();
 
+});
+
+// 공유 (2026-10-24): 결과 카드의 X·쓰레드·폰 공유창 버튼 (#mbtiShare). 글·주소는 shareMyUrl/shareUrl이 gyMbtiShare에 넣는다
+var gyMbtiShare = null;
+$(document).on('click', '#mbtiShare [data-share]', function () {
+  if (!gyMbtiShare || !window.GaeyouGnb || !GaeyouGnb.share) return;
+  var media = $(this).attr('data-share');
+  var text = media == 'twitter' && gyMbtiShare.text.length > 110 ? gyMbtiShare.text.substring(0, 110) + '...' : gyMbtiShare.text;
+  GaeyouGnb.share(media, { title: gyMbtiShare.title, text: text, url: gyMbtiShare.url });
 });

@@ -251,6 +251,31 @@ if ($('body.result').length == 1) {
 	        $('#toList').attr('href', './list.html?idx=' + data[0].concern_idx)
 	        concernIdx = data[0].concern_idx
 	        
+	        // 공유 (2026-10-24): X·쓰레드·폰 공유창 (예전 X·카톡 버튼). 공유 수 기록 뒤 같은 창에서 이동, 폰 공유창은 바로
+	        $('#gptShare [data-share]').on('click', function() {
+	        	var media = $(this).attr('data-share')
+	        	var shareText = concern + line + gpt_result
+	        	gyTrack('share', { method: media }, { beacon: true })
+	        	var go = function () {
+	        		GaeyouGnb.share(media, { title: data[0].title, text: media == 'twitter' ? shareText + '\n#깨유고민상담소 #chatGPT' : shareText, url: shareUrl })
+	        	}
+	        	if (media == 'native') go()
+		        $.ajax({
+				    url: './api/service.php',
+				    method: 'POST',
+				    dataType: 'json',
+				    data: {
+					    action: 'result_share',
+					    flag: media == 'twitter' ? 'twitter' : media,
+					    concern_idx: data[0].concern_idx,
+					    concern_result_idx: concernResultIdx
+				    },
+				    complete: function() {
+					    if (media != 'native') go()
+				    }
+				})
+	        })
+	        /* 예전 X 버튼 (2026-10-24 바꿈)
 	        $('#shareTwitter').on('click', function() {
 	        	gyTrack('share', { method: 'twitter' }, { beacon: true })
 		        $.ajax({
@@ -273,6 +298,7 @@ if ($('body.result').length == 1) {
 				})
 		        
 	        })
+	        */
 	        $('#shareKakaotalk').on('click', function() {
 	        	gyTrack('share', { method: 'kakaotalk' }, { beacon: true })
 		        $.ajax({

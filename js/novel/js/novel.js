@@ -568,6 +568,14 @@ function initReply() {
 }
 
 function shareFic(evt, mp) {
+	// 공유 (2026-10-24): X·쓰레드·폰 공유창 (버튼은 novel/index.html의 .gy-share)
+	if (window.GaeyouGnb && GaeyouGnb.share && cuData && cuData['idx']) {
+		var  gyMedia = $(this).attr('data-share')
+			,gyPost = '🎩 소설: 함께 쓰는 소셜픽션\n────────────────────\n[' + cuData['title'] + ']\n\n' + cuData['first_fic']
+		if (gyMedia == 'twitter' && gyPost.length > 110) gyPost = gyPost.substr(0, 110) + '...'
+		GaeyouGnb.share(gyMedia, { title: cuData['title'], text: gyPost, url: 'https://gaeyou.com/novel/?' + cuData['idx'] })
+		return false
+	}
 	var  data = {}
 		,media = $(this).data('share') || 'story'
 		,post = ''

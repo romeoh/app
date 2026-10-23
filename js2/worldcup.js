@@ -543,7 +543,7 @@ function escHtml(str) {
 }
 
 
-function getScore(flag) {
+function getScore(flag, media) {
 	// 다른 랭킹 리스트 전문통신
 	bodyData = {
 		'idx': cuData['idx']
@@ -593,7 +593,6 @@ function getScore(flag) {
 				var data = {}
 				
 				post += '[월드컵]\n'
-				post += 'http://gaeyou.com/w/?' + cuData['idx'] + '\n';
 				post += '❉ ' + cuData['title'] + ' 스코어 ❉\n'
 				post += '────────────────────\n'
 				for (var i=0; i<result.length; i++) {
@@ -601,9 +600,7 @@ function getScore(flag) {
 					post += n + '위: ' + decodeURIComponent(result[i]['text']) + ' (' + M.toCurrency(result[i]['score']) + '점)\n';
 				}
 				
-				data.post = post;
-				data['media'] = 'twitter';
-				shareData(data)
+				GaeyouGnb.share(media || 'twitter', { title: cuData['title'], text: post, url: 'https://gaeyou.com/w/?' + cuData['idx'] });
 				return false;
 			}
 			
@@ -891,69 +888,30 @@ function fight(round, final){
 
 
 function initEvent() {
-	// 카스로 보내기
-	M('#btnKakaoStory').on('click', function(){
-		var post = ''
-		gyTrack('share', { method: 'story', content_type: 'worldcup', played: winner.names == undefined ? 'no' : 'yes' }, { beacon: true });
+	// 공유 (2026-10-24): X·쓰레드·폰 공유창 (예전 트위터·카스 버튼 대신). 끝까지 하면 내 결과, 아니면 전체 순위
+	M('#wcShare [data-share]').on('click', function(evt, mp){
+		var  media = mp.data('share')
+			,url = 'https://gaeyou.com/w/?' + cuData['idx']
+			,post = ''
+		gyTrack('share', { method: media, content_type: 'worldcup', played: winner.names == undefined ? 'no' : 'yes' }, { beacon: true });
+
 		if (winner.names == undefined) {
-			//alert('경기 진행중입니다.');
-			getScore(1);
+			if (media == 'native') {   // 폰 공유창은 클릭 직후에만 열려서 순위를 받아 올 때까지 기다릴 수 없다
+				GaeyouGnb.share('native', { title: cuData['title'], text: '[월드컵] ' + cuData['title'], url: url });
+				return false;
+			}
+			getScore(2, media);
 			return false;
 		}
-		
-		
+
 		post += '[월드컵]\n'
 		post += cuData['title'] + ' \n'
 		post += '────────────────────\n'
 		post += '♛ 최종우승: ' + decodeURIComponent(winner.names) + '\n';
 		post += '♚ 준우승: ' + decodeURIComponent(semiWinner.name) + '\n';
 		post += '♝ 3위: ' + decodeURIComponent(stone[arr3win[0]]['text']) + '\n';
-		post += '♞ 4위: ' + decodeURIComponent(stone[arr3win[1]]['text']) + '\n\n';
-		
-		post += '♘ 경기참여\n';
-		post += 'http://gaeyou.com/w/?' + cuData['idx'];
-		console.log(post)
-		
-		urlinfo = {
-			'title': '월드컵',
-			'desc': cuData['title'],
-			'imageurl': ['http://www.gaeyou.com/upload/worldcup/' + cuData['idx'] + '.png'],
-			'type': 'article'
-		}
-		kakao.link("story").send({   
-	        appid : 'gaeyou',
-			appver : '1.0',
-			appname : cuData['uname']+'님 제작',//'★깨알유머★를 검색하세요!!',
-	        post : post,
-			urlinfo : M.json(urlinfo)
-	    });
-	})
-	
-	// 트위터로 보내기
-	M('#btnTwitter').on('click', function(){
-		var post = ''
-		var data = {}
-		gyTrack('share', { method: 'twitter', content_type: 'worldcup', played: winner.names == undefined ? 'no' : 'yes' }, { beacon: true });
-		
-		if (winner.names == undefined) {
-			//alert('경기 진행중입니다.');
-			getScore(2);
-			return false;
-		}
-		
-		
-		post += '[월드컵]\n'
-		post += cuData['title'] + ' \n'
-		post += 'http://gaeyou.com/w/?' + cuData['idx'] + '\n';
-		post += '────────────────────\n'
-		post += '♛ 최종우승: ' + decodeURIComponent(winner.names) + '\n';
-		post += '♚ 준우승: ' + decodeURIComponent(semiWinner.name) + '\n';
-		post += '♝ 3위: ' + decodeURIComponent(stone[arr3win[0]]['text']) + '\n';
-		post += '♞ 4위: ' + decodeURIComponent(stone[arr3win[1]]['text']) + '\n\n';
-		
-		data.post = post;
-		data['media'] = 'twitter';
-		shareData(data)
+		post += '♞ 4위: ' + decodeURIComponent(stone[arr3win[1]]['text']) + '\n';
+		GaeyouGnb.share(media, { title: cuData['title'], text: post, url: url });
 	})
 }
 

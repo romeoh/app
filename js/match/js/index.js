@@ -216,21 +216,10 @@ function init() {
 			
 			resultTxt = resultTxt + '?' + idx
 
-			if (platform == 'kakaostory') {
-                if (!Kakao.isInitialized()) {
-                    Kakao.init('eaed55751e121f59b09594ba64fa7558')
-                }
-                Kakao.Story.share({
-                    url: 'http://gaeyou.com/m/',
-                    text: resultTxt
-                });
-            }
-            if (platform == 'twitter') {
-                str += 'https://twitter.com/intent/tweet?text='
-                str += encodeURIComponent(resultTxt)
-                top.location.href = str;
-            }
-
+			// 공유 (2026-10-24): X·쓰레드·폰 공유창 (예전 트위터·카스). 폰 공유창은 저장을 기다린 뒤라 막히면 복사로 대신한다
+			if (window.GaeyouGnb && GaeyouGnb.share) {
+				GaeyouGnb.share(platform, { title: '이름궁합', text: resultTxt });
+			}
 			console.log(resultTxt)
 		});
 		

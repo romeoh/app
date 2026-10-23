@@ -169,6 +169,15 @@
 	var IMG = '//romeoh.github.io/app/img/';
 
 	var CSS = '' +
+		/* 공유 버튼 (2026-10-24): X · 쓰레드 · 폰 공유창 — GaeyouGnb.shareButtons() */
+		'.gy-share{display:flex;gap:6px;margin:0}' +
+		'.gy-share-btn{flex:1 1 0;display:flex;align-items:center;justify-content:center;gap:6px;height:44px;margin:0;padding:0 6px;border-radius:6px;' +
+			'font-size:15px;font-weight:bold;line-height:1;text-decoration:none!important;cursor:pointer;box-sizing:border-box;-webkit-tap-highlight-color:transparent;white-space:nowrap}' +
+		'.gy-share-x{background:#000;color:#fff!important;border:1px solid #000}' +
+		'.gy-share-th{background:#fff;color:#000!important;border:1px solid #000}' +
+		'.gy-share-at{font-size:18px;line-height:1;font-weight:900;margin-top:-2px}' +
+		'.gy-share-more{flex:0 0 48px;background:#f2f2f2;color:#333!important;border:1px solid #ccc}' +
+		'.gy-share-btn:active{opacity:.8}' +
 		'.gy-hd{position:relative;height:44px;margin:0;padding:0;text-align:center;line-height:0}' +
 		'.gy-hd-logo{position:absolute;left:0;top:0;width:47px;height:44px;' +
 			'background:url(' + IMG + 'logo.png) 11px 9px/26px no-repeat}' +
@@ -318,6 +327,73 @@
 		update();
 	}
 
+	// ---- 공유 (2026-10-24) ----
+	// 서비스마다 글·주소는 각자 만들고, 보내는 곳(X·쓰레드·폰 공유창)과 버튼 모양은 여기서 같게 한다.
+	var X_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
+	var SHARE_SVG = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>';
+
+	/** 버튼 세 개 HTML. verb: '확인'(공유해야 결과가 보이는 곳) 또는 '공유'. 버튼에는 data-share="twitter|threads|native" */
+	function shareButtons(verb) {
+		verb = verb || '공유';
+		return '<div class="gy-share">' +
+			'<a class="gy-share-btn gy-share-x" data-share="twitter" role="button">' + X_SVG + 'X로 ' + verb + '</a>' +
+			'<a class="gy-share-btn gy-share-th" data-share="threads" role="button"><span class="gy-share-at" aria-hidden="true">@</span>쓰레드로 ' + verb + '</a>' +
+			'<a class="gy-share-btn gy-share-more" data-share="native" role="button" aria-label="다른 앱으로 공유" title="다른 앱으로 공유">' + SHARE_SVG + '</a>' +
+			'</div>';
+	}
+
+	function copyText(text) {
+		var done = function () { alert('복사했어요. 원하는 곳에 붙여 넣어 공유하세요.'); };
+		var ask = function () { window.prompt('아래 내용을 복사해 공유하세요.', text); };
+		if (navigator.clipboard && navigator.clipboard.writeText) {
+			navigator.clipboard.writeText(text).then(done, ask);
+			return;
+		}
+		var ta = document.createElement('textarea');
+		ta.value = text;
+		ta.style.position = 'fixed';
+		ta.style.opacity = '0';
+		document.body.appendChild(ta);
+		ta.select();
+		try { if (document.execCommand('copy')) done(); else ask(); } catch (e) { ask(); }
+		document.body.removeChild(ta);
+	}
+
+	/**
+	 * 보내기. method: twitter|x, threads, native. o: { text, url, title, newWindow }
+	 * X·쓰레드는 같은 창에서 이동(newWindow면 새 창, 막히면 같은 창). 폰 공유창은 클릭 직후에 불러야 열리고, 없거나 막히면 복사한다.
+	 */
+	function share(method, o) {
+		o = o || {};
+		var text = (o.text || '').replace(/\n{3,}/g, '\n\n'), url = o.url || '', go;
+		go = function (u) {
+			if (o.newWindow) {
+				var w = window.open(u, '_blank');
+				if (w) return;
+			}
+			top.location.href = u;
+		};
+		if (method === 'twitter' || method === 'x') {
+			return go('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text + (url ? '\n' + url : '')));
+		}
+		if (method === 'threads') {
+			if (text.length > 450) text = text.substr(0, 450) + '...';
+			return go('https://www.threads.com/intent/post?text=' + encodeURIComponent(text) + (url ? '&url=' + encodeURIComponent(url) : ''));
+		}
+		if (method === 'native') {
+			if (navigator.share) {
+				var d = { text: text };
+				if (o.title) d.title = o.title;
+				if (url) d.url = url;
+				navigator.share(d)['catch'](function (e) {
+					if (!e || e.name !== 'AbortError') copyText(text + (url ? '\n' + url : ''));
+				});
+			} else {
+				copyText(text + (url ? '\n' + url : ''));
+			}
+		}
+	}
+
 	function init() {
 		if (!gaBase) { gaInit(); bindShare(); bindPromo(); }
 		injectCss();
@@ -325,7 +401,7 @@
 		if (el) render(el);
 	}
 
-	window.GaeyouGnb = { menus: MENUS, init: init, track: track, pageView: pageView };
+	window.GaeyouGnb = { menus: MENUS, init: init, track: track, pageView: pageView, share: share, shareButtons: shareButtons };
 	init();
 	if (!document.getElementById('gyGnb') && document.readyState === 'loading') {
 		document.addEventListener('DOMContentLoaded', init);
