@@ -8,7 +8,7 @@
  *   색상은 MENUS의 header: [그라데이션 시작, 끝, 로고 배경]
  * - 의존성 없음(jQuery/Bootstrap 버전 무관), ES5
  *
- * 통계(GA4, 깨알유머 통합 속성 G-HDR3T58QC9)도 여기서 한다 — 메뉴를 쓰는 모든 페이지가 이 파일을 불러오므로.
+ * 통계(GA4, 깨알유머 통합 속성 G-BCZM5VJWJM)도 여기서 한다 — 메뉴를 쓰는 모든 페이지가 이 파일을 불러오므로.
  * - GA_SERVICES에 있는 서비스만 이 파일이 gtag를 넣는다(서비스별로 차례로 옮기는 중). 이미 같은 속성 gtag가 있으면 다시 넣지 않는다.
  * - 모든 이벤트에 service(메뉴 id), page_type(파일 이름: main/add/list…), content_id(주소의 글 번호)가 붙는다.
  * - 서비스 JS에서: GaeyouGnb.track('이벤트', { 값 }, { next: true })
@@ -38,7 +38,7 @@
 	var DEFAULT_HEADER = ['#ff6eda', '#ff6868', '#d66db8'];
 
 	// ---- 통계 (GA4) ----
-	var GA_ID = 'G-HDR3T58QC9';
+	var GA_ID = 'G-BCZM5VJWJM';
 	var GA_SERVICES = ['t', 'w'];   // 여기 있는 서비스만 gnb.js가 gtag를 넣는다. 다음: 'm', ...
 	// 글 제목을 불러온 뒤에 페이지 조회를 보내는 서비스 (HTML 제목이 모두 '깨알유머'라 GA에서 구분이 안 되므로).
 	// 서비스 JS가 GaeyouGnb.pageView(제목)를 부른다. 4초 안에 안 부르면 기본 제목으로 보낸다.
