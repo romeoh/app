@@ -181,6 +181,7 @@ function ready() {
                     ,'success': function(){
                         localStorage.setItem(code+'_count', '0');
                         addComplete(code, result.result);
+                        if (window.GaeyouGnb && window.GaeyouGnb.track) window.GaeyouGnb.track('novel_create', {}, { next: true });
                         alert('등록되었습니다.');
                         window.location.href = '//gaeyou.com/novel/?' + result.result;
                     }

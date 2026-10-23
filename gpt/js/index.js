@@ -1,3 +1,7 @@
+// 통계: 공통 메뉴(gnb.js)의 GA 도우미. 이벤트 목록은 lumo/docs/analytics-gaeyou.md
+function gyTrack(name, params, opts) {
+	if (window.GaeyouGnb && window.GaeyouGnb.track) window.GaeyouGnb.track(name, params || {}, opts);
+}
 var concernFrom = 0
 var concernTotal = 10
 
@@ -76,6 +80,7 @@ if ($('body.concern').length == 1) {
 			        if (!concern) {
 				        return alert(charactor + '에게 고민을 말해보세요.')
 			        }
+			        gyTrack('concern_ask', { length_bucket: concern.length < 100 ? 'short' : 'long' })
 			        showProgress()
 					$.ajax({
 					    url: './api/chatgpt.php',
@@ -111,6 +116,7 @@ if ($('body.concern').length == 1) {
 										concern_result_idx: idx+''
 									}
 									addToStorage("concernResult", result)
+									gyTrack('concern_result', {}, { next: true })
 									window.location.href = 'result.html?idx='+idx;
 							    }
 							});
@@ -246,6 +252,7 @@ if ($('body.result').length == 1) {
 	        concernIdx = data[0].concern_idx
 	        
 	        $('#shareTwitter').on('click', function() {
+	        	gyTrack('share', { method: 'twitter' }, { beacon: true })
 		        $.ajax({
 				    url: './api/service.php',
 				    method: 'POST',
@@ -267,6 +274,7 @@ if ($('body.result').length == 1) {
 		        
 	        })
 	        $('#shareKakaotalk').on('click', function() {
+	        	gyTrack('share', { method: 'kakaotalk' }, { beacon: true })
 		        $.ajax({
 				    url: './api/service.php',
 				    method: 'POST',
@@ -346,6 +354,7 @@ if ($('body.result').length == 1) {
 						    success: function(data) {
 							    //console.log(data);
 						        $('#gaeup_count i').html(toNumber(data.gaeup_count))
+						        gyTrack('concern_like', { kind: 'up' })
 						    }
 						});
 		        	} else {
@@ -368,6 +377,7 @@ if ($('body.result').length == 1) {
 						    success: function(data) {
 							    //console.log(data);
 						        $('#gaedown_count i').html(toNumber(data.gaedown_count))
+						        gyTrack('concern_like', { kind: 'down' })
 						    }
 						});
 					} else {
@@ -525,6 +535,7 @@ if ($('body.result').length == 1) {
 						content: content
 				    },
 				    success: function(data) {
+					    gyTrack('comment_add', {}, { next: true })
 					    addToStorage('concernComment', {
 						    concernIdx: concernIdx+'',
 						    concernResultIdx: concernResultIdx+'',

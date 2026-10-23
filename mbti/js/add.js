@@ -418,6 +418,7 @@ $(function(){
         //console.log(data)
         $.post(url, data, function(res) {
             if (res) {
+                if (window.GaeyouGnb && window.GaeyouGnb.track) window.GaeyouGnb.track('psy_create', { question_count: questionCount }, { next: true })
                 alert(message)
                 location.href = './?' + res
             }

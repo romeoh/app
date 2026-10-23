@@ -39,7 +39,9 @@
 
 	// ---- 통계 (GA4) ----
 	var GA_ID = 'G-BCZM5VJWJM';
-	var GA_SERVICES = ['t', 'w'];   // 여기 있는 서비스만 gnb.js가 gtag를 넣는다. 다음: 'm', ...
+	var GA_SERVICES = ['t', 'w', 'm', 'mbti', 'apps/mbti', 'novel', 'game', 'gpt', 'merit', 's'];   // 여기 있는 서비스만 gnb.js가 gtag를 넣는다 (사주는 astro_web 앱으로 넘어가서 제외)
+	// 공유 버튼(data-share·data-sharer·data-sns 등)을 자동으로 share 이벤트로. 서비스 JS가 직접 보내는 곳은 뺀다.
+	var GA_SHARE_SELF = ['t', 'w', 'm', 'gpt'];
 	// 글 제목을 불러온 뒤에 페이지 조회를 보내는 서비스 (HTML 제목이 모두 '깨알유머'라 GA에서 구분이 안 되므로).
 	// 서비스 JS가 GaeyouGnb.pageView(제목)를 부른다. 4초 안에 안 부르면 기본 제목으로 보낸다.
 	var GA_LATE_VIEW = ['t', 'w'];
@@ -90,7 +92,7 @@
 			if (nx) {
 				window.sessionStorage.removeItem('gyGaNext');
 				nx = JSON.parse(nx);
-				if (nx && nx[0]) window.gtag('event', nx[0], nx[1] || {});
+				if (nx && nx[0]) { nx[1] = nx[1] || {}; nx[1].send_to = GA_ID; window.gtag('event', nx[0], nx[1]); }
 			}
 		} catch (x) {}
 	}
@@ -119,7 +121,24 @@
 		}
 		if (typeof window.gtag !== 'function') return;
 		if (opts && opts.beacon) p.transport_type = 'beacon';
+		p.send_to = GA_ID;   // 예전 속성의 gtag가 같이 있는 페이지(고민상담소 등)에서 그쪽으로 새지 않게
 		window.gtag('event', name, p);
+	}
+
+	// 공유 버튼 자동 수집
+	function bindShare() {
+		var cur = gaBase ? gaBase.service : '';
+		if (!cur || GA_SHARE_SELF.indexOf(cur) >= 0) return;
+		document.addEventListener('click', function (e) {
+			var a = e.target, attrs = ['data-share', 'data-sharer', 'data-sharer-extend', 'data-sns'], i, v;
+			while (a && a !== document) {
+				for (i = 0; i < attrs.length; i++) {
+					v = a.getAttribute && a.getAttribute(attrs[i]);
+					if (v !== null && v !== undefined) return track('share', { method: v || attrs[i] }, { beacon: true });
+				}
+				a = a.parentNode;
+			}
+		}, true);
 	}
 	var IMG = '//romeoh.github.io/app/img/';
 
@@ -274,7 +293,7 @@
 	}
 
 	function init() {
-		if (!gaBase) gaInit();
+		if (!gaBase) { gaInit(); bindShare(); }
 		injectCss();
 		var el = document.getElementById('gyGnb');
 		if (el) render(el);

@@ -193,6 +193,7 @@ define([
         localStorage.setItem('shouldSaveMbti', 'Y')
         localStorage.setItem('mbtiResult', result)
         localStorage.setItem('mbti', type)
+        if (window.GaeyouGnb && window.GaeyouGnb.track) window.GaeyouGnb.track('mbti_complete', { result_type: type }, { next: true })
         location.href = 'result.html#/results'
         shareMyUrl(result)
       });
@@ -452,6 +453,9 @@ define([
     var that = this;
     
     crossroads.addRoute('/questions/{id}', function(id){
+      // 통계: 진행 단계 (1번, 10번마다) — 몇 번째 질문에서 그만두는지
+      var qn = parseInt(id, 10);
+      if ((qn === 1 || qn % 10 === 0) && window.GaeyouGnb && window.GaeyouGnb.track) window.GaeyouGnb.track('mbti_progress', { question: qn });
       if ( (this.itemCount - 1) === id) {
         that.prev();
       } else if ( (this.itemCount + 1) === id) {

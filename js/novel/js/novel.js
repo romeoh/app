@@ -336,6 +336,7 @@ function setGaeup(flag) {
 		alert('이미 평가 하셨습니다.');
 		return false;
 	}
+	if (window.GaeyouGnb && window.GaeyouGnb.track) window.GaeyouGnb.track('novel_like', { kind: flag == 'UP' ? 'up' : 'down' });
 
 	// 깨업
 	databody = {
@@ -415,6 +416,7 @@ function initWriteFiction() {
 			localStorage.setItem(code+'_count', fic_count);
 			
 			if (setComp(result['result']) ) {
+				if (window.GaeyouGnb && window.GaeyouGnb.track) window.GaeyouGnb.track('novel_write', {}, { next: true });
 				window.location.reload();
 			}
 		})

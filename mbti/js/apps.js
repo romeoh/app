@@ -70,6 +70,7 @@ $(function(){
         $('#startMbti').on('click', function() {
             var uname = $('[data-uname]').val();
             if (!uname) return $.showToast('닉네임을 입력하세요.');
+            if (window.GaeyouGnb && window.GaeyouGnb.track) window.GaeyouGnb.track('psy_start', { question_count: mbti.questionCount })
             goStage(1)
             nextQuestion()
         })
@@ -184,6 +185,7 @@ $(function(){
                 ,typeString = $.getTypeString(type)
             
             //console.log(res)
+            if (window.GaeyouGnb && window.GaeyouGnb.track) window.GaeyouGnb.track('psy_result', { result_type: type })
             $('[data-description-type]').html(uname + '님은 ' + typeString + '(' + type + ')타입 입니다.')
             $('[data-description]').html(resultMbti.description.replace(/\n/g, '<br>'))
             if (resultMbti.picture) {
@@ -198,6 +200,7 @@ $(function(){
     $('[data-updown]').on('click', function() {
         var  url = '/apps/mbti/api/mbti_update'
             ,flag = $(this).attr('data-updown')
+        if (window.GaeyouGnb && window.GaeyouGnb.track) window.GaeyouGnb.track('psy_like', { kind: flag })
             ,canUpDown = $.canUpDown(mbtiIndex)
             ,data = {
                  flag: flag
@@ -228,6 +231,7 @@ $(function(){
      * 다시하기
      */
     $('[data-retry]').on('click', function() {
+        if (window.GaeyouGnb && window.GaeyouGnb.track) window.GaeyouGnb.track('psy_retry', {})
         answers = []
         currentIndex = 0;
         goStage(0)
@@ -415,6 +419,7 @@ $(function(){
         $.post(url, data, function(res) {
             // console.log(res)
             var commentIdx = res;
+            if (window.GaeyouGnb && window.GaeyouGnb.track) window.GaeyouGnb.track('comment_add', {})
             data.idx = res;
             data.fromNow = moment().fromNow();
             $.each([data], function(index, obj) {

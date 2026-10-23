@@ -1,3 +1,7 @@
+// 통계: 공통 메뉴(gnb.js)의 GA 도우미. 이벤트 목록은 lumo/docs/analytics-gaeyou.md
+function gyTrack(name, params, opts) {
+	if (window.GaeyouGnb && window.GaeyouGnb.track) window.GaeyouGnb.track(name, params || {}, opts);
+}
 var  apiUrl = './api/v1/share.php'
 	,listApiUrl = './api/v1/list.php'
 	,myName
@@ -170,11 +174,14 @@ function init() {
 		myName = onlyKorean($('#myName').val())
 		yourName = onlyKorean($('#yourName').val())
 		if (!myName) {
+			gyTrack('match_name_empty', { missing: 'my', share_to: platform })
 			return alert('나의 이름을 입력하세요.')
 		}
 		if (!yourName) {
+			gyTrack('match_name_empty', { missing: 'your', share_to: platform })
 			return alert('너의 이름을 입력하세요.')
 		}
+		gyTrack('match_result', { share_to: platform, from_link: url.searchParams.get('your') ? 'yes' : 'no' }, { beacon: true })
 		
 		var myChoArr = getCho(myName)
 		var yourChoArr = getCho(yourName)
