@@ -13,6 +13,7 @@
 
 	// 메뉴 순서 = 노출 순서. hidden:true 는 노출 안 함
 	var MENUS = [
+		{ id: 'lumo',      name: '루모',       href: '/lumo/', accent: true }, // 예측 코너. 다른 메뉴보다 눈에 띄게(.gy-gnb-acc)
 		{ id: 't',         name: '깨알테스트', href: '/t/' },
 		{ id: 'w',         name: '월드컵',     href: '/w/' },
 		{ id: 'm',         name: '이름궁합',   href: '/m/' },
@@ -55,7 +56,14 @@
 		'.gy-gnb-fade:after{content:"\\203A";position:absolute;right:6px;top:50%;margin-top:-11px;font-size:20px;' +
 			'line-height:20px;color:#aaa}' +
 		'.gy-gnb.is-end .gy-gnb-fade{opacity:0}' +
-		'.gy-gnb-gap{height:8px;background:#eaecef}';
+		'.gy-gnb-gap{height:8px;background:#eaecef}' +
+		// 루모: 루모 로고처럼 노랑 바탕 + 검정 테두리 + 분홍 그림자
+		'.gy-gnb-acc{display:flex;align-items:center;padding:0 6px 0 4px}' +
+		'.gy-gnb .gy-gnb-acc a{height:28px;padding:0 11px;border:2px solid #1C1A17;border-radius:8px;background:#FFE45C;' +
+			'box-shadow:2px 2px 0 #D6246E;color:#1C1A17;font-weight:900;letter-spacing:-.2px}' +
+		'.gy-gnb .gy-gnb-acc a:hover,.gy-gnb .gy-gnb-acc a:focus{color:#1C1A17;background:#ffdd2e}' +
+		'.gy-gnb-acc a:active{transform:translate(1px,1px);box-shadow:1px 1px 0 #D6246E}' +
+		'.gy-gnb-acc-dot{display:inline-block;width:6px;height:6px;margin:0 0 0 5px;border-radius:50%;background:#D6246E;vertical-align:middle}';
 
 	function detectCurrent() {
 		var path = window.location.pathname.replace(/^\/+/, '');
@@ -106,7 +114,9 @@
 		}
 		html += '<ul class="gy-gnb-scroll">';
 		for (i = 0; i < rest.length; i++) {
-			html += '<li><a href="' + esc(rest[i].href) + '">' + esc(rest[i].name) + '</a></li>';
+			html += rest[i].accent
+				? '<li class="gy-gnb-acc"><a href="' + esc(rest[i].href) + '">' + esc(rest[i].name) + '<span class="gy-gnb-acc-dot"></span></a></li>'
+				: '<li><a href="' + esc(rest[i].href) + '">' + esc(rest[i].name) + '</a></li>';
 		}
 		html += '</ul><span class="gy-gnb-fade"></span></div><div class="gy-gnb-gap"></div>';
 
