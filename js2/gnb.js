@@ -150,6 +150,22 @@
 			}
 		}, true);
 	}
+	// 배너(data-gy-promo="이름") 클릭 = select_promotion. 루모로 가면 도착한 루모 화면이 보낸다(lumoGaNext)
+	function bindPromo() {
+		document.addEventListener('click', function (e) {
+			var a = e.target;
+			while (a && a !== document && !(a.getAttribute && a.getAttribute('data-gy-promo'))) a = a.parentNode;
+			if (!a || a === document) return;
+			var href = a.getAttribute('href') || '';
+			var params = { promotion_name: a.getAttribute('data-gy-promo'), creative_slot: a.getAttribute('data-gy-slot') || '', link_url: href };
+			var plain = !(e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button) && !a.target;
+			if (plain && href.indexOf('/lumo/') === 0) {
+				try { window.sessionStorage.setItem('lumoGaNext', JSON.stringify(['select_promotion', merge(params)])); return; } catch (x) {}
+			}
+			track('select_promotion', params, { beacon: true });
+		}, true);
+	}
+
 	var IMG = '//romeoh.github.io/app/img/';
 
 	var CSS = '' +
@@ -303,7 +319,7 @@
 	}
 
 	function init() {
-		if (!gaBase) { gaInit(); bindShare(); }
+		if (!gaBase) { gaInit(); bindShare(); bindPromo(); }
 		injectCss();
 		var el = document.getElementById('gyGnb');
 		if (el) render(el);
