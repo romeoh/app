@@ -504,6 +504,37 @@ function initView() {
 
 
 // 테스트 실행
+// 결과 공유 주소 /t/s/?코드 (2026-10-24). 이름을 쓰기 시작하면 코드를 미리 받아 둔다 —
+// 폰 공유창은 클릭 직후에만 열려서 공유 순간에 서버를 기다릴 수 없다. 공유할 때 이름·뽑힌 항목을 그 코드에 채운다.
+var  shareCode = null
+	,shareCodeBusy = false
+function reserveShareCode() {
+	if (shareCode || shareCodeBusy || !cuData || !cuData['idx']) return;
+	shareCodeBusy = true;
+	$.ajax({ 'url': '/t/s/api.php', 'type': 'POST', 'dataType': 'json', 'data': { 'a': 'new', 'idx': cuData['idx'] }
+		,'success': function (r) { if (r && r.ok) shareCode = r.code; }
+		,'complete': function () { shareCodeBusy = false; }
+	});
+}
+document.addEventListener('focusin', function (e) {
+	if (e.target && e.target.hasAttribute && e.target.hasAttribute('data-uname')) reserveShareCode();
+});
+document.addEventListener('input', function (e) {
+	if (e.target && e.target.hasAttribute && e.target.hasAttribute('data-uname')) reserveShareCode();
+});
+/** 받아 둔 코드에 이름·항목을 채운다. done(code 또는 null) */
+function saveShare(name, picks, done) {
+	var code = shareCode;
+	shareCode = null;   // 한 번 쓴 코드는 다시 안 쓴다 (다음 공유용으로 새로 받음)
+	$.ajax({ 'url': '/t/s/api.php', 'type': 'POST', 'dataType': 'json', 'timeout': 4000
+		,'data': { 'a': 'set', 'idx': cuData['idx'], 'code': code || '', 'name': name, 'picks': picks.join(',') }
+		,'success': function (r) { done && done(r && r.ok ? r.code : null); }
+		,'error': function () { done && done(null); }
+		,'complete': function () { reserveShareCode(); }
+	});
+	return code;
+}
+
 function testExcute(evt, mp) {
 	var  userName = M('[data-uname]').val()
 		,result = cuData['result']
@@ -517,31 +548,37 @@ function testExcute(evt, mp) {
 		return false;
 	}
 	gyTrack('test_result', { share_to: mp.data('share') }, { beacon: true });
+	var picks = [0, 0, 0, 0, 0], pickLast = 0
 	result = result.replace(/#이름#/, userName)
 	if (result.indexOf('#항목1#') != -1) {
 		ranList1 = cuData['lists'][0]
 		idx1 = process(ranList1)
 		result = result.replace(/#항목1#/, ranList1[idx1])
+		picks[0] = idx1; pickLast = 1
 	}
 	if (result.indexOf('#항목2#') != -1) {
 		ranList2 = cuData['lists'][1]
 		idx2 = process(ranList2)
 		result = result.replace(/#항목2#/, ranList2[idx2])
+		picks[1] = idx2; pickLast = 2
 	}
 	if (result.indexOf('#항목3#') != -1) {
 		ranList3 = cuData['lists'][2]
 		idx3 = process(ranList3)
 		result = result.replace(/#항목3#/, ranList3[idx3])
+		picks[2] = idx3; pickLast = 3
 	}
 	if (result.indexOf('#항목4#') != -1) {
 		ranList4 = cuData['lists'][3]
 		idx4 = process(ranList4)
 		result = result.replace(/#항목4#/, ranList4[idx4])
+		picks[3] = idx4; pickLast = 4
 	}
 	if (result.indexOf('#항목5#') != -1) {
 		ranList5 = cuData['lists'][4]
 		idx5 = process(ranList5)
 		result = result.replace(/#항목5#/, ranList5[idx5])
+		picks[4] = idx5; pickLast = 5
 	}
 	
 	post += getSpecial() + ' ' + cuData['title'] + '\n'
@@ -559,7 +596,18 @@ function testExcute(evt, mp) {
 	
 	// 폰 공유창은 클릭 직후에만 열 수 있어서 바로 연다. X·쓰레드는 실행 수 기록 뒤 같은 창에서 이동
 	// (같은 창 이동이라 GA가 모아 둔 test_result는 잡히지 않을 수 있다 — 사용자 결정 2026-10-24)
-	if (data['media'] == 'native') shareData(data);
+	picks = picks.slice(0, pickLast)
+	if (data['media'] == 'native') {
+		var nativeCode = saveShare(userName, picks);
+		if (nativeCode) data.url = 'https://gaeyou.com/t/s/?' + nativeCode;
+		shareData(data);
+	}
+	var shareWithCode = function () {
+		saveShare(userName, picks, function (code) {
+			if (code) data.url = 'https://gaeyou.com/t/s/?' + code;
+			shareData(data);
+		});
+	}
 	// 테스트 전문 통신
 	bodyData = {
 		'idx': cuData['idx']
@@ -570,10 +618,10 @@ function testExcute(evt, mp) {
 		,'data': bodyData
 		,'type': 'POST'
 		,'success': function(result){
-			if (data['media'] != 'native') shareData(data);
+			if (data['media'] != 'native') shareWithCode();
 		}
 		,'error': function () {   // 실행 수 기록이 실패해도 공유는 한다
-			if (data['media'] != 'native') shareData(data);
+			if (data['media'] != 'native') shareWithCode();
 		}
 	})
 }
