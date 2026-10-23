@@ -1073,6 +1073,15 @@ function validation(data) {
 }*/
 
 // 공유
+// 공유 창 열기. newWindow면 새 탭(클릭 직후에만 허용됨) — 이 화면이 남아 있어야 GA가 이벤트를 보낸다(약 5초 모아서 보냄). 막히면 이 탭에서 이동
+function openShareUrl(url, newWindow) {
+	if (newWindow) {
+		var w = window.open(url, '_blank');
+		if (w) return;
+	}
+	top.location.href = url;
+}
+
 function copyShareText(text) {
 	var done = function () { alert('결과를 복사했어요. 원하는 곳에 붙여 넣어 공유하세요.') }
 	if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -1203,7 +1212,7 @@ function shareData(_obj, _opt) {
 
 		str += 'https://twitter.com/intent/tweet?text=';
 		str += encodeURIComponent(twit);
-		top.location.href = str;
+		openShareUrl(str, obj.newWindow);
 		//return false;
 
 		test  = '♥♥ [트위터로 공유] ♥♥\n'
@@ -1219,7 +1228,7 @@ function shareData(_obj, _opt) {
 	if (media == 'threads') {
 		var  thPost = (obj.twit || obj.post || '').replace(/\n\n/g, '\n')
 		if (thPost.length > 450) thPost = thPost.substr(0, 450) + '...'
-		top.location.href = 'https://www.threads.com/intent/post?text=' + encodeURIComponent(thPost) + '&url=' + encodeURIComponent(url);
+		openShareUrl('https://www.threads.com/intent/post?text=' + encodeURIComponent(thPost) + '&url=' + encodeURIComponent(url), obj.newWindow);
 		return false;
 	}
 
