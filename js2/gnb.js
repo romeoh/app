@@ -110,13 +110,13 @@
 		html += '<div class="gy-gnb">';
 		if (cur) {
 			html += '<div class="gy-gnb-cur">' +
-				'<a href="' + esc(cur.href) + '" aria-current="page">' + esc(cur.name) + '</a></div>';
+				'<a href="' + esc(cur.href) + '" data-gnb="' + esc(cur.id) + '" aria-current="page">' + esc(cur.name) + '</a></div>';
 		}
 		html += '<ul class="gy-gnb-scroll">';
 		for (i = 0; i < rest.length; i++) {
 			html += rest[i].accent
-				? '<li class="gy-gnb-acc"><a href="' + esc(rest[i].href) + '">' + esc(rest[i].name) + '<span class="gy-gnb-acc-dot"></span></a></li>'
-				: '<li><a href="' + esc(rest[i].href) + '">' + esc(rest[i].name) + '</a></li>';
+				? '<li class="gy-gnb-acc"><a href="' + esc(rest[i].href) + '" data-gnb="' + esc(rest[i].id) + '">' + esc(rest[i].name) + '<span class="gy-gnb-acc-dot"></span></a></li>'
+				: '<li><a href="' + esc(rest[i].href) + '" data-gnb="' + esc(rest[i].id) + '">' + esc(rest[i].name) + '</a></li>';
 		}
 		html += '</ul><span class="gy-gnb-fade"></span></div><div class="gy-gnb-gap"></div>';
 
@@ -126,7 +126,23 @@
 
 		el.innerHTML = html;
 		el.setAttribute('data-gnb-ready', '1');
+		bindTrack(el, curId);
 		bindScroll(el.querySelector('.gy-gnb'), el.querySelector('.gy-gnb-scroll'));
+	}
+
+	// 메뉴 클릭을 구글 애널리틱스(GA4) 이벤트로: 콘텐츠 사이 이동 동선 (gtag가 있는 페이지에서만)
+	function bindTrack(el, curId) {
+		el.addEventListener('click', function (e) {
+			var a = e.target;
+			while (a && a !== el && !(a.getAttribute && a.getAttribute('data-gnb'))) a = a.parentNode;
+			if (!a || a === el) return;
+			var params = { menu: a.getAttribute('data-gnb'), from: curId || 'none', link_url: a.getAttribute('href'), transport_type: 'beacon' };
+			if (typeof window.gtag === 'function') {
+				window.gtag('event', 'gnb_click', params);
+			} else if (window.dataLayer && window.dataLayer.push) {
+				window.dataLayer.push({ event: 'gnb_click', gnb_menu: params.menu, gnb_from: params.from });
+			}
+		});
 	}
 
 	function bindScroll(bar, scroller) {
