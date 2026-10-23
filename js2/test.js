@@ -21,6 +21,25 @@ var  pollList = M.storage('pollList') || []
 	,hotTotal = 10
 	,listFlag = M.storage('listFlag') || 'hot'
 	
+// 통계: 공통 메뉴(gnb.js)의 GA 도우미. 이벤트 목록은 lumo/docs/analytics-gaeyou.md
+function gyTrack(name, params, opts) {
+	if (window.GaeyouGnb && window.GaeyouGnb.track) window.GaeyouGnb.track(name, params || {}, opts);
+}
+document.addEventListener('click', function (e) {
+	var a = e.target;
+	while (a && a !== document && a.tagName !== 'A') a = a.parentNode;
+	if (!a || a === document) return;
+	var href = a.getAttribute('href') || '';
+	var list = document.getElementById('hotContainer');
+	if (list && list.contains(a) && /^\/t\/\?\d+/.test(href)) {
+		var items = list.querySelectorAll('a[href^="/t/?"]'), idx = 0;
+		for (var i = 0; i < items.length; i++) if (items[i] === a) idx = i;
+		return gyTrack('select_content', { content_type: 'test', item_id: href.replace(/^\/t\/\?/, ''),
+			list_name: searchKeyword ? 'search' : 'list_' + listFlag, index: idx }, { next: true });
+	}
+	if (/(^|\/)add\.html/.test(href)) gyTrack('create_start', { place: a.className.indexOf('gnbNew') >= 0 ? 'header' : 'page' }, { next: true });
+}, false);
+
 window.addEventListener('DOMContentLoaded', ready, false);
 window.addEventListener('hashchange', function() {
 	location.reload();
@@ -314,6 +333,7 @@ function getHotTest() {
 			
 			// 더 불러오기
 			M('[data-morehot]').on('click', function(evt, mp){
+				gyTrack('test_load_more', { list_name: 'hot' });
 				mp.remove();
 				getHotTest();
 			})
@@ -371,6 +391,7 @@ function getNewTest() {
 			M('#replyContainer').html( M('#replyContainer').html() + str );
 			// 더 불러오기
 			M('[data-morenew]').on('click', function(evt, mp){
+				gyTrack('test_load_more', { list_name: 'new' });
 				mp.remove();
 				getNewTest();
 			})
@@ -405,6 +426,7 @@ function initGaeup() {
 			,'success': function(result){
 				var  result = M.json(result)
 				setUniq(code + 'GaeupList', cuData['idx']);
+				gyTrack('test_like', { kind: 'up' });
 				//M('#viewGaeup').html(result['total']);
 				M('#btnGaeup').html('<i class="fa fa-thumbs-up"></i> 깨업('+result['total']+'회)');
 				if (!!member) {
@@ -444,6 +466,7 @@ function initGaeup() {
 			,'success': function(result){
 				var  result = M.json(result)
 				setUniq(code + 'GaeupList', cuData['idx']);
+				gyTrack('test_like', { kind: 'down' });
 				M('#btnGaedown').html('<i class="fa fa-thumbs-down"></i> 깨따('+result['total']+'회)')
 				return alert('깨따했습니다.');
 				//M('#viewGaeup').html(result['total']);
@@ -487,10 +510,12 @@ function testExcute(evt, mp) {
 		,post = ''
 	
 	if (userName == '') {
+		gyTrack('test_name_empty', { share_to: mp.data('share') });
 		alert('이름을 입력해주세요.');
 		M('[data-uname]').focus();
 		return false;
 	}
+	gyTrack('test_result', { share_to: mp.data('share') }, { beacon: true });
 	result = result.replace(/#이름#/, userName)
 	if (result.indexOf('#항목1#') != -1) {
 		ranList1 = cuData['lists'][0]
@@ -606,6 +631,7 @@ function initReply(){
 				
 				readyReply = true
 				setUniq(key, result['id']);
+				gyTrack('comment_add', {}, { next: true });
 				window.location.href = 'https://gaeyou.com/t/?' + cuData['idx']
 				//window.location.reload();
 			}
@@ -783,6 +809,7 @@ function initSearch() {
 function onSearch() {
 	searchKeyword = $('#searchKeyword').val()
 	if (!searchKeyword) return;
+	gyTrack('test_search', {});
 
 	newStart = 0
 	newTotal = 20

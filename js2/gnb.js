@@ -7,6 +7,13 @@
  * - data-header="1": 공통 타이틀(깨알유머) 바도 함께 그림. 자체 헤더가 없는 페이지용
  *   색상은 MENUS의 header: [그라데이션 시작, 끝, 로고 배경]
  * - 의존성 없음(jQuery/Bootstrap 버전 무관), ES5
+ *
+ * 통계(GA4, 깨알유머 통합 속성 G-HDR3T58QC9)도 여기서 한다 — 메뉴를 쓰는 모든 페이지가 이 파일을 불러오므로.
+ * - GA_SERVICES에 있는 서비스만 이 파일이 gtag를 넣는다(서비스별로 차례로 옮기는 중). 이미 같은 속성 gtag가 있으면 다시 넣지 않는다.
+ * - 모든 이벤트에 service(메뉴 id), page_type(파일 이름: main/add/list…), content_id(주소의 글 번호)가 붙는다.
+ * - 서비스 JS에서: GaeyouGnb.track('이벤트', { 값 }, { next: true })
+ *     next: true = 곧 같은 사이트의 다른 화면으로 이동 → 다음 화면이 보낸다 (GA가 이벤트를 몇 초씩 모아 보내서 이동하면 사라짐)
+ * - 이벤트 목록: lumo/docs/analytics-gaeyou.md
  */
 (function (window, document) {
 	'use strict';
@@ -29,6 +36,68 @@
 	];
 
 	var DEFAULT_HEADER = ['#ff6eda', '#ff6868', '#d66db8'];
+
+	// ---- 통계 (GA4) ----
+	var GA_ID = 'G-HDR3T58QC9';
+	var GA_SERVICES = ['t'];   // 여기 있는 서비스만 gnb.js가 gtag를 넣는다. 다음: 'w', 'm', ...
+	var gaBase = null;
+
+	function gaHasTag() {
+		var i, d = window.dataLayer || [], sc = document.getElementsByTagName('script');
+		for (i = 0; i < sc.length; i++) if ((sc[i].src || '').indexOf('gtag/js?id=' + GA_ID) >= 0) return true;
+		for (i = 0; i < d.length; i++) if (d[i] && d[i][0] === 'config' && d[i][1] === GA_ID) return true;
+		return false;
+	}
+
+	function gaInit() {
+		var cur = detectCurrent() || 'etc';
+		var file = window.location.pathname.split('/').pop();
+		var m = /^\?(\d+)/.exec(window.location.search) || /[?&](?:id|idx)=(\d+)/.exec(window.location.search) || /^#(\d+)/.exec(window.location.hash);
+		gaBase = {
+			service: cur.replace(/\//g, '_'),
+			page_type: !file || file === 'index.html' ? 'main' : file.replace(/\.(html?|php)$/, ''),
+			content_group: cur.replace(/\//g, '_')
+		};
+		if (m) gaBase.content_id = m[1];
+		if (GA_SERVICES.indexOf(cur) < 0 || /^\/lumo\//.test(window.location.pathname)) return;   // 루모는 자체 gtag
+		if (cur === 't' && !window.location.search && /^#\d+$/.test(window.location.hash)) return;   // test.js가 곧 /t/?번호 로 바꾼다 (page_view 두 번 방지)
+		if (!gaHasTag()) {
+			window.dataLayer = window.dataLayer || [];
+			if (typeof window.gtag !== 'function') window.gtag = function () { window.dataLayer.push(arguments); };
+			var js = document.createElement('script');
+			js.async = true;
+			js.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+			(document.head || document.documentElement).appendChild(js);
+			window.gtag('js', new Date());
+			var cfg = {}, k;
+			for (k in gaBase) if (gaBase.hasOwnProperty(k)) cfg[k] = gaBase[k];
+			if (/[?&]ga_debug=1/.test(window.location.search)) cfg.debug_mode = true;
+			window.gtag('config', GA_ID, cfg);
+		}
+		// 이전 화면이 넘긴 이벤트
+		try {
+			var nx = window.sessionStorage.getItem('gyGaNext');
+			if (nx) {
+				window.sessionStorage.removeItem('gyGaNext');
+				nx = JSON.parse(nx);
+				if (nx && nx[0]) window.gtag('event', nx[0], nx[1] || {});
+			}
+		} catch (x) {}
+	}
+
+	/** 이벤트 보내기. opts.next: 곧 같은 사이트 다른 화면으로 이동 → 다음 화면이 보냄 */
+	function track(name, params, opts) {
+		var p = {}, k;
+		params = params || {};
+		for (k in gaBase || {}) if (gaBase.hasOwnProperty(k)) p[k] = gaBase[k];
+		for (k in params) if (params.hasOwnProperty(k)) p[k] = params[k];
+		if (opts && opts.next) {   // 도착 화면이 보내므로 지금 화면에 gtag가 없어도 된다
+			try { window.sessionStorage.setItem('gyGaNext', JSON.stringify([name, p])); return; } catch (x) {}
+		}
+		if (typeof window.gtag !== 'function') return;
+		if (opts && opts.beacon) p.transport_type = 'beacon';
+		window.gtag('event', name, p);
+	}
 	var IMG = '//romeoh.github.io/app/img/';
 
 	var CSS = '' +
@@ -136,24 +205,31 @@
 			var a = e.target;
 			while (a && a !== el && !(a.getAttribute && a.getAttribute('data-gnb'))) a = a.parentNode;
 			if (!a || a === el) return;
-			var params = { menu: a.getAttribute('data-gnb'), from: curId || 'none', link_url: a.getAttribute('href'), transport_type: 'beacon' };
-			if (typeof window.gtag === 'function') {
-				// GA는 이벤트를 몇 초씩 모아 보내서 바로 이동하면 사라진다.
-				// 루모로 가면 루모 첫 화면이 대신 보낸다(sessionStorage), 다른 메뉴로 가면 잠깐 기다렸다 이동.
-				var plain = !(e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button) && !a.target;
-				if (plain && params.link_url.indexOf('/lumo/') === 0) {
-					try { window.sessionStorage.setItem('lumoGaNext', JSON.stringify(['gnb_click', params])); return; } catch (x) {}
-				}
-				window.gtag('event', 'gnb_click', params);
-				if (plain) {
-					e.preventDefault();
-					var href = a.href;
-					setTimeout(function () { window.location.href = href; }, 350);
-				}
-			} else if (window.dataLayer && window.dataLayer.push) {
-				window.dataLayer.push({ event: 'gnb_click', gnb_menu: params.menu, gnb_from: params.from });
+			var menu = a.getAttribute('data-gnb'), href = a.getAttribute('href');
+			var to = null, i;
+			for (i = 0; i < MENUS.length; i++) if (MENUS[i].id === menu) to = MENUS[i];
+			var params = { menu: menu, from: curId || 'none', link_url: href };
+			var plain = !(e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button) && !a.target;
+			// GA는 이벤트를 몇 초씩 모아 보내서 바로 이동하면 사라진다 → 도착한 화면이 대신 보낸다.
+			// 루모는 lumoGaNext, 다른 메뉴는 gyGaNext. 도착 화면에 아직 이 속성 gtag가 없는 서비스면 잠깐 기다렸다 이동.
+			if (plain && href.indexOf('/lumo/') === 0) {
+				try { window.sessionStorage.setItem('lumoGaNext', JSON.stringify(['gnb_click', merge(params)])); return; } catch (x) {}
+			}
+			if (plain && to && GA_SERVICES.indexOf(to.id) >= 0) return track('gnb_click', params, { next: true });
+			if (typeof window.gtag !== 'function') return;
+			track('gnb_click', params, { beacon: true });
+			if (plain) {
+				e.preventDefault();
+				setTimeout(function () { window.location.href = a.href; }, 350);
 			}
 		});
+	}
+
+	function merge(params) {
+		var p = {}, k;
+		for (k in gaBase || {}) if (gaBase.hasOwnProperty(k)) p[k] = gaBase[k];
+		for (k in params) if (params.hasOwnProperty(k)) p[k] = params[k];
+		return p;
 	}
 
 	function bindScroll(bar, scroller) {
@@ -175,12 +251,13 @@
 	}
 
 	function init() {
+		if (!gaBase) gaInit();
 		injectCss();
 		var el = document.getElementById('gyGnb');
 		if (el) render(el);
 	}
 
-	window.GaeyouGnb = { menus: MENUS, init: init };
+	window.GaeyouGnb = { menus: MENUS, init: init, track: track };
 	init();
 	if (!document.getElementById('gyGnb') && document.readyState === 'loading') {
 		document.addEventListener('DOMContentLoaded', init);

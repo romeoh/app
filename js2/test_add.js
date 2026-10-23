@@ -328,6 +328,7 @@ function ready() {
 		str = resultTxt.replace(/\n/g, '<br>')
 		M('#resultText').html(str)
 		M('#btnTest').html('<div class="inner">총 ' + listLeng + '개의 결과를 다시 테스트합니다.</div>');
+		if (!hasTest && window.GaeyouGnb && window.GaeyouGnb.track) window.GaeyouGnb.track('test_create_preview', { result_count: listLeng });
 		hasTest = true;
 	})
 	
@@ -374,6 +375,7 @@ function ready() {
 					,'data': bodyData
 					,'type': 'POST'
 					,'success': function(){
+						if (window.GaeyouGnb && window.GaeyouGnb.track) window.GaeyouGnb.track('test_create', { result_count: listLeng }, { next: true });
 						alert('테스트가 등록되었습니다.');
 						//console.log(result.result)
 						window.location.href = 'http://gaeyou.com/t/#' + result.result;
