@@ -138,16 +138,18 @@
 			if (!a || a === el) return;
 			var params = { menu: a.getAttribute('data-gnb'), from: curId || 'none', link_url: a.getAttribute('href'), transport_type: 'beacon' };
 			if (typeof window.gtag === 'function') {
-				// 이동하면서 이벤트가 사라지지 않게: 보낸 뒤(최대 0.7초) 이동
-				if (!(e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button) && !a.target) {
-					e.preventDefault();
-					var href = a.href, gone = false;
-					var go = function () { if (!gone) { gone = true; window.location.href = href; } };
-					params.event_callback = go;
-					params.event_timeout = 600;
-					setTimeout(go, 700);
+				// GA는 이벤트를 몇 초씩 모아 보내서 바로 이동하면 사라진다.
+				// 루모로 가면 루모 첫 화면이 대신 보낸다(sessionStorage), 다른 메뉴로 가면 잠깐 기다렸다 이동.
+				var plain = !(e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button) && !a.target;
+				if (plain && params.link_url.indexOf('/lumo/') === 0) {
+					try { window.sessionStorage.setItem('lumoGaNext', JSON.stringify(['gnb_click', params])); return; } catch (x) {}
 				}
 				window.gtag('event', 'gnb_click', params);
+				if (plain) {
+					e.preventDefault();
+					var href = a.href;
+					setTimeout(function () { window.location.href = href; }, 350);
+				}
 			} else if (window.dataLayer && window.dataLayer.push) {
 				window.dataLayer.push({ event: 'gnb_click', gnb_menu: params.menu, gnb_from: params.from });
 			}
