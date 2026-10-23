@@ -557,10 +557,9 @@ function testExcute(evt, mp) {
 	data.url = 'https://gaeyou.com/t/?'+hash;
 	data.app = '깨알테스트'
 	
-	// 공유는 클릭 직후에 연다 (폰 공유창·새 탭은 클릭 직후에만 허용). X·스레드는 새 탭으로 열어 이 화면이 남게 한다 —
-	// 바로 다른 사이트로 넘어가면 GA가 모아 둔 test_result를 보내기 전에 사라졌다. 실행 수 기록은 기다리지 않는다.
-	data.newWindow = true;
-	shareData(data);
+	// 폰 공유창은 클릭 직후에만 열 수 있어서 바로 연다. X·쓰레드는 실행 수 기록 뒤 같은 창에서 이동
+	// (같은 창 이동이라 GA가 모아 둔 test_result는 잡히지 않을 수 있다 — 사용자 결정 2026-10-24)
+	if (data['media'] == 'native') shareData(data);
 	// 테스트 전문 통신
 	bodyData = {
 		'idx': cuData['idx']
@@ -570,7 +569,12 @@ function testExcute(evt, mp) {
 		,'contentType': 'application/x-www-form-urlencoded'
 		,'data': bodyData
 		,'type': 'POST'
-		,'success': function(result){}
+		,'success': function(result){
+			if (data['media'] != 'native') shareData(data);
+		}
+		,'error': function () {   // 실행 수 기록이 실패해도 공유는 한다
+			if (data['media'] != 'native') shareData(data);
+		}
 	})
 }
 
