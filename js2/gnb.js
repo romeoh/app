@@ -39,7 +39,12 @@
 
 	// ---- 통계 (GA4) ----
 	var GA_ID = 'G-HDR3T58QC9';
-	var GA_SERVICES = ['t', 'w'];   // 여기 있는 서비스만 gnb.js가 gtag를 넣는다. 다음: 'w', 'm', ...
+	var GA_SERVICES = ['t', 'w'];   // 여기 있는 서비스만 gnb.js가 gtag를 넣는다. 다음: 'm', ...
+	// 글 제목을 불러온 뒤에 페이지 조회를 보내는 서비스 (HTML 제목이 모두 '깨알유머'라 GA에서 구분이 안 되므로).
+	// 서비스 JS가 GaeyouGnb.pageView(제목)를 부른다. 4초 안에 안 부르면 기본 제목으로 보낸다.
+	var GA_LATE_VIEW = ['t', 'w'];
+	var SERVICE_NAMES = { t: '깨알테스트', w: '월드컵' };
+	var gaViewSent = true;
 	var gaBase = null;
 
 	function gaHasTag() {
@@ -72,6 +77,11 @@
 			var cfg = {}, k;
 			for (k in gaBase) if (gaBase.hasOwnProperty(k)) cfg[k] = gaBase[k];
 			if (/[?&]ga_debug=1/.test(window.location.search)) cfg.debug_mode = true;
+			if (GA_LATE_VIEW.indexOf(cur) >= 0 && gaBase.content_id) {
+				cfg.send_page_view = false;
+				gaViewSent = false;
+				setTimeout(function () { pageView(); }, 4000);
+			}
 			window.gtag('config', GA_ID, cfg);
 		}
 		// 이전 화면이 넘긴 이벤트
@@ -83,6 +93,19 @@
 				if (nx && nx[0]) window.gtag('event', nx[0], nx[1] || {});
 			}
 		} catch (x) {}
+	}
+
+	/** 늦은 페이지 조회: 글 제목이 붙은 page_title로. 한 번만 보낸다 */
+	function pageView(title) {
+		if (gaViewSent || typeof window.gtag !== 'function') return;
+		gaViewSent = true;
+		var name = SERVICE_NAMES[gaBase.service] || '깨알유머';
+		if (title) {
+			try { document.title = title + ' - ' + name; } catch (x) {}   // 브라우저 탭에도
+		}
+		var m = /^\?(\d+)/.exec(window.location.search) || /[?&](?:id|idx)=(\d+)/.exec(window.location.search) || /^#(\d+)/.exec(window.location.hash);
+		if (m) gaBase.content_id = m[1];
+		track('page_view', { page_title: title ? title + ' - ' + name : name, page_location: window.location.href, content_title: title || '' });
 	}
 
 	/** 이벤트 보내기. opts.next: 곧 같은 사이트 다른 화면으로 이동 → 다음 화면이 보냄 */
@@ -257,7 +280,7 @@
 		if (el) render(el);
 	}
 
-	window.GaeyouGnb = { menus: MENUS, init: init, track: track };
+	window.GaeyouGnb = { menus: MENUS, init: init, track: track, pageView: pageView };
 	init();
 	if (!document.getElementById('gyGnb') && document.readyState === 'loading') {
 		document.addEventListener('DOMContentLoaded', init);

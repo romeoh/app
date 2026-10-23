@@ -116,6 +116,7 @@ function ready() {
 			cuData.kasid = decodeURIComponent(result.kasid);
 			cuData.title = decodeURIComponent(result.title);
 			testTitle = cuData.title
+			if (window.GaeyouGnb && window.GaeyouGnb.pageView) window.GaeyouGnb.pageView(cuData.title);   // GA: 제목이 붙은 페이지 조회
 			cuData.exp = decodeURIComponent(result.exp);
 			cuData.result = decodeURIComponent(result.result);
 			cuData.view = result.view;
