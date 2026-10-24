@@ -506,10 +506,12 @@ function initView() {
 // 테스트 실행
 // 결과 공유 주소 /t/s/?코드 (2026-10-24). 이름을 쓰기 시작하면 코드를 미리 받아 둔다 —
 // 폰 공유창은 클릭 직후에만 열려서 공유 순간에 서버를 기다릴 수 없다. 공유할 때 이름·뽑힌 항목을 그 코드에 채운다.
-var  shareCode = null
+// 2026-10-25 꺼둠 (사용자 결정): 피크 때 코드 발급·저장이 DB 접속을 밀어 예전 주소(/t/?번호)로 되돌림. 다시 켜려면 true (서버 /t/s/api.php도 켜야 함)
+var  GY_SHARE_CODE_ON = false
+	,shareCode = null
 	,shareCodeBusy = false
 function reserveShareCode() {
-	if (shareCode || shareCodeBusy || !cuData || !cuData['idx']) return;
+	if (!GY_SHARE_CODE_ON || shareCode || shareCodeBusy || !cuData || !cuData['idx']) return;
 	shareCodeBusy = true;
 	$.ajax({ 'url': '/t/s/api.php', 'type': 'POST', 'dataType': 'json', 'data': { 'a': 'new', 'idx': cuData['idx'] }
 		,'success': function (r) { if (r && r.ok) shareCode = r.code; }
@@ -524,6 +526,10 @@ document.addEventListener('input', function (e) {
 });
 /** 받아 둔 코드에 이름·항목을 채운다. done(code 또는 null) */
 function saveShare(name, picks, done) {
+	if (!GY_SHARE_CODE_ON) {   // 꺼짐: 서버에 저장하지 않고 원래 주소로
+		done && done(null);
+		return null;
+	}
 	var code = shareCode;
 	shareCode = null;   // 한 번 쓴 코드는 다시 안 쓴다 (다음 공유용으로 새로 받음)
 	$.ajax({ 'url': '/t/s/api.php', 'type': 'POST', 'dataType': 'json', 'timeout': 4000
