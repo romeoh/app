@@ -597,9 +597,14 @@ function testExcute(evt, mp) {
 	// 폰 공유창은 클릭 직후에만 열 수 있어서 바로 연다. X·쓰레드는 실행 수 기록 뒤 같은 창에서 이동
 	// (같은 창 이동이라 GA가 모아 둔 test_result는 잡히지 않을 수 있다 — 사용자 결정 2026-10-24)
 	picks = picks.slice(0, pickLast)
-	if (data['media'] == 'native') {
+	// 폰 공유창·카톡·주소 복사는 클릭 직후에 열어야 해서 받아 둔 코드로 바로 (2026-10-24)
+	var instant = data['media'] == 'native' || data['media'] == 'kakao' || data['media'] == 'copy';
+	if (instant) {
 		var nativeCode = saveShare(userName, picks);
-		if (nativeCode) data.url = 'https://gaeyou.com/t/s/?' + nativeCode;
+		if (nativeCode) {
+			data.url = 'https://gaeyou.com/t/s/?' + nativeCode;
+			data.image = 'https://gaeyou.com/t/s/img.php?' + nativeCode;   // 카톡 카드 그림 (결과 이미지)
+		}
 		shareData(data);
 	}
 	var shareWithCode = function () {
@@ -618,10 +623,10 @@ function testExcute(evt, mp) {
 		,'data': bodyData
 		,'type': 'POST'
 		,'success': function(result){
-			if (data['media'] != 'native') shareWithCode();
+			if (!instant) shareWithCode();
 		}
 		,'error': function () {   // 실행 수 기록이 실패해도 공유는 한다
-			if (data['media'] != 'native') shareWithCode();
+			if (!instant) shareWithCode();
 		}
 	})
 }

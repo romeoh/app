@@ -896,8 +896,8 @@ function initEvent() {
 		gyTrack('share', { method: media, content_type: 'worldcup', played: winner.names == undefined ? 'no' : 'yes' }, { beacon: true });
 
 		if (winner.names == undefined) {
-			if (media == 'native') {   // 폰 공유창은 클릭 직후에만 열려서 순위를 받아 올 때까지 기다릴 수 없다
-				GaeyouGnb.share('native', { title: cuData['title'], text: '[월드컵] ' + cuData['title'], url: url });
+			if (media == 'native' || media == 'kakao' || media == 'copy') {   // 폰 공유창·카톡·복사는 클릭 직후에만 열려서 순위를 받아 올 때까지 기다릴 수 없다
+				GaeyouGnb.share(media, { title: cuData['title'], text: '[월드컵] ' + cuData['title'], url: url });
 				return false;
 			}
 			getScore(2, media);
@@ -911,7 +911,7 @@ function initEvent() {
 		post += '♚ 준우승: ' + decodeURIComponent(semiWinner.name) + '\n';
 		post += '♝ 3위: ' + decodeURIComponent(stone[arr3win[0]]['text']) + '\n';
 		post += '♞ 4위: ' + decodeURIComponent(stone[arr3win[1]]['text']) + '\n';
-		GaeyouGnb.share(media, { title: cuData['title'], text: post, url: url });
+		GaeyouGnb.share(media, { title: cuData['title'], text: post, url: url, button: '나도 해 보기' });
 	})
 }
 

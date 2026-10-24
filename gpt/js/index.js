@@ -257,9 +257,11 @@ if ($('body.result').length == 1) {
 	        	var shareText = concern + line + gpt_result
 	        	gyTrack('share', { method: media }, { beacon: true })
 	        	var go = function () {
-	        		GaeyouGnb.share(media, { title: data[0].title, text: media == 'twitter' ? shareText + '\n#깨유고민상담소 #chatGPT' : shareText, url: shareUrl })
+	        		var img = data[0].thumnail ? (data[0].thumnail.indexOf('//') === 0 ? 'https:' + data[0].thumnail : data[0].thumnail) : ''
+	        		GaeyouGnb.share(media, { title: data[0].title, text: media == 'twitter' ? shareText + '\n#깨유고민상담소 #chatGPT' : shareText, url: shareUrl, image: img, button: '답변 보기' })
 	        	}
-	        	if (media == 'native') go()
+	        	var instant = media == 'native' || media == 'kakao' || media == 'copy'
+	        	if (instant) go()
 		        $.ajax({
 				    url: './api/service.php',
 				    method: 'POST',
@@ -271,7 +273,7 @@ if ($('body.result').length == 1) {
 					    concern_result_idx: concernResultIdx
 				    },
 				    complete: function() {
-					    if (media != 'native') go()
+					    if (!instant) go()
 				    }
 				})
 	        })

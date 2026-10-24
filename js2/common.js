@@ -1232,6 +1232,12 @@ function shareData(_obj, _opt) {
 		return false;
 	}
 
+	// 카톡 공유·주소 복사 (2026-10-24): 공통 메뉴(gnb.js)의 GaeyouGnb.share로
+	if ((media == 'kakao' || media == 'copy') && window.GaeyouGnb && GaeyouGnb.share) {
+		GaeyouGnb.share(media, { title: title, text: (obj.twit || obj.post || '').replace(/\n\n/g, '\n'), url: url, image: obj.image, button: '나도 해 보기' });
+		return false;
+	}
+
 	// 폰 기본 공유창 (2026-10-24). 클릭 직후에 불러야 열린다(비동기 뒤면 막힘). 지원 안 하면 복사
 	if (media == 'native') {
 		var  nvText = (obj.twit || obj.post || '').replace(/\n\n/g, '\n')

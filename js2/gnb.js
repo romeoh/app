@@ -169,13 +169,16 @@
 	var IMG = '//romeoh.github.io/app/img/';
 
 	var CSS = '' +
-		/* 공유 버튼 (2026-10-24): X · 쓰레드 · 폰 공유창 — GaeyouGnb.shareButtons() */
-		'.gy-share{display:flex;gap:6px;margin:0}' +
+		/* 공유 버튼 (2026-10-24): 1줄 X·쓰레드(반반) / 2줄 카톡·주소 복사(같게)·공유 아이콘(작게) — GaeyouGnb.shareButtons() */
+		'.gy-share{display:flex;flex-direction:column;gap:6px;margin:0}' +
+		'.gy-share-row{display:flex;gap:6px;margin:0}' +
 		'.gy-share-btn{flex:1 1 0;display:flex;align-items:center;justify-content:center;gap:6px;height:44px;margin:0;padding:0 6px;border-radius:6px;' +
 			'font-size:15px;font-weight:bold;line-height:1;text-decoration:none!important;cursor:pointer;box-sizing:border-box;-webkit-tap-highlight-color:transparent;white-space:nowrap}' +
 		'.gy-share-x{background:#000;color:#fff!important;border:1px solid #000}' +
 		'.gy-share-th{background:#fff;color:#000!important;border:1px solid #000}' +
 		'.gy-share-at{font-size:18px;line-height:1;font-weight:900;margin-top:-2px}' +
+		'.gy-share-kakao{background:#FEE500;color:#191919!important;border:1px solid #FEE500}' +
+		'.gy-share-copy{background:#fff;color:#333!important;border:1px solid #ccc}' +
 		'.gy-share-more{flex:0 0 48px;background:#f2f2f2;color:#333!important;border:1px solid #ccc}' +
 		'.gy-share-btn:active{opacity:.8}' +
 		'.gy-hd{position:relative;height:44px;margin:0;padding:0;text-align:center;line-height:0}' +
@@ -332,18 +335,85 @@
 	var X_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
 	var SHARE_SVG = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>';
 
-	/** 버튼 세 개 HTML. verb: '확인'(공유해야 결과가 보이는 곳) 또는 '공유'. 버튼에는 data-share="twitter|threads|native" */
-	function shareButtons(verb) {
+	var KAKAO_SVG = '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.48 3 2 6.54 2 10.9c0 2.8 1.86 5.27 4.66 6.67l-.95 3.48c-.08.31.27.56.54.38l4.13-2.74c.53.06 1.07.1 1.62.1 5.52 0 10-3.54 10-7.89S17.52 3 12 3z"/></svg>';
+	var LINK_SVG = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
+
+	/**
+	 * 공유 버튼 HTML. verb: '확인'(공유해야 결과가 보이는 곳) 또는 '공유'. 버튼마다 data-share="twitter|threads|kakao|copy|native".
+	 * attr를 주면 data-share 대신 그 속성 이름을 쓴다(예: 'data-alert' — 누르면 안내만).
+	 */
+	function shareButtons(verb, attr) {
 		verb = verb || '공유';
+		attr = attr || 'data-share';
+		setTimeout(preloadKakao, 0);   // 화면에 그려진 뒤 카톡 SDK 미리 불러오기
+		var b = function (cls, v, inner, extra) {
+			return '<a class="gy-share-btn ' + cls + '" ' + attr + '="' + v + '" role="button"' + (extra || '') + '>' + inner + '</a>';
+		};
 		return '<div class="gy-share">' +
-			'<a class="gy-share-btn gy-share-x" data-share="twitter" role="button">' + X_SVG + 'X로 ' + verb + '</a>' +
-			'<a class="gy-share-btn gy-share-th" data-share="threads" role="button"><span class="gy-share-at" aria-hidden="true">@</span>쓰레드로 ' + verb + '</a>' +
-			'<a class="gy-share-btn gy-share-more" data-share="native" role="button" aria-label="다른 앱으로 공유" title="다른 앱으로 공유">' + SHARE_SVG + '</a>' +
-			'</div>';
+			'<div class="gy-share-row">' +
+				b('gy-share-x', 'twitter', X_SVG + 'X로 ' + verb) +
+				b('gy-share-th', 'threads', '<span class="gy-share-at" aria-hidden="true">@</span>쓰레드로 ' + verb) +
+			'</div><div class="gy-share-row">' +
+				b('gy-share-kakao', 'kakao', KAKAO_SVG + '카톡 공유') +
+				b('gy-share-copy', 'copy', LINK_SVG + '주소 복사') +
+				b('gy-share-more', 'native', SHARE_SVG, ' aria-label="다른 앱으로 공유" title="다른 앱으로 공유"') +
+			'</div></div>';
 	}
 
-	function copyText(text) {
-		var done = function () { alert('복사했어요. 원하는 곳에 붙여 넣어 공유하세요.'); };
+	// 카카오톡 공유: Kakao SDK v2. 공유 버튼이 있는 화면이면 미리 불러 둔다(누르는 순간 바로 열리게).
+	// 예전 화면의 v1 SDK(developers.kakao.com)는 Kakao.Share가 없어서 v2로 바꿔 끼운다.
+	var KAKAO_KEY = 'eaed55751e121f59b09594ba64fa7558';
+	var kakaoWait = null, kakaoTried = false;
+	function kakaoV2() { return !!(window.Kakao && String(window.Kakao.VERSION || '').charAt(0) === '2'); }
+	// Kakao.Share는 v2에서 init()한 뒤에 생긴다
+	function kakaoReady(cb) {
+		if (kakaoV2()) {
+			try { if (!window.Kakao.isInitialized()) window.Kakao.init(KAKAO_KEY); } catch (e) { return cb(false); }
+			return cb(!!window.Kakao.Share);
+		}
+		if (kakaoWait) return kakaoWait.push(cb);
+		if (kakaoTried && !kakaoV2()) {   // 불러왔는데 예전 v1이 다시 덮어썼으면 한 번 더
+			kakaoTried = false;
+		}
+		kakaoWait = [cb];
+		kakaoTried = true;
+		var sc = document.createElement('script');
+		sc.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js';
+		sc.crossOrigin = 'anonymous';
+		var done = function (ok) {
+			var list = kakaoWait; kakaoWait = null;
+			for (var i = 0; i < list.length; i++) {
+				if (!ok || !kakaoV2()) list[i](false); else kakaoReady(list[i]);
+			}
+		};
+		sc.onload = function () { done(true); };
+		sc.onerror = function () { done(false); };
+		document.head.appendChild(sc);
+	}
+	function preloadKakao() {
+		if (document.querySelector('.gy-share, [data-share="kakao"]')) kakaoReady(function () {});
+	}
+
+	function sendKakao(o, text, url) {
+		var link = { mobileWebUrl: url || location.href, webUrl: url || location.href };
+		kakaoReady(function (ok) {
+			if (!ok) return copyText((text ? text + '\n' : '') + (url || ''), '카카오톡을 열 수 없어 복사했어요. 카톡에 붙여 넣어 주세요.');
+			try {
+				if (o.image) {
+					window.Kakao.Share.sendDefault({ objectType: 'feed',
+						content: { title: (o.title || '깨알유머').substr(0, 100), description: text.substr(0, 200), imageUrl: o.image, link: link },
+						buttons: [{ title: o.button || '보러 가기', link: link }] });
+				} else {
+					window.Kakao.Share.sendDefault({ objectType: 'text', text: (text || o.title || '').substr(0, 200), link: link, buttonTitle: o.button || '보러 가기' });
+				}
+			} catch (e) {
+				copyText((text ? text + '\n' : '') + (url || ''), '카카오톡을 열 수 없어 복사했어요. 카톡에 붙여 넣어 주세요.');
+			}
+		});
+	}
+
+	function copyText(text, msg) {
+		var done = function () { alert(msg || '복사했어요. 원하는 곳에 붙여 넣어 공유하세요.'); };
 		var ask = function () { window.prompt('아래 내용을 복사해 공유하세요.', text); };
 		if (navigator.clipboard && navigator.clipboard.writeText) {
 			navigator.clipboard.writeText(text).then(done, ask);
@@ -360,7 +430,7 @@
 	}
 
 	/**
-	 * 보내기. method: twitter|x, threads, native. o: { text, url, title, newWindow }
+	 * 보내기. method: twitter|x, threads, kakao, copy(주소만), native. o: { text, url, title, image(카톡 카드 그림), button, newWindow }
 	 * X·쓰레드는 같은 창에서 이동(newWindow면 새 창, 막히면 같은 창). 폰 공유창은 클릭 직후에 불러야 열리고, 없거나 막히면 복사한다.
 	 */
 	function share(method, o) {
@@ -380,6 +450,12 @@
 			if (text.length > 450) text = text.substr(0, 450) + '...';
 			return go('https://www.threads.com/intent/post?text=' + encodeURIComponent(text) + (url ? '&url=' + encodeURIComponent(url) : ''));
 		}
+		if (!url && (method === 'kakao' || method === 'copy')) {   // 글 안에 주소를 넣는 서비스(이름궁합·깨위바위보 등)
+			var m = text.match(/https?:\/\/[^\s]+/);
+			if (m) url = m[0];
+		}
+		if (method === 'kakao') return sendKakao(o, text, url);
+		if (method === 'copy') return copyText(url || text, '주소를 복사했어요.');
 		if (method === 'native') {
 			if (navigator.share) {
 				var d = { text: text };
@@ -396,6 +472,7 @@
 
 	function init() {
 		if (!gaBase) { gaInit(); bindShare(); bindPromo(); }
+		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', preloadKakao); else preloadKakao();
 		injectCss();
 		var el = document.getElementById('gyGnb');
 		if (el) render(el);

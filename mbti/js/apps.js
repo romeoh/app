@@ -285,8 +285,9 @@ $(function(){
             }
             GaeyouGnb.share('twitter', { text: shareData + '\n', url: url });
         }
-        if (platform == 'threads' || platform == 'native') {
-            GaeyouGnb.share(platform, { title: title, text: shareData, url: url });
+        if (platform == 'threads' || platform == 'native' || platform == 'kakao' || platform == 'copy') {
+            GaeyouGnb.share(platform, { title: title, text: shareData, url: url, button: '나도 해 보기',
+                image: resultMbti.picture ? 'https://gaeyou.com/apps/mbti/upload/mbti/thum/' + resultMbti.picture : '' });
         }
         if (platform == 'kakaotalk') {
             if (resultMbti.picture) {
