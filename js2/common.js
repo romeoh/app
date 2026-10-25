@@ -17,7 +17,8 @@ function ready() {
 	initNavi();
 	initUserName();
 	//initReplyBox();
-	initMenu();
+	// [옛 전체 메뉴 끔 2026-10-25] 새 공통 메뉴(gnb.js)의 버튼도 data-gnb를 써서, 누르면 이 옛 왼쪽 메뉴가 열렸다 (사용자 요청으로 삭제)
+	//initMenu();
 }
 
 function goSecre() {
