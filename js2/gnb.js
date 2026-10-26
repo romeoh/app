@@ -14,6 +14,7 @@
  * - 서비스 JS에서: GaeyouGnb.track('이벤트', { 값 }, { next: true })
  *     next: true = 곧 같은 사이트의 다른 화면으로 이동 → 다음 화면이 보낸다 (GA가 이벤트를 몇 초씩 모아 보내서 이동하면 사라짐)
  * - 이벤트 목록: lumo/docs/analytics-gaeyou.md
+ * - 하단 공통 줄(공식 X·제휴 문의·개인정보처리방침)도 여기서 body 끝에 붙인다(2026-10-27). 빼려면 <body data-gy-foot="0">
  */
 (function (window, document) {
 	'use strict';
@@ -171,6 +172,10 @@
 
 	var CSS = '' +
 		/* 공유 버튼 (2026-10-24): 1줄 X·쓰레드(반반) / 2줄 카톡·주소 복사(같게)·공유 아이콘(작게) — GaeyouGnb.shareButtons() */
+		'.gy-foot{clear:both;margin:28px auto 0;padding:18px 16px 26px;max-width:640px;text-align:center;font:13px/1.9 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;color:#8a8790;word-break:keep-all}' +
+		'.gy-foot a{color:#6f6b78;text-decoration:none;white-space:nowrap}.gy-foot a:hover{text-decoration:underline}' +
+		'.gy-foot svg{vertical-align:-2px;margin-right:4px}.gy-foot i{font-style:normal;margin:0 8px;color:#c9c5cf}' +
+		'.gy-foot p{margin:2px 0 0;font-size:12px;color:#a9a5b0}' +
 		'.gy-share{display:flex;flex-direction:column;gap:6px;margin:0}' +
 		'.gy-share-row{display:flex;gap:6px;margin:0}' +
 		'.gy-share-btn{flex:1 1 0;display:flex;align-items:center;justify-content:center;gap:6px;height:44px;margin:0;padding:0 6px;border-radius:6px;' +
@@ -473,9 +478,28 @@
 		}
 	}
 
+	// ---- 하단 공통 줄: 공식 X·제휴 문의 (2026-10-27) ----
+	var FOOT_X = 'gaeyoukr';
+	var FOOT_MAIL = ['romeoh', 'naver.com'];   // 소스에 주소를 통째로 두지 않는다(수집 봇)
+	function renderFoot() {
+		if (!document.body || document.body.getAttribute('data-gy-foot') === '0' || document.querySelector('.gy-foot')) return;
+		var mail = FOOT_MAIL.join('@'), f = document.createElement('footer');
+		f.className = 'gy-foot';
+		f.innerHTML = '<a href="https://x.com/' + FOOT_X + '" target="_blank" rel="noopener" data-gy-foot="x">' +
+			'<svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>' +
+			'@' + FOOT_X + '</a><i>·</i><a href="mailto:' + mail + '" data-gy-foot="mail">제휴·문의 ' + mail + '</a>' +
+			'<p><a href="/privacy.html" data-gy-foot="privacy">개인정보처리방침</a><i>·</i>© 깨알유머</p>';
+		document.body.appendChild(f);
+		f.addEventListener('click', function (e) {
+			var a = e.target.closest ? e.target.closest('[data-gy-foot]') : null;
+			if (a) track('footer_click', { link: a.getAttribute('data-gy-foot') });
+		});
+	}
+
 	function init() {
 		if (!gaBase) { gaInit(); bindShare(); bindPromo(); }
 		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', preloadKakao); else preloadKakao();
+		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', renderFoot); else renderFoot();
 		injectCss();
 		var el = document.getElementById('gyGnb');
 		if (el) render(el);
