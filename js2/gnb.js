@@ -20,9 +20,10 @@
 
 	// 메뉴 순서 = 노출 순서. hidden:true 는 노출 안 함
 	var MENUS = [
-		{ id: 'lumo',      name: '루모',       href: '/lumo/', accent: true }, // 예측 코너. 다른 메뉴보다 눈에 띄게(.gy-gnb-acc)
+		{ id: 'dn',        name: '덕능',       href: '/dn/', underline: true }, // 덕질능력시험(2026-10-26). 글자 아래 빨간 밑줄(.gy-gnb-ul)
 		{ id: 't',         name: '깨알테스트', href: '/t/' },
 		{ id: 'w',         name: '월드컵',     href: '/w/' },
+		{ id: 'lumo',      name: '루모',       href: '/lumo/' }, // 2026-10-26 강조(accent) 뺌 — 다시 켜려면 accent: true
 		{ id: 'm',         name: '이름궁합',   href: '/m/' },
 		{ id: 'mbti',      name: 'MBTI',       href: '/mbti/ko/' },
 		{ id: 'apps/mbti', name: '심리테스트', href: '/apps/mbti/' },
@@ -212,6 +213,8 @@
 			'box-shadow:2px 2px 0 #D6246E;color:#1C1A17;font-weight:900;letter-spacing:-.2px}' +
 		'.gy-gnb .gy-gnb-acc a:hover,.gy-gnb .gy-gnb-acc a:focus{color:#1C1A17;background:#ffdd2e}' +
 		'.gy-gnb-acc a:active{transform:translate(1px,1px);box-shadow:1px 1px 0 #D6246E}' +
+		// 덕능: 글자 아래 빨간 밑줄 (2026-10-26)
+		'.gy-gnb .gy-gnb-ul a{text-decoration:underline!important;text-decoration-color:#D3364C!important;text-decoration-thickness:3px!important;text-underline-offset:5px}' +
 		'.gy-gnb-acc-dot{display:inline-block;width:6px;height:6px;margin:0 0 0 5px;border-radius:50%;background:#D6246E;vertical-align:middle}';
 
 	function detectCurrent() {
@@ -258,14 +261,14 @@
 		}
 		html += '<div class="gy-gnb">';
 		if (cur) {
-			html += '<div class="gy-gnb-cur">' +
+			html += '<div class="gy-gnb-cur' + (cur.underline ? ' gy-gnb-ul' : '') + '">' +
 				'<a href="' + esc(cur.href) + '" data-gnb="' + esc(cur.id) + '" aria-current="page">' + esc(cur.name) + '</a></div>';
 		}
 		html += '<ul class="gy-gnb-scroll">';
 		for (i = 0; i < rest.length; i++) {
 			html += rest[i].accent
 				? '<li class="gy-gnb-acc"><a href="' + esc(rest[i].href) + '" data-gnb="' + esc(rest[i].id) + '">' + esc(rest[i].name) + '<span class="gy-gnb-acc-dot"></span></a></li>'
-				: '<li><a href="' + esc(rest[i].href) + '" data-gnb="' + esc(rest[i].id) + '">' + esc(rest[i].name) + '</a></li>';
+				: '<li' + (rest[i].underline ? ' class="gy-gnb-ul"' : '') + '><a href="' + esc(rest[i].href) + '" data-gnb="' + esc(rest[i].id) + '">' + esc(rest[i].name) + '</a></li>';
 		}
 		html += '</ul><span class="gy-gnb-fade"></span></div><div class="gy-gnb-gap"></div>';
 
