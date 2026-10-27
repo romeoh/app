@@ -156,10 +156,15 @@
 	function visitSave(v) {
 		try { window.localStorage.setItem('gyVisit', JSON.stringify(v)); } catch (x) {}
 	}
-	/** 만든 적 있는 브라우저: 만들기 이벤트로 남긴 표시, 또는 깨알테스트 만들기가 남기는 'test' 목록 */
+	/** 만든 적 있는 브라우저: 만들기 이벤트로 남긴 표시, 또는 서비스가 남긴 만든 목록(깨알테스트 'test', 예전 월드컵 'worldcup', 덕능 'dnMine'·'dnMade', 새 월드컵 'wcMade') */
 	function isMaker(v) {
 		if (v.m) return true;
-		try { var t = JSON.parse(window.localStorage.getItem('test') || '[]'); return !!(t && t.length); } catch (x) { return false; }
+		var keys = ['test', 'worldcup', 'dnMine', 'dnMade', 'wcMade'], i, t;
+		for (i = 0; i < keys.length; i++) {
+			try { t = JSON.parse(window.localStorage.getItem(keys[i]) || 'null'); if (typeof t === 'string') t = JSON.parse(t); } catch (x) { t = null; }
+			if (t && (t.length || t === 1 || t === true)) return true;
+		}
+		return false;
 	}
 	function made() {
 		var v = visitLoad();
