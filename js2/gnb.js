@@ -28,7 +28,7 @@
 		{ id: 'w',         name: '월드컵',     href: '/w/' },
 		{ id: 'lumo',      name: '루모',       href: '/lumo/' }, // 2026-10-26 강조(accent) 뺌 — 다시 켜려면 accent: true
 		{ id: 'm',         name: '이름궁합',   href: '/m/' },
-		{ id: 'mbti',      name: 'MBTI',       href: '/mbti/ko/' },
+		{ id: 'mbti',      name: 'MBTI',       href: '/mbti/ko/', header: ['#7b6cf6', '#a98bf2', '#6656e0'] },
 		{ id: 'apps/mbti', name: '심리테스트', href: '/apps/mbti/' },
 		{ id: 'novel',     name: '소설',       href: '/novel/' },
 		{ id: 'game',      name: '깨임',       href: '/game/' },
@@ -553,7 +553,7 @@
 	var FOOT_MAIL = ['romeoh', 'naver.com'];   // 소스에 주소를 통째로 두지 않는다(수집 봇)
 	function renderFoot() {
 		if (!document.body || document.body.getAttribute('data-gy-foot') === '0' || document.querySelector('.gy-foot')) return;
-		if (FOOT_SKIP.indexOf(detectCurrent() || '') >= 0) return;
+		if (FOOT_SKIP.indexOf(detectCurrent() || '') >= 0 && document.body.getAttribute('data-gy-foot') !== '1') return;   // 새 화면은 <body data-gy-foot="1">로 받는다
 		var mail = FOOT_MAIL.join('@'), f = document.createElement('footer');
 		f.className = 'gy-foot';
 		f.innerHTML = '<a href="https://x.com/' + FOOT_X + '" target="_blank" rel="noopener" data-gy-foot="x">' +
