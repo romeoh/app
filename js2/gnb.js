@@ -549,9 +549,11 @@
 
 	// ---- 하단 공통 줄: 공식 X·제휴 문의 (2026-10-27) ----
 	var FOOT_X = 'gaeyoukr';
+	var FOOT_SKIP = ['mbti'];   // 본문이 position:absolute라(mbti/ko core.css #introduction 등) 하단 줄이 메뉴 밑에 겹쳐 그려짐 → 빼둠 (2026-10-27)
 	var FOOT_MAIL = ['romeoh', 'naver.com'];   // 소스에 주소를 통째로 두지 않는다(수집 봇)
 	function renderFoot() {
 		if (!document.body || document.body.getAttribute('data-gy-foot') === '0' || document.querySelector('.gy-foot')) return;
+		if (FOOT_SKIP.indexOf(detectCurrent() || '') >= 0) return;
 		var mail = FOOT_MAIL.join('@'), f = document.createElement('footer');
 		f.className = 'gy-foot';
 		f.innerHTML = '<a href="https://x.com/' + FOOT_X + '" target="_blank" rel="noopener" data-gy-foot="x">' +
