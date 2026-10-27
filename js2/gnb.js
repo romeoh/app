@@ -34,7 +34,7 @@
 		{ id: 'game',      name: '깨임',       href: '/game/' },
 		{ id: 'gpt',       name: '고민상담소', href: '/gpt/', header: ['#ffb13b', '#ff7e45', '#e88f2a'] },
 		{ id: 'merit',     name: '나의장점',   href: '/merit/' },
-		{ id: 'fortune',   name: '오늘의 운세', href: '/fortune/', hidden: true, header: ['#3b35a6', '#6d5bd0', '#2e2a8a'] }, // 2026-10-28 사주운세 대신. 사용자 확인 뒤 hidden 뺌
+		{ id: 'fortune',   name: '오늘의 운세', href: '/fortune/', header: ['#3b35a6', '#6d5bd0', '#2e2a8a'] }, // 2026-10-28 사주운세 대신 오픈
 		{ id: 'saju',      name: '사주운세',   href: '/saju/', hidden: true }, // 2026-10-28 내림(앱 회원 0, 웹 사주 결과 2월 이후 0) → 오늘의 운세로 바꿀 예정
 		{ id: 's',         name: '깨위바위보', href: '/s/add.html' },
 		{ id: 'iq',        name: '아이큐테스트', href: '/iq/', hidden: true } // 수리 후 hidden 제거
