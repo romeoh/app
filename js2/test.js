@@ -37,7 +37,7 @@ document.addEventListener('click', function (e) {
 		return gyTrack('select_content', { content_type: 'test', item_id: href.replace(/^\/t\/\?/, ''),
 			list_name: searchKeyword ? 'search' : 'list_' + listFlag, index: idx }, { next: true });
 	}
-	if (/(^|\/)add\.html/.test(href)) gyTrack('create_start', { place: a.className.indexOf('gnbNew') >= 0 ? 'header' : 'page' }, { next: true });
+	if (/(^|\/)add\.html|\/t\/make\//.test(href)) gyTrack('create_start', { place: a.className.indexOf('gnbNew') >= 0 ? 'header' : 'page' }, { next: true });
 }, false);
 
 window.addEventListener('DOMContentLoaded', ready, false);
