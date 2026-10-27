@@ -195,8 +195,12 @@ function ready() {
 					}
 					id = mp.data('delrank');
 					
+					// [삭제 보강 2026-10-27] 새 만들기(/t/make/)가 남긴 지우기 열쇠를 같이 보낸다. 서버는 열쇠가 맞거나 만들 때와 같은 IP만 지운다
+					var delKey = ''
+					try { delKey = (JSON.parse(localStorage.getItem('testKeys') || '{}') || {})[id] || '' } catch (e) {}
 					bodyData = {
-						'idx': id
+						'idx': id,
+						'key': delKey
 					}
 					$.ajax({
 						 'url': apiurl + code + '_del.php'
@@ -204,8 +208,12 @@ function ready() {
 						,'data': bodyData
 						,'type': 'POST'
 						,'success': function(result){
-							var result = M.json(result)
-								test = M.json(M.storage('test'))
+							var result = typeof result === 'string' ? M.json(result) : result
+							if (result['error']) {
+								alert(result['message'] || '지울 수 없어요.');
+								return false;
+							}
+							var test = M.json(M.storage('test'))
 								popList = []
 								
 							for (var i=0; i<test.length; i++) {
