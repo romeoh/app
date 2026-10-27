@@ -6,6 +6,8 @@
  * - data-current: 아래 MENUS의 id. 없으면 URL 경로로 자동 판별
  * - data-header="1": 공통 타이틀(깨알유머) 바도 함께 그림. 자체 헤더가 없는 페이지용
  *   색상은 MENUS의 header: [그라데이션 시작, 끝, 로고 배경]
+ *   data-home="/w/": 가운데 "깨알유머" 글자 링크(없으면 메인 /). G 로고는 늘 메인
+ *   data-make="/w/make.php": 오른쪽에 + 만들기 버튼
  * - 의존성 없음(jQuery/Bootstrap 버전 무관), ES5
  *
  * 통계(GA4, 깨알유머 통합 속성 G-BCZM5VJWJM)도 여기서 한다 — 메뉴를 쓰는 모든 페이지가 이 파일을 불러오므로.
@@ -192,6 +194,9 @@
 			'background:url(' + IMG + 'logo.png) 11px 9px/26px no-repeat}' +
 		'.gy-hd-title{display:inline-block;height:44px;padding-top:9px}' +
 		'.gy-hd-title img{display:inline-block;width:90px;height:auto;vertical-align:top;border:0}' +
+		'.gy-hd-make{position:absolute;right:6px;top:7px;display:flex;align-items:center;gap:3px;height:30px;padding:0 10px 0 7px;border-radius:15px;' +
+			'background:rgba(255,255,255,.95);color:#222!important;font:700 13px/1 -apple-system,"Apple SD Gothic Neo",sans-serif;text-decoration:none!important}' +
+		'.gy-hd-make svg{display:block}' +
 		'#gyGnb{display:block;margin:0;padding:0}' +
 		'.gy-gnb{display:flex;align-items:stretch;height:40px;background:#fff;border-bottom:1px solid #dbdcdf;' +
 			'font-family:"나눔고딕",NanumGothic,"맑은 고딕","Malgun Gothic",Helvetica,sans-serif;box-sizing:border-box;' +
@@ -262,7 +267,10 @@
 			var hc = (cur && cur.header) || DEFAULT_HEADER;
 			html += '<div class="gy-hd" style="background-image:linear-gradient(99deg,' + esc(hc[0]) + ',' + esc(hc[1]) + ')">' +
 				'<a class="gy-hd-logo" href="/" style="background-color:' + esc(hc[2]) + '" aria-label="깨알유머 홈"></a>' +
-				'<a class="gy-hd-title" href="/"><img src="' + IMG + 'logo_title_v2.png" alt="깨알유머"></a></div>';
+				'<a class="gy-hd-title" href="' + esc(el.getAttribute('data-home') || '/') + '"><img src="' + IMG + 'logo_title_v2.png" alt="깨알유머"></a>' +
+				(el.getAttribute('data-make') ? '<a class="gy-hd-make" href="' + esc(el.getAttribute('data-make')) + '" data-gnb-make>' +
+					'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>만들기</a>' : '') +
+				'</div>';
 		}
 		html += '<div class="gy-gnb">';
 		if (cur) {
