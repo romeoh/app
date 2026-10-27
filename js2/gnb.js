@@ -128,6 +128,7 @@
 	function track(name, params, opts) {
 		var p = {}, k;
 		params = params || {};
+		if (MAKE_EVENTS.indexOf(name) >= 0) made();   // 재방문 재기: 만든 사람 표시
 		for (k in gaBase || {}) if (gaBase.hasOwnProperty(k)) p[k] = gaBase[k];
 		for (k in params) if (params.hasOwnProperty(k)) p[k] = params[k];
 		if (opts && opts.next) {   // 도착 화면이 보내므로 지금 화면에 gtag가 없어도 된다
@@ -137,6 +138,61 @@
 		if (opts && opts.beacon) p.transport_type = 'beacon';
 		p.send_to = GA_ID;   // 예전 속성의 gtag가 같이 있는 페이지(고민상담소 등)에서 그쪽으로 새지 않게
 		window.gtag('event', name, p);
+	}
+
+	// ---- 재방문 재기 (2026-10-27, 플랫폼 로드맵 0단계 — gaeyou.com/growth/CLAUDE.md) ----
+	// 이 브라우저가 다녀간 날·그날 들른 서비스를 localStorage 'gyVisit'에만 적는다(서버·DB에 안 씀). 그날 처음 화면에서 GA로:
+	//   gy_day(오늘 왔음) · gy_back7(지난 방문이 1~7일 전 = 다시 옴) · gy_maker_day / gy_maker_back7(무언가 만든 적 있는 브라우저)
+	//   gy_multi(오늘 두 번째 서비스에 들어감, 하루 한 번)
+	// 루모(lumo.js)에 같은 규칙의 사본이 있다 — 고치면 같이 고칠 것.
+	var MAKE_EVENTS = ['test_create', 'wc_create', 'dn_create', 'lumo_create', 'psy_create', 'novel_create', 'srp_create'];
+	function ymd(t) {
+		return t.getFullYear() + '-' + ('0' + (t.getMonth() + 1)).slice(-2) + '-' + ('0' + t.getDate()).slice(-2);
+	}
+	function dayDiff(a, b) { return Math.round((Date.parse(b) - Date.parse(a)) / 864e5); }
+	function visitLoad() {
+		try { return JSON.parse(window.localStorage.getItem('gyVisit') || 'null') || {}; } catch (x) { return null; }
+	}
+	function visitSave(v) {
+		try { window.localStorage.setItem('gyVisit', JSON.stringify(v)); } catch (x) {}
+	}
+	/** 만든 적 있는 브라우저: 만들기 이벤트로 남긴 표시, 또는 깨알테스트 만들기가 남기는 'test' 목록 */
+	function isMaker(v) {
+		if (v.m) return true;
+		try { var t = JSON.parse(window.localStorage.getItem('test') || '[]'); return !!(t && t.length); } catch (x) { return false; }
+	}
+	function made() {
+		var v = visitLoad();
+		if (v) { v.m = 1; visitSave(v); }
+	}
+	function visit() {
+		var svc = gaBase && gaBase.service, v = visitLoad();
+		if (!svc || svc === 'etc' || v === null || typeof window.gtag !== 'function') return;   // gtag 없는 화면은 적지도 않음 → 다음 화면이 보냄
+		var today = ymd(new Date()), d = v.d || [], last = d.length ? d[d.length - 1] : '', ev = [], gap, p, n7 = 0, i, k, c = 0;
+		if (last !== today) {
+			gap = last ? dayDiff(last, today) : -1;
+			d.push(today);
+			while (d.length && dayDiff(d[0], today) > 27) d.shift();
+			for (i = 0; i < d.length; i++) if (dayDiff(d[i], today) < 7) n7++;
+			v.d = d;
+			v.f = v.f || today;
+			v.s = {};
+			p = { days7: n7, days28: d.length, gap: gap < 0 ? 'new' : gap > 7 ? '8+' : String(gap), maker: isMaker(v) ? 'yes' : 'no' };
+			ev.push(['gy_day', p]);
+			if (gap >= 1 && gap <= 7) ev.push(['gy_back7', p]);
+			if (p.maker === 'yes') {
+				ev.push(['gy_maker_day', p]);
+				if (gap >= 1 && gap <= 7) ev.push(['gy_maker_back7', p]);
+			}
+		}
+		v.s = v.s || {};
+		if (!v.s[svc]) {
+			v.s[svc] = 1;
+			for (k in v.s) if (v.s.hasOwnProperty(k)) c++;
+			if (c === 2) ev.push(['gy_multi', { services: Object.keys ? Object.keys(v.s).join(',') : '' }]);
+		}
+		visitSave(v);
+		for (i = 0; i < ev.length; i++) track(ev[i][0], ev[i][1]);
 	}
 
 	// 공유 버튼 자동 수집
@@ -505,7 +561,7 @@
 	}
 
 	function init() {
-		if (!gaBase) { gaInit(); bindShare(); bindPromo(); }
+		if (!gaBase) { gaInit(); bindShare(); bindPromo(); setTimeout(visit, 2000); }   // 서비스가 gtag를 늦게 넣는 화면(덕능 등)도 기다렸다가
 		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', preloadKakao); else preloadKakao();
 		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', renderFoot); else renderFoot();
 		injectCss();
@@ -513,7 +569,7 @@
 		if (el) render(el);
 	}
 
-	window.GaeyouGnb = { menus: MENUS, init: init, track: track, pageView: pageView, share: share, shareButtons: shareButtons };
+	window.GaeyouGnb = { menus: MENUS, init: init, track: track, made: made, pageView: pageView, share: share, shareButtons: shareButtons };
 	init();
 	if (!document.getElementById('gyGnb') && document.readyState === 'loading') {
 		document.addEventListener('DOMContentLoaded', init);
