@@ -34,6 +34,7 @@
 		{ id: 'game',      name: '깨임',       href: '/game/' },
 		{ id: 'gpt',       name: '고민상담소', href: '/gpt/', header: ['#ffb13b', '#ff7e45', '#e88f2a'] },
 		{ id: 'merit',     name: '나의장점',   href: '/merit/' },
+		{ id: 'fortune',   name: '오늘의 운세', href: '/fortune/', hidden: true, header: ['#3b35a6', '#6d5bd0', '#2e2a8a'] }, // 2026-10-28 사주운세 대신. 사용자 확인 뒤 hidden 뺌
 		{ id: 'saju',      name: '사주운세',   href: '/saju/', hidden: true }, // 2026-10-28 내림(앱 회원 0, 웹 사주 결과 2월 이후 0) → 오늘의 운세로 바꿀 예정
 		{ id: 's',         name: '깨위바위보', href: '/s/add.html' },
 		{ id: 'iq',        name: '아이큐테스트', href: '/iq/', hidden: true } // 수리 후 hidden 제거
@@ -43,7 +44,7 @@
 
 	// ---- 통계 (GA4) ----
 	var GA_ID = 'G-BCZM5VJWJM';
-	var GA_SERVICES = ['t', 'w', 'm', 'mbti', 'apps/mbti', 'novel', 'game', 'gpt', 'merit', 's'];   // 여기 있는 서비스만 gnb.js가 gtag를 넣는다 (사주는 astro_web 앱으로 넘어가서 제외)
+	var GA_SERVICES = ['t', 'w', 'm', 'mbti', 'apps/mbti', 'novel', 'game', 'gpt', 'merit', 's', 'fortune'];   // 여기 있는 서비스만 gnb.js가 gtag를 넣는다 (사주는 astro_web 앱으로 넘어가서 제외)
 	// 공유 버튼(data-share·data-sharer·data-sns 등)을 자동으로 share 이벤트로. 서비스 JS가 직접 보내는 곳은 뺀다.
 	var GA_SHARE_SELF = ['t', 'w', 'm', 'gpt'];
 	// 글 제목을 불러온 뒤에 페이지 조회를 보내는 서비스 (HTML 제목이 모두 '깨알유머'라 GA에서 구분이 안 되므로).
@@ -51,7 +52,7 @@
 	var GA_LATE_VIEW = ['t', 'w'];
 	var SERVICE_NAMES = { t: '깨알테스트', w: '월드컵' };
 	// GA 보고서의 페이지 제목 앞에 붙이는 서비스 표시 (브라우저 탭 제목에는 안 붙음). 루모(🔮)는 lumo/src/analytics.php
-	var SERVICE_EMOJI = { t: '🧪', w: '🏆', m: '💞', mbti: '🧠', apps_mbti: '🧩', novel: '📖', game: '🎮', gpt: '💬', merit: '🌟', s: '✊', saju: '🔯' };
+	var SERVICE_EMOJI = { fortune: '🌙', t: '🧪', w: '🏆', m: '💞', mbti: '🧠', apps_mbti: '🧩', novel: '📖', game: '🎮', gpt: '💬', merit: '🌟', s: '✊', saju: '🔯' };
 	function gaTitle(t) {
 		var e = gaBase && SERVICE_EMOJI[gaBase.service];
 		return (e ? e + ' ' : '') + t;
