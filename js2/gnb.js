@@ -32,7 +32,7 @@
 		{ id: 'apps/mbti', name: '심리테스트', href: '/apps/mbti/' },
 		{ id: 'novel',     name: '소설',       href: '/novel/' },
 		{ id: 'game',      name: '깨임',       href: '/game/' },
-		{ id: 'gpt',       name: '고민상담소', href: '/gpt/', header: ['#ffb13b', '#ff7e45', '#e88f2a'] },
+		{ id: 'gpt',       name: '고민상담소', href: '/gpt/', header: ['#ffb13b', '#ff7e45', '#e88f2a'], hidden: true }, // 2026-10-28 내림 → /gpt/는 오늘의 운세로 넘김
 		{ id: 'merit',     name: '나의장점',   href: '/merit/' },
 		{ id: 'fortune',   name: '오늘의 운세', href: '/fortune/', header: ['#3b35a6', '#6d5bd0', '#2e2a8a'] }, // 2026-10-28 사주운세 대신 오픈
 		{ id: 'saju',      name: '사주운세',   href: '/saju/', hidden: true }, // 2026-10-28 내림(앱 회원 0, 웹 사주 결과 2월 이후 0) → 오늘의 운세로 바꿀 예정
@@ -242,6 +242,7 @@
 		'.gy-foot p{margin:2px 0 0;font-size:12px;color:#a9a5b0}' +
 		'.gy-share{display:flex;flex-direction:column;gap:6px;margin:0}' +
 		'.gy-share-row{display:flex;gap:6px;margin:0}' +
+		'.gy-ftbn{display:block;max-width:600px;margin:14px auto 0}.gy-ftbn img{display:block;width:100%;height:auto;border-radius:12px}' +
 		'.gy-share-btn{flex:1 1 0;display:flex;align-items:center;justify-content:center;gap:6px;height:44px;margin:0;padding:0 6px;border-radius:6px;' +
 			'font-size:15px;font-weight:bold;line-height:1;text-decoration:none!important;cursor:pointer;box-sizing:border-box;-webkit-tap-highlight-color:transparent;white-space:nowrap}' +
 		'.gy-share-x{background:#000;color:#fff!important;border:1px solid #000}' +
@@ -435,7 +436,24 @@
 				b('gy-share-kakao', 'kakao', KAKAO_SVG + '카톡 공유') +
 				b('gy-share-copy', 'copy', LINK_SVG + '주소 복사') +
 				b('gy-share-more', 'native', SHARE_SVG, ' aria-label="다른 앱으로 공유" title="다른 앱으로 공유"') +
-			'</div></div>';
+			'</div></div>' + fortuneBanner();
+	}
+
+	// 오늘의 운세 배너 (2026-10-28): 공유 버튼 바로 아래. 깨알테스트는 덕능 배너 자리라 빼고, 덕능·루모·운세 자기 화면도 뺀다.
+	// shareButtons()로 그리는 화면은 거기 붙고, 공유 버튼이 HTML에 박혀 있는 화면(이름궁합 등)은 addFortuneBanner()가 첫 공유 줄 아래에 붙인다.
+	var FT_BANNER_ON = ['m', 'mbti', 'apps/mbti', 'w', 'novel', 'game', 'merit', 's'];
+	function fortuneBanner() {
+		var cur = detectCurrent() || '';
+		if (FT_BANNER_ON.indexOf(cur) < 0) return '';
+		return '<a class="gy-ftbn" href="/fortune/?in=bn" data-gy-promo="fortune_banner" data-gy-slot="' + esc(cur) + '">' +
+			'<img src="//romeoh.github.io/app/img/ft_banner.gif?v=20261028" width="600" height="200" alt="오늘의 운세 — 촉냥이가 오늘의 카드를 뽑아 줘요" loading="lazy"></a>';
+	}
+	function addFortuneBanner() {
+		var sh = document.querySelector('.gy-share'), html = fortuneBanner(), box;
+		if (!sh || !html || document.querySelector('.gy-ftbn')) return;
+		box = document.createElement('div');
+		box.innerHTML = html;
+		sh.parentNode.insertBefore(box.firstChild, sh.nextSibling);
 	}
 
 	// 카카오톡 공유: Kakao SDK v2. 공유 버튼이 있는 화면이면 미리 불러 둔다(누르는 순간 바로 열리게).
@@ -572,6 +590,7 @@
 		if (!gaBase) { gaInit(); bindShare(); bindPromo(); setTimeout(visit, 2000); }   // 서비스가 gtag를 늦게 넣는 화면(덕능 등)도 기다렸다가
 		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', preloadKakao); else preloadKakao();
 		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', renderFoot); else renderFoot();
+		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addFortuneBanner); else addFortuneBanner();
 		injectCss();
 		var el = document.getElementById('gyGnb');
 		if (el) render(el);
