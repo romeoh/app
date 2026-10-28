@@ -576,9 +576,44 @@
 		});
 	}
 
+	// X(트위터) 앱 안 브라우저는 alert()·prompt()·confirm()을 띄우지 않는다(2026-10-29 확인) → 안내는 화면 아래 토스트, 복사가 막히면 글 상자
+	function toast(msg) {
+		var old = document.getElementById('gyToast');
+		if (old) old.parentNode.removeChild(old);
+		var t = document.createElement('div');
+		t.id = 'gyToast';
+		t.setAttribute('role', 'status');
+		t.textContent = msg;
+		t.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:2147483000;max-width:calc(100% - 32px);box-sizing:border-box;padding:12px 16px;border-radius:12px;background:rgba(20,20,20,.92);color:#fff;font:14px/1.45 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;text-align:center;word-break:keep-all;box-shadow:0 4px 16px rgba(0,0,0,.2)';
+		document.body.appendChild(t);
+		setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 2800);
+	}
+	/** 자동 복사가 안 될 때: 글을 골라 둔 상자를 띄워 길게 눌러 복사하게 */
+	function copyBox(text) {
+		var old = document.getElementById('gyCopyBox');
+		if (old) old.parentNode.removeChild(old);
+		var box = document.createElement('div'), ta = document.createElement('textarea'), p = document.createElement('p'), b = document.createElement('button');
+		box.id = 'gyCopyBox';
+		box.setAttribute('role', 'dialog');
+		box.setAttribute('aria-label', '복사하기');
+		box.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:2147483000;max-width:480px;margin:0 auto;padding:14px;border-radius:16px;background:#fff;box-shadow:0 8px 32px rgba(0,0,0,.25);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;color:#222';
+		p.textContent = '아래 글을 길게 눌러 복사해 주세요.';
+		p.style.cssText = 'margin:0 0 8px;font-weight:700';
+		ta.value = text;
+		ta.readOnly = true;
+		ta.style.cssText = 'display:block;width:100%;box-sizing:border-box;height:96px;padding:8px;border:1px solid #ddd;border-radius:10px;font-size:16px;resize:none';
+		b.type = 'button';
+		b.textContent = '닫기';
+		b.style.cssText = 'display:block;width:100%;margin-top:8px;height:44px;border:0;border-radius:10px;background:#f0eff3;font:inherit;font-weight:700;color:#222';
+		b.onclick = function () { box.parentNode.removeChild(box); };
+		box.appendChild(p); box.appendChild(ta); box.appendChild(b);
+		document.body.appendChild(box);
+		try { ta.focus(); ta.select(); } catch (e) {}
+	}
+
 	function copyText(text, msg) {
-		var done = function () { alert(msg || '복사했어요. 원하는 곳에 붙여 넣어 공유하세요.'); };
-		var ask = function () { window.prompt('아래 내용을 복사해 공유하세요.', text); };
+		var done = function () { toast(msg || '복사했어요. 원하는 곳에 붙여 넣어 공유하세요.'); };
+		var ask = function () { copyBox(text); };
 		if (navigator.clipboard && navigator.clipboard.writeText) {
 			navigator.clipboard.writeText(text).then(done, ask);
 			return;
@@ -664,7 +699,7 @@
 		if (el) render(el);
 	}
 
-	window.GaeyouGnb = { menus: MENUS, init: init, track: track, made: made, pageView: pageView, share: share, shareButtons: shareButtons };
+	window.GaeyouGnb = { menus: MENUS, init: init, track: track, made: made, pageView: pageView, share: share, shareButtons: shareButtons, toast: toast, copyBox: copyBox };
 	init();
 	if (!document.getElementById('gyGnb') && document.readyState === 'loading') {
 		document.addEventListener('DOMContentLoaded', init);
