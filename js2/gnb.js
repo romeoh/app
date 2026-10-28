@@ -577,6 +577,7 @@
 	}
 
 	// X(트위터) 앱 안 브라우저는 alert()·prompt()·confirm()을 띄우지 않는다(2026-10-29 확인) → 안내는 화면 아래 토스트, 복사가 막히면 글 상자
+	var X_APP = /Twitter for iPhone|TwitterAndroid/.test(navigator.userAgent || '');   // X 앱 안 브라우저: 아래쪽은 트윗 카드에 가려져서 안내를 위에 띄운다
 	function toast(msg) {
 		var old = document.getElementById('gyToast');
 		if (old) old.parentNode.removeChild(old);
@@ -584,7 +585,7 @@
 		t.id = 'gyToast';
 		t.setAttribute('role', 'status');
 		t.textContent = msg;
-		t.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:2147483000;max-width:calc(100% - 32px);box-sizing:border-box;padding:12px 16px;border-radius:12px;background:rgba(20,20,20,.92);color:#fff;font:14px/1.45 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;text-align:center;word-break:keep-all;box-shadow:0 4px 16px rgba(0,0,0,.2)';
+		t.style.cssText = 'position:fixed;left:50%;' + (X_APP ? 'top:72px;' : 'bottom:24px;') + 'transform:translateX(-50%);z-index:2147483000;max-width:calc(100% - 32px);box-sizing:border-box;padding:12px 16px;border-radius:12px;background:rgba(20,20,20,.92);color:#fff;font:14px/1.45 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;text-align:center;word-break:keep-all;box-shadow:0 4px 16px rgba(0,0,0,.2)';
 		document.body.appendChild(t);
 		setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 2800);
 	}
@@ -596,7 +597,7 @@
 		box.id = 'gyCopyBox';
 		box.setAttribute('role', 'dialog');
 		box.setAttribute('aria-label', '복사하기');
-		box.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:2147483000;max-width:480px;margin:0 auto;padding:14px;border-radius:16px;background:#fff;box-shadow:0 8px 32px rgba(0,0,0,.25);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;color:#222';
+		box.style.cssText = 'position:fixed;left:16px;right:16px;' + (X_APP ? 'top:16px;' : 'bottom:16px;') + 'z-index:2147483000;max-width:480px;margin:0 auto;padding:14px;border-radius:16px;background:#fff;box-shadow:0 8px 32px rgba(0,0,0,.25);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;color:#222';
 		p.textContent = '아래 글을 길게 눌러 복사해 주세요.';
 		p.style.cssText = 'margin:0 0 8px;font-weight:700';
 		ta.value = text;
@@ -689,10 +690,21 @@
 		});
 	}
 
+	// X(트위터) 앱 안 브라우저는 화면 아래에 트윗 카드·주소 막대를 페이지 위에 겹쳐 띄운다 → 끝까지 내려도 맨 아래가 가려져서(2026-10-29) 빈 공간을 더 둔다
+	function xRoom() {
+		if (!document.body || document.getElementById('gyXRoom') || !X_APP) return;
+		var d = document.createElement('div');
+		d.id = 'gyXRoom';
+		d.setAttribute('aria-hidden', 'true');
+		d.style.cssText = 'height:240px;clear:both';
+		document.body.appendChild(d);
+	}
+
 	function init() {
 		if (!gaBase) { gaInit(); bindShare(); bindPromo(); setTimeout(visit, 2000); }   // 서비스가 gtag를 늦게 넣는 화면(덕능 등)도 기다렸다가
 		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', preloadKakao); else preloadKakao();
 		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', renderFoot); else renderFoot();
+		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', xRoom); else xRoom();
 		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addFortuneBanner); else addFortuneBanner();
 		injectCss();
 		var el = document.getElementById('gyGnb');
