@@ -268,6 +268,11 @@
 		'.gy-gnb a{display:flex;align-items:center;height:100%;padding:0 14px;font-size:14px;font-weight:600;' +
 			'line-height:1;color:#222;text-decoration:none;white-space:nowrap;-webkit-tap-highlight-color:transparent}' +
 		'.gy-gnb a:hover,.gy-gnb a:focus{text-decoration:none;color:#000}' +
+		'.gy-gnb-scroll li.gy-gnb-on{background:#e6e8eb}' +
+		'.gy-gnb-scroll li.gy-gnb-on a,.gy-gnb-scroll li.gy-gnb-on a:hover{color:#111;font-weight:800}' +
+		'.gy-gnb-fade-l{position:absolute;top:0;left:0;bottom:0;width:24px;pointer-events:none;z-index:1;opacity:0;' +
+			'background:linear-gradient(to left,rgba(255,255,255,0),#fff 80%);transition:opacity .2s}' +
+		'.gy-gnb.is-mid .gy-gnb-fade-l{opacity:1}' +
 		'.gy-gnb-cur{flex:0 0 auto;position:relative;z-index:2;background:#e6e8eb;box-shadow:2px 0 4px rgba(0,0,0,.08)}' +
 		'.gy-gnb-cur a,.gy-gnb-cur a:hover,.gy-gnb-cur a:focus{color:#111;font-weight:800}' +
 		'.gy-gnb-scroll{flex:1 1 auto;min-width:0;display:flex;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;' +
@@ -319,10 +324,11 @@
 		var curId = el.getAttribute('data-current') || detectCurrent();
 		var cur = null, rest = [], i, m;
 
+		// 2026-10-28: 지금 메뉴를 맨 앞으로 빼지 않고 원래 순서 자리에 두고(회색 칸), 그 칸이 가운데 오게 가로 스크롤한다
 		for (i = 0; i < MENUS.length; i++) {
 			m = MENUS[i];
 			if (m.id === curId) cur = m;
-			else if (!m.hidden) rest.push(m);
+			if (!m.hidden || m.id === curId) rest.push(m);
 		}
 
 		var html = '';
@@ -335,13 +341,13 @@
 					'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>만들기</a>' : '') +
 				'</div>';
 		}
-		html += '<div class="gy-gnb">';
-		if (cur) {
-			html += '<div class="gy-gnb-cur' + (cur.underline ? ' gy-gnb-ul' : '') + '">' +
-				'<a href="' + esc(cur.href) + '" data-gnb="' + esc(cur.id) + '" aria-current="page">' + esc(cur.name) + '</a></div>';
-		}
+		html += '<div class="gy-gnb"><span class="gy-gnb-fade-l"></span>';
 		html += '<ul class="gy-gnb-scroll">';
 		for (i = 0; i < rest.length; i++) {
+			if (rest[i] === cur) {
+				html += '<li class="gy-gnb-on' + (cur.underline ? ' gy-gnb-ul' : '') + '"><a href="' + esc(cur.href) + '" data-gnb="' + esc(cur.id) + '" aria-current="page">' + esc(cur.name) + '</a></li>';
+				continue;
+			}
 			html += rest[i].accent
 				? '<li class="gy-gnb-acc"><a href="' + esc(rest[i].href) + '" data-gnb="' + esc(rest[i].id) + '">' + esc(rest[i].name) + '<span class="gy-gnb-acc-dot"></span></a></li>'
 				: '<li' + (rest[i].underline ? ' class="gy-gnb-ul"' : '') + '><a href="' + esc(rest[i].href) + '" data-gnb="' + esc(rest[i].id) + '">' + esc(rest[i].name) + '</a></li>';
@@ -394,8 +400,18 @@
 	function bindScroll(bar, scroller) {
 		function update() {
 			var end = scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 2;
-			bar.className = end ? 'gy-gnb is-end' : 'gy-gnb';
+			bar.className = 'gy-gnb' + (end ? ' is-end' : '') + (scroller.scrollLeft > 2 ? ' is-mid' : '');
 		}
+		// 지금 메뉴가 가운데 오게 (처음 한 번, 애니메이션 없이 — 글꼴이 늦게 와서 폭이 바뀌면 load 때 한 번 더)
+		function center() {
+			var on = scroller.querySelector('.gy-gnb-on');
+			if (!on) return;
+			var sr = scroller.getBoundingClientRect(), r = on.getBoundingClientRect();
+			scroller.scrollLeft += (r.left - sr.left) - (scroller.clientWidth - r.width) / 2;
+			update();
+		}
+		center();
+		window.addEventListener('load', center);
 		scroller.addEventListener('scroll', update);
 		window.addEventListener('resize', update);
 		window.addEventListener('load', update);
