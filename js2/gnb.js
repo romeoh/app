@@ -272,7 +272,6 @@
 		'.gy-gnb a:hover,.gy-gnb a:focus{text-decoration:none;color:#000}' +
 		'.gy-gnb-scroll li.gy-gnb-on{background:#e6e8eb}' +
 		'.gy-gnb-sw{position:relative;flex:1 1 auto;min-width:0;display:flex}' +
-		'.gy-gnb-morebtn{flex:0 0 auto;position:relative;z-index:2;background:#fff;box-shadow:-3px 0 5px rgba(0,0,0,.07)}' +
 		'.gy-gnb-morebtn button{display:flex;align-items:center;gap:3px;height:100%;margin:0;padding:0 12px;border:0;background:transparent;font:inherit;font-size:14px;font-weight:600;' +
 			'line-height:1;color:#666;white-space:nowrap;cursor:pointer;-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent}' +
 		'.gy-gnb-morebtn button[aria-expanded="true"]{color:#111}.gy-gnb-morebtn button[aria-expanded="true"] svg{transform:rotate(180deg)}' +
@@ -370,12 +369,11 @@
 				? '<li class="gy-gnb-acc"><a href="' + esc(rest[i].href) + '" data-gnb="' + esc(rest[i].id) + '">' + esc(rest[i].name) + '<span class="gy-gnb-acc-dot"></span></a></li>'
 				: '<li' + (rest[i].underline ? ' class="gy-gnb-ul"' : '') + '><a href="' + esc(rest[i].href) + '" data-gnb="' + esc(rest[i].id) + '">' + esc(rest[i].name) + '</a></li>';
 		}
-		html += '</ul><span class="gy-gnb-fade"></span></div>';
-		if (more.length) {   // 더보기는 스크롤 밖 오른쪽 끝에 늘 보이게
-			html += '<div class="gy-gnb-morebtn"><button type="button" aria-expanded="false" aria-controls="gyGnbMore" data-gnb-more>더보기' +
-				'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div>';
+		if (more.length) {   // 더보기는 메뉴 줄 맨 끝 (2026-10-28 사용자 결정: 고정하지 않고 스크롤해야 보이게)
+			html += '<li class="gy-gnb-morebtn"><button type="button" aria-expanded="false" aria-controls="gyGnbMore" data-gnb-more>더보기' +
+				'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></li>';
 		}
-		html += '</div>';
+		html += '</ul><span class="gy-gnb-fade"></span></div></div>';
 		if (more.length) {
 			html += '<div class="gy-gnb-more" id="gyGnbMore" hidden><ul>';
 			for (i = 0; i < more.length; i++) {
