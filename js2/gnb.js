@@ -30,15 +30,17 @@
 		{ id: 'mbti',      name: 'MBTI',       href: '/mbti/ko/', header: ['#7b6cf6', '#a98bf2', '#6656e0'] },
 		{ id: 'lumo',      name: '루모',       href: '/lumo/' }, // 2026-10-26 강조(accent) 뺌 — 다시 켜려면 accent: true
 		{ id: 'm',         name: '이름궁합',   href: '/m/' },
-		{ id: 'apps/mbti', name: '심리테스트', href: '/apps/mbti/' },
-		{ id: 'merit',     name: '나의장점',   href: '/merit/' },
-		{ id: 'game',      name: '깨임',       href: '/game/' },
-		{ id: 'novel',     name: '소설',       href: '/novel/' },
-		{ id: 's',         name: '깨위바위보', href: '/s/add.html' },
+		{ id: 'apps/mbti', name: '심리테스트', href: '/apps/mbti/', more: true },
+		{ id: 'merit',     name: '나의장점',   href: '/merit/', more: true },
+		{ id: 'game',      name: '깨임',       href: '/game/', more: true },
+		{ id: 'novel',     name: '소설',       href: '/novel/', more: true },
+		{ id: 's',         name: '깨위바위보', href: '/s/add.html', more: true },
 		{ id: 'gpt',       name: '고민상담소', href: '/gpt/', header: ['#ffb13b', '#ff7e45', '#e88f2a'], hidden: true }, // 2026-10-28 내림 → /gpt/는 오늘의 운세로 넘김
 		{ id: 'saju',      name: '사주운세',   href: '/saju/', hidden: true }, // 2026-10-28 내림(앱 회원 0, 웹 사주 결과 2월 이후 0) → /saju/는 오늘의 운세로 넘김
 		{ id: 'iq',        name: '아이큐테스트', href: '/iq/', hidden: true } // 수리 후 hidden 제거
 	];
+	// more: true = 메뉴 줄에 안 보이고 맨 끝 '더보기'를 누르면 펼쳐지는 칸에 (2026-10-28 사용자 결정: 메뉴가 너무 많아 어수선 — 최근 28일 이용 수십 명 수준인 코너들).
+	// 그 메뉴 화면에 있을 때는 메뉴 줄 끝('더보기' 앞)에 회색 칸으로 보인다. 메뉴 줄로 다시 올리려면 more를 지운다.
 
 	var DEFAULT_HEADER = ['#ff6eda', '#ff6868', '#d66db8'];
 
@@ -269,6 +271,18 @@
 			'line-height:1;color:#222;text-decoration:none;white-space:nowrap;-webkit-tap-highlight-color:transparent}' +
 		'.gy-gnb a:hover,.gy-gnb a:focus{text-decoration:none;color:#000}' +
 		'.gy-gnb-scroll li.gy-gnb-on{background:#e6e8eb}' +
+		'.gy-gnb-sw{position:relative;flex:1 1 auto;min-width:0;display:flex}' +
+		'.gy-gnb-morebtn{flex:0 0 auto;position:relative;z-index:2;background:#fff;box-shadow:-3px 0 5px rgba(0,0,0,.07)}' +
+		'.gy-gnb-morebtn button{display:flex;align-items:center;gap:3px;height:100%;margin:0;padding:0 12px;border:0;background:transparent;font:inherit;font-size:14px;font-weight:600;' +
+			'line-height:1;color:#666;white-space:nowrap;cursor:pointer;-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent}' +
+		'.gy-gnb-morebtn button[aria-expanded="true"]{color:#111}.gy-gnb-morebtn button[aria-expanded="true"] svg{transform:rotate(180deg)}' +
+		'.gy-gnb-more{background:#fff;border-bottom:1px solid #dbdcdf;padding:8px 10px 10px;margin:0;' +
+			'font-family:"나눔고딕",NanumGothic,"맑은 고딕","Malgun Gothic",Helvetica,sans-serif}' +
+		'.gy-gnb-more[hidden]{display:none}' +
+		'.gy-gnb-more ul{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;list-style:none;margin:0;padding:0}' +
+		'.gy-gnb-more li{margin:0;padding:0}' +
+		'.gy-gnb-more a{display:flex;align-items:center;justify-content:center;gap:5px;height:44px;border-radius:8px;background:#f3f4f6;font-size:14px;font-weight:600;color:#222;text-decoration:none;white-space:nowrap}' +
+		'.gy-gnb-more a[aria-current]{background:#e6e8eb;font-weight:800;color:#111}' +
 		'.gy-gnb-scroll li.gy-gnb-on a,.gy-gnb-scroll li.gy-gnb-on a:hover{color:#111;font-weight:800}' +
 		'.gy-gnb-fade-l{position:absolute;top:0;left:0;bottom:0;width:24px;pointer-events:none;z-index:1;opacity:0;' +
 			'background:linear-gradient(to left,rgba(255,255,255,0),#fff 80%);transition:opacity .2s}' +
@@ -325,11 +339,15 @@
 		var cur = null, rest = [], i, m;
 
 		// 2026-10-28: 지금 메뉴를 맨 앞으로 빼지 않고 원래 순서 자리에 두고(회색 칸), 그 칸이 가운데 오게 가로 스크롤한다
+		var more = [], curMore = null;
 		for (i = 0; i < MENUS.length; i++) {
 			m = MENUS[i];
 			if (m.id === curId) cur = m;
-			if (!m.hidden || m.id === curId) rest.push(m);
+			if (m.more && !m.hidden) more.push(m);
+			if (m.id === curId && (m.more || m.hidden)) curMore = m;
+			else if (!m.hidden && !m.more) rest.push(m);
 		}
+		if (curMore) rest.push(curMore);   // 더보기·숨긴 메뉴 화면이면 메뉴 줄 끝에 지금 칸
 
 		var html = '';
 		if (el.getAttribute('data-header') === '1') {
@@ -341,7 +359,7 @@
 					'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>만들기</a>' : '') +
 				'</div>';
 		}
-		html += '<div class="gy-gnb"><span class="gy-gnb-fade-l"></span>';
+		html += '<div class="gy-gnb"><div class="gy-gnb-sw"><span class="gy-gnb-fade-l"></span>';
 		html += '<ul class="gy-gnb-scroll">';
 		for (i = 0; i < rest.length; i++) {
 			if (rest[i] === cur) {
@@ -352,7 +370,21 @@
 				? '<li class="gy-gnb-acc"><a href="' + esc(rest[i].href) + '" data-gnb="' + esc(rest[i].id) + '">' + esc(rest[i].name) + '<span class="gy-gnb-acc-dot"></span></a></li>'
 				: '<li' + (rest[i].underline ? ' class="gy-gnb-ul"' : '') + '><a href="' + esc(rest[i].href) + '" data-gnb="' + esc(rest[i].id) + '">' + esc(rest[i].name) + '</a></li>';
 		}
-		html += '</ul><span class="gy-gnb-fade"></span></div><div class="gy-gnb-gap"></div>';
+		html += '</ul><span class="gy-gnb-fade"></span></div>';
+		if (more.length) {   // 더보기는 스크롤 밖 오른쪽 끝에 늘 보이게
+			html += '<div class="gy-gnb-morebtn"><button type="button" aria-expanded="false" aria-controls="gyGnbMore" data-gnb-more>더보기' +
+				'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div>';
+		}
+		html += '</div>';
+		if (more.length) {
+			html += '<div class="gy-gnb-more" id="gyGnbMore" hidden><ul>';
+			for (i = 0; i < more.length; i++) {
+				html += '<li><a href="' + esc(more[i].href) + '" data-gnb="' + esc(more[i].id) + '"' + (more[i] === cur ? ' aria-current="page"' : '') + '>' +
+					'<span aria-hidden="true">' + (SERVICE_EMOJI[more[i].id.replace('/', '_')] || '✨') + '</span>' + esc(more[i].name) + '</a></li>';
+			}
+			html += '</ul></div>';
+		}
+		html += '<div class="gy-gnb-gap"></div>';
 
 		// 기존 헤더의 float 로고(.gaeyou)가 3px 넘쳐 네비를 밀어내는 것 방지
 		var prev = el.previousElementSibling;
@@ -362,6 +394,28 @@
 		el.setAttribute('data-gnb-ready', '1');
 		bindTrack(el, curId);
 		bindScroll(el.querySelector('.gy-gnb'), el.querySelector('.gy-gnb-scroll'));
+		bindMore(el);
+	}
+
+	// 더보기: 누르면 메뉴 줄 아래에 칸이 펼쳐진다(내용을 아래로 민다 — 예전 화면들 위에 겹치지 않게). 바깥을 누르거나 Esc면 닫힘
+	function bindMore(el) {
+		var btn = el.querySelector('[data-gnb-more]'), box = el.querySelector('.gy-gnb-more');
+		if (!btn || !box) return;
+		function set(open) {
+			box.hidden = !open;
+			btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+		}
+		btn.addEventListener('click', function () {
+			var open = box.hidden;
+			set(open);
+			if (open) track('gnb_more', {});
+		});
+		document.addEventListener('click', function (e) {
+			if (!box.hidden && !el.contains(e.target)) set(false);
+		});
+		document.addEventListener('keydown', function (e) {
+			if (!box.hidden && (e.key === 'Escape' || e.keyCode === 27)) { set(false); btn.focus(); }
+		});
 	}
 
 	// 메뉴 클릭을 구글 애널리틱스(GA4) 이벤트로: 콘텐츠 사이 이동 동선 (gtag가 있는 페이지에서만)
