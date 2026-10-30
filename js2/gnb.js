@@ -28,7 +28,7 @@
 		{ id: 'w',         name: '월드컵',     href: '/w/' },
 		{ id: 'fortune',   name: '오늘의 운세', href: '/fortune/', header: ['#3b35a6', '#6d5bd0', '#2e2a8a'] }, // 2026-10-28 사주운세 대신 오픈
 		{ id: 'mbti',      name: 'MBTI',       href: '/mbti/ko/', header: ['#7b6cf6', '#a98bf2', '#6656e0'] },
-		{ id: 'lumo',      name: '루모',       href: '/lumo/' }, // 2026-10-26 강조(accent) 뺌 — 다시 켜려면 accent: true
+		{ id: 'lumo',      name: '루모',       href: '/lumo/', hidden: true }, // 2026-10-30 종료(메뉴에서 뺌, /lumo/는 지난 결과만). 2026-10-26 강조(accent) 뺌
 		{ id: 'm',         name: '이름궁합',   href: '/m/' },
 		{ id: 'apps/mbti', name: '심리테스트', href: '/apps/mbti/', more: true },
 		{ id: 'merit',     name: '나의장점',   href: '/merit/', more: true },
