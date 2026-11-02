@@ -33,7 +33,7 @@
 		{ id: 'apps/mbti', name: '심리테스트', href: '/apps/mbti/', more: true },
 		{ id: 'merit',     name: '나의장점',   href: '/merit/', more: true },
 		{ id: 'game',      name: '깨임',       href: '/game/', more: true },
-		{ id: 'novel',     name: '소설',       href: '/novel/', more: true },
+		{ id: 'novel',     name: '소설',       href: '/novel/', more: true, header: ['#2c3a9e', '#4f5fe0', '#24308a'] }, // 2026-11-03 AI랑 같이 쓰는 소설(시험 /novel2/) — 남색 잉크
 		{ id: 's',         name: '깨위바위보', href: '/s/add.html', more: true },
 		{ id: 'gpt',       name: '고민상담소', href: '/gpt/', header: ['#ffb13b', '#ff7e45', '#e88f2a'], hidden: true }, // 2026-10-28 내림 → /gpt/는 오늘의 운세로 넘김
 		{ id: 'saju',      name: '사주운세',   href: '/saju/', hidden: true }, // 2026-10-28 내림(앱 회원 0, 웹 사주 결과 2월 이후 0) → /saju/는 오늘의 운세로 넘김
