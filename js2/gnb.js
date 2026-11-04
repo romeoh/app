@@ -22,19 +22,20 @@
 	'use strict';
 
 	// 메뉴 순서 = 노출 순서. hidden:true 는 노출 안 함
+	// 2026-11-04 사용자 결정: 소설(밑줄)을 맨 앞, 나머지는 최근 7일 방문자 순(GA 10/28~11/3: 깨알테스트 13.2만·덕능 6.5천·심리테스트 6천·월드컵 2.2천·MBTI 774·이름궁합 482·운세 442·깨임 50·나의장점 47·깨위바위보 25)
 	var MENUS = [
-		{ id: 'dn',        name: '덕능',       href: '/dn/', underline: true }, // 덕질능력시험(2026-10-26). 글자 아래 빨간 밑줄(.gy-gnb-ul)
+		{ id: 'novel',     name: '소설',       href: '/novel/', underline: true, header: ['#2c3a9e', '#4f5fe0', '#24308a'] }, // 2026-11-04 AI랑 같이 쓰는 소설 /novel/ 오픈(11-03 /novel2/ 시험) — 남색 잉크. 맨 앞 + 빨간 밑줄(덕능에서 넘겨받음)
 		{ id: 't',         name: '깨알테스트', href: '/t/' },
-		{ id: 'w',         name: '월드컵',     href: '/w/' },
-		{ id: 'fortune',   name: '오늘의 운세', href: '/fortune/', header: ['#3b35a6', '#6d5bd0', '#2e2a8a'] }, // 2026-10-28 사주운세 대신 오픈
-		{ id: 'mbti',      name: 'MBTI',       href: '/mbti/ko/', header: ['#7b6cf6', '#a98bf2', '#6656e0'] },
-		{ id: 'lumo',      name: '루모',       href: '/lumo/', hidden: true }, // 2026-10-30 종료(메뉴에서 뺌, /lumo/는 지난 결과만). 2026-10-26 강조(accent) 뺌
-		{ id: 'm',         name: '이름궁합',   href: '/m/' },
+		{ id: 'dn',        name: '덕능',       href: '/dn/' }, // 덕질능력시험(2026-10-26). 2026-11-04 밑줄 뺌(일반 메뉴로)
 		{ id: 'apps/mbti', name: '심리테스트', href: '/apps/mbti/' },
-		{ id: 'merit',     name: '나의장점',   href: '/merit/' },
+		{ id: 'w',         name: '월드컵',     href: '/w/' },
+		{ id: 'mbti',      name: 'MBTI',       href: '/mbti/ko/', header: ['#7b6cf6', '#a98bf2', '#6656e0'] },
+		{ id: 'm',         name: '이름궁합',   href: '/m/' },
+		{ id: 'fortune',   name: '오늘의 운세', href: '/fortune/', header: ['#3b35a6', '#6d5bd0', '#2e2a8a'] }, // 2026-10-28 사주운세 대신 오픈
 		{ id: 'game',      name: '깨임',       href: '/game/' },
-		{ id: 'novel',     name: '소설',       href: '/novel/', header: ['#2c3a9e', '#4f5fe0', '#24308a'] }, // 2026-11-04 AI랑 같이 쓰는 소설 /novel/ 오픈(11-03 /novel2/ 시험) — 남색 잉크
+		{ id: 'merit',     name: '나의장점',   href: '/merit/' },
 		{ id: 's',         name: '깨위바위보', href: '/s/add.html' },
+		{ id: 'lumo',      name: '루모',       href: '/lumo/', hidden: true }, // 2026-10-30 종료(메뉴에서 뺌, /lumo/는 지난 결과만). 2026-10-26 강조(accent) 뺌
 		{ id: 'gpt',       name: '고민상담소', href: '/gpt/', header: ['#ffb13b', '#ff7e45', '#e88f2a'], hidden: true }, // 2026-10-28 내림 → /gpt/는 오늘의 운세로 넘김
 		{ id: 'saju',      name: '사주운세',   href: '/saju/', hidden: true }, // 2026-10-28 내림(앱 회원 0, 웹 사주 결과 2월 이후 0) → /saju/는 오늘의 운세로 넘김
 		{ id: 'iq',        name: '아이큐테스트', href: '/iq/', hidden: true } // 수리 후 hidden 제거
