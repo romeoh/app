@@ -30,17 +30,18 @@
 		{ id: 'mbti',      name: 'MBTI',       href: '/mbti/ko/', header: ['#7b6cf6', '#a98bf2', '#6656e0'] },
 		{ id: 'lumo',      name: '루모',       href: '/lumo/', hidden: true }, // 2026-10-30 종료(메뉴에서 뺌, /lumo/는 지난 결과만). 2026-10-26 강조(accent) 뺌
 		{ id: 'm',         name: '이름궁합',   href: '/m/' },
-		{ id: 'apps/mbti', name: '심리테스트', href: '/apps/mbti/', more: true },
-		{ id: 'merit',     name: '나의장점',   href: '/merit/', more: true },
-		{ id: 'game',      name: '깨임',       href: '/game/', more: true },
-		{ id: 'novel',     name: '소설',       href: '/novel/', more: true, header: ['#2c3a9e', '#4f5fe0', '#24308a'] }, // 2026-11-03 AI랑 같이 쓰는 소설(시험 /novel2/) — 남색 잉크
-		{ id: 's',         name: '깨위바위보', href: '/s/add.html', more: true },
+		{ id: 'apps/mbti', name: '심리테스트', href: '/apps/mbti/' },
+		{ id: 'merit',     name: '나의장점',   href: '/merit/' },
+		{ id: 'game',      name: '깨임',       href: '/game/' },
+		{ id: 'novel',     name: '소설',       href: '/novel/', header: ['#2c3a9e', '#4f5fe0', '#24308a'] }, // 2026-11-04 AI랑 같이 쓰는 소설 /novel/ 오픈(11-03 /novel2/ 시험) — 남색 잉크
+		{ id: 's',         name: '깨위바위보', href: '/s/add.html' },
 		{ id: 'gpt',       name: '고민상담소', href: '/gpt/', header: ['#ffb13b', '#ff7e45', '#e88f2a'], hidden: true }, // 2026-10-28 내림 → /gpt/는 오늘의 운세로 넘김
 		{ id: 'saju',      name: '사주운세',   href: '/saju/', hidden: true }, // 2026-10-28 내림(앱 회원 0, 웹 사주 결과 2월 이후 0) → /saju/는 오늘의 운세로 넘김
 		{ id: 'iq',        name: '아이큐테스트', href: '/iq/', hidden: true } // 수리 후 hidden 제거
 	];
 	// more: true = 메뉴 줄에 안 보이고 맨 끝 '더보기'를 누르면 펼쳐지는 칸에 (2026-10-28 사용자 결정: 메뉴가 너무 많아 어수선 — 최근 28일 이용 수십 명 수준인 코너들).
 	// 그 메뉴 화면에 있을 때는 메뉴 줄 끝('더보기' 앞)에 회색 칸으로 보인다. 메뉴 줄로 다시 올리려면 more를 지운다.
+	// 2026-11-04 사용자 결정: 더보기 다섯 개(심리테스트·나의장점·깨임·소설·깨위바위보)를 모두 메뉴 줄로 올림 → more 메뉴가 없어 '더보기' 버튼도 안 그려진다(기능은 남겨 둠).
 
 	var DEFAULT_HEADER = ['#ff6eda', '#ff6868', '#d66db8'];
 
