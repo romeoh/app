@@ -82,6 +82,7 @@
 		};
 		if (m) gaBase.content_id = m[1];
 		if (GA_SERVICES.indexOf(cur) < 0 || /^\/lumo\//.test(window.location.pathname)) return;   // 루모는 자체 gtag
+		if (!/(^|\.)gaeyou\.com$/.test(window.location.hostname)) return;   // 로컬 미리보기·자동 점검(localhost)은 통계에 안 넣는다 (2026-11-09 나의 장점 e2e가 실시간에 '지미님' 86회로 잡힘)
 		if (cur === 't' && !window.location.search && /^#\d+$/.test(window.location.hash)) return;   // test.js가 곧 /t/?번호 로 바꾼다 (page_view 두 번 방지)
 		if (!gaHasTag()) {
 			window.dataLayer = window.dataLayer || [];
