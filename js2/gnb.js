@@ -32,8 +32,8 @@
 		{ id: 'mbti',      name: 'MBTI',       href: '/mbti/ko/', header: ['#7b6cf6', '#a98bf2', '#6656e0'] },
 		{ id: 'm',         name: '이름궁합',   href: '/m/' },
 		{ id: 'fortune',   name: '오늘의 운세', href: '/fortune/', header: ['#3b35a6', '#6d5bd0', '#2e2a8a'] }, // 2026-10-28 사주운세 대신 오픈
+		{ id: 'merit',     name: '나의장점',   href: '/merit/' }, // 2026-11-09 새 화면 전환과 함께 깨임 앞으로(사용자 요청)
 		{ id: 'game',      name: '깨임',       href: '/game/' },
-		{ id: 'merit',     name: '나의장점',   href: '/merit/' },
 		{ id: 's',         name: '깨위바위보', href: '/s/add.html' },
 		{ id: 'lumo',      name: '루모',       href: '/lumo/', hidden: true }, // 2026-10-30 종료(메뉴에서 뺌, /lumo/는 지난 결과만). 2026-10-26 강조(accent) 뺌
 		{ id: 'gpt',       name: '고민상담소', href: '/gpt/', header: ['#ffb13b', '#ff7e45', '#e88f2a'], hidden: true }, // 2026-10-28 내림 → /gpt/는 오늘의 운세로 넘김
