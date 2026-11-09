@@ -35,6 +35,7 @@
 		{ id: 'merit',     name: '나의장점',   href: '/merit/' }, // 2026-11-09 새 화면 전환과 함께 깨임 앞으로(사용자 요청)
 		{ id: 'game',      name: '깨임',       href: '/game/' },
 		{ id: 's',         name: '깨위바위보', href: '/s/add.html' },
+		{ id: 'cal',       name: 'D·log',      href: '/cal/', hidden: true }, // 2026-11-09 D-day 캘린더(자체 아래 탭·머리). 메뉴 자리는 사용자 결정 전이라 숨김 — GA만
 		{ id: 'fr',        name: '깨친소',     href: '/fr/', header: ['#0A7C5C', '#14A37A', '#075E45'], hidden: true }, // 2026-11-09 깨알 트친소(본인이 올리는 X·쓰레드 카드). 메뉴 자리는 사용자 결정 전이라 숨김 — 공통 머리 색·GA만
 		{ id: 'lumo',      name: '루모',       href: '/lumo/', hidden: true }, // 2026-10-30 종료(메뉴에서 뺌, /lumo/는 지난 결과만). 2026-10-26 강조(accent) 뺌
 		{ id: 'gpt',       name: '고민상담소', href: '/gpt/', header: ['#ffb13b', '#ff7e45', '#e88f2a'], hidden: true }, // 2026-10-28 내림 → /gpt/는 오늘의 운세로 넘김
@@ -49,7 +50,7 @@
 
 	// ---- 통계 (GA4) ----
 	var GA_ID = 'G-BCZM5VJWJM';
-	var GA_SERVICES = ['t', 'w', 'm', 'mbti', 'apps/mbti', 'novel', 'game', 'gpt', 'merit', 's', 'fortune', 'fr'];   // 여기 있는 서비스만 gnb.js가 gtag를 넣는다 (사주는 astro_web 앱으로 넘어가서 제외)
+	var GA_SERVICES = ['t', 'w', 'm', 'mbti', 'apps/mbti', 'novel', 'game', 'gpt', 'merit', 's', 'fortune', 'fr', 'cal'];   // 여기 있는 서비스만 gnb.js가 gtag를 넣는다 (사주는 astro_web 앱으로 넘어가서 제외)
 	// 공유 버튼(data-share·data-sharer·data-sns 등)을 자동으로 share 이벤트로. 서비스 JS가 직접 보내는 곳은 뺀다.
 	var GA_SHARE_SELF = ['t', 'w', 'm', 'gpt'];
 	// 글 제목을 불러온 뒤에 페이지 조회를 보내는 서비스 (HTML 제목이 모두 '깨알유머'라 GA에서 구분이 안 되므로).
@@ -57,7 +58,7 @@
 	var GA_LATE_VIEW = ['t', 'w'];
 	var SERVICE_NAMES = { t: '깨알테스트', w: '월드컵' };
 	// GA 보고서의 페이지 제목 앞에 붙이는 서비스 표시 (브라우저 탭 제목에는 안 붙음). 루모(🔮)는 lumo/src/analytics.php
-	var SERVICE_EMOJI = { fortune: '🌙', t: '🧪', w: '🏆', m: '💞', mbti: '🧠', apps_mbti: '🧩', novel: '📖', game: '🎮', gpt: '💬', merit: '🌟', fr: '💚', s: '✊', saju: '🔯' };
+	var SERVICE_EMOJI = { fortune: '🌙', t: '🧪', w: '🏆', m: '💞', mbti: '🧠', apps_mbti: '🧩', novel: '📖', game: '🎮', gpt: '💬', merit: '🌟', fr: '💚', cal: '📅', s: '✊', saju: '🔯' };
 	function gaTitle(t) {
 		var e = gaBase && SERVICE_EMOJI[gaBase.service];
 		return (e ? e + ' ' : '') + t;
