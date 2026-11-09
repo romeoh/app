@@ -35,7 +35,7 @@
 		{ id: 'merit',     name: '나의장점',   href: '/merit/' }, // 2026-11-09 새 화면 전환과 함께 깨임 앞으로(사용자 요청)
 		{ id: 'game',      name: '깨임',       href: '/game/' },
 		{ id: 's',         name: '깨위바위보', href: '/s/add.html' },
-		{ id: 'cal',       name: 'D·log',      href: '/cal/', hidden: true }, // 2026-11-09 D-day 캘린더(자체 아래 탭·머리). 메뉴 자리는 사용자 결정 전이라 숨김 — GA만
+		{ id: 'cal',       name: 'D·log',      href: '/cal/', header: ['#FF5C8A', '#D81B57', '#B5174A'], hidden: true }, // 2026-11-09 D-day 캘린더(자체 아래 탭). 메뉴 자리는 사용자 결정 전이라 숨김 — 공통 머리(분홍)·GA만
 		{ id: 'fr',        name: '깨친소',     href: '/fr/', header: ['#0A7C5C', '#14A37A', '#075E45'], hidden: true }, // 2026-11-09 깨알 트친소(본인이 올리는 X·쓰레드 카드). 메뉴 자리는 사용자 결정 전이라 숨김 — 공통 머리 색·GA만
 		{ id: 'lumo',      name: '루모',       href: '/lumo/', hidden: true }, // 2026-10-30 종료(메뉴에서 뺌, /lumo/는 지난 결과만). 2026-10-26 강조(accent) 뺌
 		{ id: 'gpt',       name: '고민상담소', href: '/gpt/', header: ['#ffb13b', '#ff7e45', '#e88f2a'], hidden: true }, // 2026-10-28 내림 → /gpt/는 오늘의 운세로 넘김
