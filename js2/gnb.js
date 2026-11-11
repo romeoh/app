@@ -33,7 +33,7 @@
 		{ id: 'm',         name: '이름궁합',   href: '/m/' },
 		{ id: 'fortune',   name: '오늘의 운세', href: '/fortune/', header: ['#3b35a6', '#6d5bd0', '#2e2a8a'] }, // 2026-10-28 사주운세 대신 오픈
 		{ id: 'merit',     name: '나의장점',   href: '/merit/' }, // 2026-11-09 새 화면 전환과 함께 깨임 앞으로(사용자 요청)
-		{ id: 'game',      name: '깨임',       href: '/game/' },
+		{ id: 'game',      name: '깨임',       href: '/game/', header: ['#2a1b5e', '#4a2a8a', '#1d1446'] }, // 2026-11-12 리뉴얼(깨유 오리지널 + 외부 게임 5개), 밤 무대 색
 		{ id: 'novel',     name: '깨썰',       href: '/novel/', header: ['#2c3a9e', '#4f5fe0', '#24308a'] }, // AI랑 같이 이어 쓰는 썰(주소·id는 novel). 2026-11-04 맨 앞·빨간 밑줄 → 2026-11-09 반응이 약해 밑줄 빼고 원래 자리(깨임 다음)로
 		{ id: 's',         name: '깨위바위보', href: '/s/add.html' },
 		{ id: 'fr',        name: '깨친소',     href: '/fr/', header: ['#0A7C5C', '#14A37A', '#075E45'], hidden: true }, // 2026-11-09 깨알 트친소(본인이 올리는 X·쓰레드 카드). 메뉴 자리는 사용자 결정 전이라 숨김 — 공통 머리 색·GA만
