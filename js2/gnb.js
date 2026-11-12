@@ -26,8 +26,8 @@
 	var MENUS = [
 		{ id: 't',         name: '깨알테스트', href: '/t/' },
 		{ id: 'game',      name: '깨임',       href: '/game/', header: ['#2a1b5e', '#4a2a8a', '#1d1446'], dot: true }, // 2026-11-12 리뉴얼(깨유 오리지널), 밤 무대 색. 같은 날 사용자 요청으로 깨알테스트 다음 두 번째 + 약한 강조(dot: 굵게 + 분홍 점)
-		{ id: 'cal',       name: 'D·log',      href: '/cal/', header: ['#FF5C8A', '#D81B57', '#B5174A'] }, // D-day 캘린더(2026-11-09). 2026-11-11 사용자 결정으로 오픈 — 깨알테스트 다음, 표시 없음
 		{ id: 'dn',        name: '덕능',       href: '/dn/' }, // 덕질능력시험(2026-10-26). 2026-11-04 밑줄 뺌(일반 메뉴로)
+		{ id: 'cal',       name: 'D·log',      href: '/cal/', header: ['#FF5C8A', '#D81B57', '#B5174A'] }, // D-day 캘린더(2026-11-09). 2026-11-11 사용자 결정으로 오픈 — 깨알테스트 다음, 표시 없음. 2026-11-12 사용자 요청으로 덕능과 자리 바꿈(깨임·덕능·D·log)
 		{ id: 'apps/mbti', name: '심리테스트', href: '/apps/mbti/' },
 		{ id: 'w',         name: '월드컵',     href: '/w/' },
 		{ id: 'mbti',      name: 'MBTI',       href: '/mbti/ko/', header: ['#7b6cf6', '#a98bf2', '#6656e0'] },
