@@ -25,6 +25,7 @@
 	// 2026-11-04 사용자 결정: 소설(밑줄)을 맨 앞(2026-11-09 원래 자리로 되돌림), 나머지는 최근 7일 방문자 순(GA 10/28~11/3: 깨알테스트 13.2만·덕능 6.5천·심리테스트 6천·월드컵 2.2천·MBTI 774·이름궁합 482·운세 442·깨임 50·나의장점 47·깨위바위보 25)
 	var MENUS = [
 		{ id: 't',         name: '깨알테스트', href: '/t/' },
+		{ id: 'game',      name: '깨임',       href: '/game/', header: ['#2a1b5e', '#4a2a8a', '#1d1446'], dot: true }, // 2026-11-12 리뉴얼(깨유 오리지널), 밤 무대 색. 같은 날 사용자 요청으로 깨알테스트 다음 두 번째 + 약한 강조(dot: 굵게 + 분홍 점)
 		{ id: 'cal',       name: 'D·log',      href: '/cal/', header: ['#FF5C8A', '#D81B57', '#B5174A'] }, // D-day 캘린더(2026-11-09). 2026-11-11 사용자 결정으로 오픈 — 깨알테스트 다음, 표시 없음
 		{ id: 'dn',        name: '덕능',       href: '/dn/' }, // 덕질능력시험(2026-10-26). 2026-11-04 밑줄 뺌(일반 메뉴로)
 		{ id: 'apps/mbti', name: '심리테스트', href: '/apps/mbti/' },
@@ -33,7 +34,6 @@
 		{ id: 'm',         name: '이름궁합',   href: '/m/' },
 		{ id: 'fortune',   name: '오늘의 운세', href: '/fortune/', header: ['#3b35a6', '#6d5bd0', '#2e2a8a'] }, // 2026-10-28 사주운세 대신 오픈
 		{ id: 'merit',     name: '나의장점',   href: '/merit/' }, // 2026-11-09 새 화면 전환과 함께 깨임 앞으로(사용자 요청)
-		{ id: 'game',      name: '깨임',       href: '/game/', header: ['#2a1b5e', '#4a2a8a', '#1d1446'] }, // 2026-11-12 리뉴얼(깨유 오리지널 + 외부 게임 5개), 밤 무대 색
 		{ id: 'novel',     name: '깨썰',       href: '/novel/', header: ['#2c3a9e', '#4f5fe0', '#24308a'] }, // AI랑 같이 이어 쓰는 썰(주소·id는 novel). 2026-11-04 맨 앞·빨간 밑줄 → 2026-11-09 반응이 약해 밑줄 빼고 원래 자리(깨임 다음)로
 		{ id: 's',         name: '깨위바위보', href: '/s/add.html' },
 		{ id: 'fr',        name: '깨친소',     href: '/fr/', header: ['#0A7C5C', '#14A37A', '#075E45'], hidden: true }, // 2026-11-09 깨알 트친소(본인이 올리는 X·쓰레드 카드). 메뉴 자리는 사용자 결정 전이라 숨김 — 공통 머리 색·GA만
@@ -314,6 +314,8 @@
 		'.gy-gnb-acc a:active{transform:translate(1px,1px);box-shadow:1px 1px 0 #D6246E}' +
 		// 덕능: 글자 아래 빨간 밑줄 (2026-10-26)
 		'.gy-gnb .gy-gnb-ul a{text-decoration:underline!important;text-decoration-color:#D3364C!important;text-decoration-thickness:3px!important;text-underline-offset:5px}' +
+		// dot: 굵은 글자 + 분홍 점 — 밑줄·노랑 칩보다 약한 강조 (2026-11-12 깨임)
+		'.gy-gnb .gy-gnb-dot a{font-weight:800;color:#1d1446}' +
 		'.gy-gnb-acc-dot{display:inline-block;width:6px;height:6px;margin:0 0 0 5px;border-radius:50%;background:#D6246E;vertical-align:middle}';
 
 	function detectCurrent() {
@@ -370,12 +372,12 @@
 		html += '<ul class="gy-gnb-scroll">';
 		for (i = 0; i < rest.length; i++) {
 			if (rest[i] === cur) {
-				html += '<li class="gy-gnb-on' + (cur.underline ? ' gy-gnb-ul' : '') + '"><a href="' + esc(cur.href) + '" data-gnb="' + esc(cur.id) + '" aria-current="page">' + esc(cur.name) + '</a></li>';
+				html += '<li class="gy-gnb-on' + (cur.underline ? ' gy-gnb-ul' : '') + (cur.dot ? ' gy-gnb-dot' : '') + '"><a href="' + esc(cur.href) + '" data-gnb="' + esc(cur.id) + '" aria-current="page">' + esc(cur.name) + (cur.dot ? '<span class="gy-gnb-acc-dot"></span>' : '') + '</a></li>';
 				continue;
 			}
 			html += rest[i].accent
 				? '<li class="gy-gnb-acc"><a href="' + esc(rest[i].href) + '" data-gnb="' + esc(rest[i].id) + '">' + esc(rest[i].name) + '<span class="gy-gnb-acc-dot"></span></a></li>'
-				: '<li' + (rest[i].underline ? ' class="gy-gnb-ul"' : '') + '><a href="' + esc(rest[i].href) + '" data-gnb="' + esc(rest[i].id) + '">' + esc(rest[i].name) + '</a></li>';
+				: '<li' + (rest[i].underline ? ' class="gy-gnb-ul"' : rest[i].dot ? ' class="gy-gnb-dot"' : '') + '><a href="' + esc(rest[i].href) + '" data-gnb="' + esc(rest[i].id) + '">' + esc(rest[i].name) + (rest[i].dot ? '<span class="gy-gnb-acc-dot"></span>' : '') + '</a></li>';
 		}
 		if (more.length) {   // 더보기는 메뉴 줄 맨 끝 (2026-10-28 사용자 결정: 고정하지 않고 스크롤해야 보이게)
 			html += '<li class="gy-gnb-morebtn"><button type="button" aria-expanded="false" aria-controls="gyGnbMore" data-gnb-more>더보기' +
