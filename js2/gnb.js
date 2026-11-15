@@ -242,6 +242,9 @@
 	var IMG = '//romeoh.github.io/app/img/';
 
 	var CSS = '' +
+		/* 깨친소 배지 (2026-11-15) — 이름 옆 X·쓰레드 동그라미 → 그 사람 깨친소 카드 */
+		'.gy-fr{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;margin:0 2px 0 4px;border-radius:50%;background:#0F1419;color:#fff!important;font:800 11px/1 -apple-system,BlinkMacSystemFont,sans-serif;text-decoration:none!important;vertical-align:-3px;flex:none}' +
+		'.gy-fr.th{background:#0A7C5C}' +
 		'.gy-dlog{display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;background:#15151C;color:#fff;box-sizing:border-box;font:14px/1.45 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;text-align:left}' +
 		'.gy-dlog[hidden]{display:none}.gy-dlog p{flex:1;margin:0;color:#D9D9E0;font-size:14px;line-height:1.45;word-break:keep-all}.gy-dlog p b{color:#fff;font-size:15px}' +
 		'.gy-dlog .go{flex:none;display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border:0;border-radius:999px;background:#D81B57;color:#fff;font:inherit;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer}.gy-dlog .go:disabled{opacity:.6}' +
@@ -784,6 +787,58 @@
 		dlogCard(v.o, box);
 	}
 
+	// ---- 깨친소 배지 (2026-11-15 사용자) ----
+	// 깨친소 카드 주인이 쓴 댓글·만든 것의 이름 칸에 서비스가 data-fr="svc:번호"를 붙여 두면, 여기서 모아 /fr/ties.php에 묻고
+	// 카드가 지금 보이는 사람만 이름 옆에 X(쓰레드는 @) 동그라미 → /fr/?코드 (상대 SNS로 바로 보내지 않고 깨친소 카드를 거침 — 사용자 결정).
+	// 화면이 나중에 그리는 댓글도 잡으려고 DOM 변화를 지켜본다. 저장은 각 서비스 + fr/src/tie.php
+	var FR_TIES = {}, frBound = false, frTimer = 0;
+	function frScan() {
+		frTimer = 0;
+		var els = document.querySelectorAll('[data-fr]:not([data-fr-done])'), want = [], i, k;
+		for (i = 0; i < els.length; i++) {
+			els[i].setAttribute('data-fr-done', '1');
+			k = els[i].getAttribute('data-fr');
+			if (!/^[a-z]{1,3}:\d+$/.test(k)) continue;
+			if (FR_TIES.hasOwnProperty(k)) { frBadge(els[i], FR_TIES[k]); continue; }
+			if (want.indexOf(k) < 0) want.push(k);
+		}
+		for (i = 0; i < want.length; i += 100) frAsk(want.slice(i, i + 100));
+	}
+	function frAsk(keys) {
+		var x = new XMLHttpRequest();
+		x.open('GET', '/fr/ties.php?q=' + encodeURIComponent(keys.join(',')), true);
+		x.onreadystatechange = function () {
+			if (x.readyState !== 4) return;
+			var r = null, j, els;
+			try { r = JSON.parse(x.responseText); } catch (e) {}
+			for (j = 0; j < keys.length; j++) FR_TIES[keys[j]] = r && r.ties && r.ties[keys[j]] || null;
+			els = document.querySelectorAll('[data-fr][data-fr-done]');
+			for (j = 0; j < els.length; j++) if (keys.indexOf(els[j].getAttribute('data-fr')) >= 0) frBadge(els[j], FR_TIES[els[j].getAttribute('data-fr')]);
+		};
+		x.send();
+	}
+	function frBadge(el, t) {
+		if (!t || !t.c || el.getAttribute('data-fr-on')) return;
+		el.setAttribute('data-fr-on', '1');
+		var a = document.createElement('a'), th = t.p === 'th';
+		a.className = 'gy-fr' + (th ? ' th' : '');
+		a.href = '/fr/?' + t.c + '&in=badge';
+		a.textContent = th ? '@' : 'X';
+		a.title = '깨친소 카드 보기';
+		a.setAttribute('aria-label', '깨친소 카드 보기 (' + (th ? '쓰레드' : 'X') + ')');
+		a.setAttribute('data-gy-promo', 'fr_badge');
+		a.setAttribute('data-gy-slot', el.getAttribute('data-fr').split(':')[0]);
+		a.onclick = function (e) { if (e.stopPropagation) e.stopPropagation(); };
+		if (el.nextSibling) el.parentNode.insertBefore(a, el.nextSibling); else el.parentNode.appendChild(a);
+	}
+	function frWatch() {
+		if (frBound) return;
+		frBound = true;
+		frScan();
+		if (!window.MutationObserver) return;
+		new MutationObserver(function () { if (!frTimer) frTimer = setTimeout(frScan, 250); }).observe(document.body, { childList: true, subtree: true });
+	}
+
 	function init() {
 		if (!gaBase) { gaInit(); bindShare(); bindPromo(); setTimeout(visit, 2000); }   // 서비스가 gtag를 늦게 넣는 화면(덕능 등)도 기다렸다가
 		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', preloadKakao); else preloadKakao();
@@ -791,6 +846,7 @@
 		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', xRoom); else xRoom();
 		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addFortuneBanner); else addFortuneBanner();
 		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dlogPending); else dlogPending();
+		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', frWatch); else frWatch();
 		injectCss();
 		var el = document.getElementById('gyGnb');
 		if (el) render(el);
