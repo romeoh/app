@@ -713,7 +713,8 @@
 	// ---- D·log에 담기 (2026-11-11 사용자: D·log가 깨유의 내 관리 페이지) ----
 	// 만들기가 끝나면 서비스가 GaeyouGnb.dlog({svc, ref, key, nick}, 자리) 를 부른다. svc: t 깨알테스트 · w 월드컵 · dn 덕능 · nv 깨썰 · ps 심리테스트 · mr 나의장점
 	// - 자리를 주면 그 안에, 안 주면(만들고 바로 다른 화면으로 가는 서비스) sessionStorage gyDlogNew에 두고 다음 화면의 메뉴 줄 바로 아래에 그린다
-	// - 이미 D·log를 쓰는 폰이면 바로 담고 '담았어요', 아니면 '담기' 한 번 → /cal/api.php a=link (계정·'내 깨유' 캘린더·만든 날 일정). 규칙은 cal/CLAUDE.md
+	// - '담기'를 눌러야만 담는다 → /cal/api.php a=link (계정·'내 깨유' 캘린더·만든 날 일정). 규칙은 cal/CLAUDE.md
+	//   (2026-11-15 사용자: 이미 D·log를 쓰는 폰이면 바로 담던 자동 담기는 D·log 취지에 안 맞아 뺌)
 	// - 만든 것은 localStorage gyMade([{s, r, k}])에도 → D·log 첫 화면이 '아직 안 담은 것'을 찾는다
 	var DLOG_WHAT = { t: '결과 확인·댓글이', w: '참여·댓글이', dn: '응시·댓글이', nv: '읽음·이어 쓰기가', ps: '참여·댓글이', mr: '친구·한마디가' };   // 조사까지
 	function dlogPost(data, cb) {
@@ -746,9 +747,7 @@
 			box.innerHTML = '<p><b>D·log에 담았어요</b><br>' + esc(what) + ' 늘면 D·log에서 한눈에 봐요</p><a class="go" href="' + esc(r.url || '/cal/') + '" data-gy-promo="dlog_made_done" data-gy-slot="' + esc(o.svc) + '">D·log에서 보기</a>';
 			box.hidden = false;
 		};
-		dlogPost({ a: 'link', svc: o.svc, items: items, auto: '1' }, function (r) {
-			if (!r.ok) return;
-			if (r.need !== 'me') { track('cal_link', { svc: o.svc, added: r.added, from: 'made_auto' }); done(r); return; }
+		(function () {
 			box.innerHTML = '<p><b>D·log에 담아 두기</b><br>' + esc(what) + ' 늘면 D·log에서 한눈에 봐요</p><button type="button" class="go">담기</button>';
 			box.hidden = false;
 			track('cal_link_view', { svc: o.svc, from: 'made' });
@@ -763,7 +762,7 @@
 					done(x);
 				});
 			};
-		});
+		})();
 	}
 	function dlog(o, el) {
 		if (!o || !o.svc || !o.ref) return;
