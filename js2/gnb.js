@@ -30,13 +30,13 @@
 		{ id: 'cal',       name: 'D·log',      href: '/cal/', header: ['#FF5C8A', '#D81B57', '#B5174A'] }, // D-day 캘린더(2026-11-09). 2026-11-11 사용자 결정으로 오픈 — 깨알테스트 다음, 표시 없음. 2026-11-12 사용자 요청으로 덕능과 자리 바꿈(깨임·덕능·D·log)
 		{ id: 'apps/mbti', name: '심리테스트', href: '/apps/mbti/' },
 		{ id: 'w',         name: '월드컵',     href: '/w/' },
+		{ id: 'fr',        name: '깨친소',     href: '/fr/', header: ['#0A7C5C', '#14A37A', '#075E45'] }, // 2026-11-09 깨알 트친소(본인이 올리는 X·쓰레드 카드). 2026-11-15 사용자 결정으로 공개 — 월드컵 다음
 		{ id: 'mbti',      name: 'MBTI',       href: '/mbti/ko/', header: ['#7b6cf6', '#a98bf2', '#6656e0'] },
 		{ id: 'm',         name: '이름궁합',   href: '/m/' },
 		{ id: 'fortune',   name: '오늘의 운세', href: '/fortune/', header: ['#3b35a6', '#6d5bd0', '#2e2a8a'] }, // 2026-10-28 사주운세 대신 오픈
 		{ id: 'merit',     name: '나의장점',   href: '/merit/' }, // 2026-11-09 새 화면 전환과 함께 깨임 앞으로(사용자 요청)
 		{ id: 'novel',     name: '깨썰',       href: '/novel/', header: ['#2c3a9e', '#4f5fe0', '#24308a'] }, // AI랑 같이 이어 쓰는 썰(주소·id는 novel). 2026-11-04 맨 앞·빨간 밑줄 → 2026-11-09 반응이 약해 밑줄 빼고 원래 자리(깨임 다음)로
 		{ id: 's',         name: '깨위바위보', href: '/s/add.html' },
-		{ id: 'fr',        name: '깨친소',     href: '/fr/', header: ['#0A7C5C', '#14A37A', '#075E45'], hidden: true }, // 2026-11-09 깨알 트친소(본인이 올리는 X·쓰레드 카드). 메뉴 자리는 사용자 결정 전이라 숨김 — 공통 머리 색·GA만
 		{ id: 'lumo',      name: '루모',       href: '/lumo/', hidden: true }, // 2026-10-30 종료(메뉴에서 뺌, /lumo/는 지난 결과만). 2026-10-26 강조(accent) 뺌
 		{ id: 'gpt',       name: '고민상담소', href: '/gpt/', header: ['#ffb13b', '#ff7e45', '#e88f2a'], hidden: true }, // 2026-10-28 내림 → /gpt/는 오늘의 운세로 넘김
 		{ id: 'saju',      name: '사주운세',   href: '/saju/', hidden: true }, // 2026-10-28 내림(앱 회원 0, 웹 사주 결과 2월 이후 0) → /saju/는 오늘의 운세로 넘김
@@ -525,6 +525,10 @@
 	var FT_BANNER_ON = ['m', 'mbti', 'apps/mbti', 'w', 'novel', 'game', 'merit', 's'];
 	function fortuneBanner() {
 		var cur = detectCurrent() || '';
+		// 교류 콘텐츠(서비스가 body에 data-gy-fr-banner="출처" — 지금은 월드컵)는 운세 대신 깨친소 배너 (2026-11-15 사용자)
+		var fr = document.body && document.body.getAttribute('data-gy-fr-banner');
+		if (fr) return '<a class="gy-ftbn" href="/fr/?in=bn&amp;from=' + esc(fr) + '" data-gy-promo="fr_banner" data-gy-slot="' + esc(cur) + '">' +
+			'<img src="//romeoh.github.io/app/img/fr_banner.gif?v=20261115" width="600" height="200" alt="깨친소 - 같은 취향 트친, 여기서 찾아요. 내 카드 올리기" loading="lazy"></a>';
 		if (FT_BANNER_ON.indexOf(cur) < 0) return '';
 		return '<a class="gy-ftbn" href="/fortune/?in=bn" data-gy-promo="fortune_banner" data-gy-slot="' + esc(cur) + '">' +
 			'<img src="//romeoh.github.io/app/img/ft_banner.gif?v=20261028" width="600" height="200" alt="오늘의 운세 — 촉냥이가 오늘의 카드를 뽑아 줘요" loading="lazy"></a>';
