@@ -243,8 +243,7 @@
 
 	var CSS = '' +
 		/* 깨친소 배지 (2026-11-15) — 이름 옆 X·쓰레드 동그라미 → 그 사람 깨친소 카드 */
-		'.gy-fr{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;margin:0 2px 0 4px;border-radius:50%;background:#0F1419;color:#fff!important;font:800 11px/1 -apple-system,BlinkMacSystemFont,sans-serif;text-decoration:none!important;vertical-align:-3px;flex:none}' +
-		'.gy-fr.th{background:#0A7C5C}' +
+		'.gy-fr{display:inline-flex;align-items:center;justify-content:center;height:18px;padding:0 6px;margin:0 2px 0 4px;border-radius:9px;background:#0A7C5C;color:#fff!important;font:700 10.5px/1 -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:-.2px;white-space:nowrap;text-decoration:none!important;vertical-align:-3px;flex:none}' +
 		'.gy-dlog{display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;background:#15151C;color:#fff;box-sizing:border-box;font:14px/1.45 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;text-align:left}' +
 		'.gy-dlog[hidden]{display:none}.gy-dlog p{flex:1;margin:0;color:#D9D9E0;font-size:14px;line-height:1.45;word-break:keep-all}.gy-dlog p b{color:#fff;font-size:15px}' +
 		'.gy-dlog .go{flex:none;display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border:0;border-radius:999px;background:#D81B57;color:#fff;font:inherit;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer}.gy-dlog .go:disabled{opacity:.6}' +
@@ -825,9 +824,9 @@
 		if (!t || !t.c || el.getAttribute('data-fr-on')) return;
 		el.setAttribute('data-fr-on', '1');
 		var a = document.createElement('a'), th = t.p === 'th';
-		a.className = 'gy-fr' + (th ? ' th' : '');
+		a.className = 'gy-fr';   // 2026-11-17 사용자: X·@ 동그라미가 닫기 버튼 같아서 '깨친소' 글자 칩으로
 		a.href = '/fr/?' + t.c + '&in=badge';
-		a.textContent = th ? '@' : 'X';
+		a.textContent = '깨친소';
 		a.title = '깨친소 카드 보기';
 		a.setAttribute('aria-label', '깨친소 카드 보기 (' + (th ? '쓰레드' : 'X') + ')');
 		a.setAttribute('data-gy-promo', 'fr_badge');
