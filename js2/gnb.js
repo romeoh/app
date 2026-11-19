@@ -254,6 +254,7 @@
 		'.gy-foot p{margin:2px 0 0;font-size:12px;color:#a9a5b0}' +
 		'.gy-share{display:flex;flex-direction:column;gap:6px;margin:0}' +
 		'.gy-share-row{display:flex;gap:6px;margin:0}' +
+		'.gy-ad{text-align:center;min-height:270px;margin:18px auto}.gy-ad small{display:block;font-size:11px;color:#9aa1ae;margin-bottom:4px}' +
 		'.gy-ftbn{display:block;max-width:600px;margin:14px auto 0}.gy-ftbn img{display:block;width:100%;height:auto;border-radius:12px}' +
 		'.gy-share-btn{flex:1 1 0;display:flex;align-items:center;justify-content:center;gap:6px;height:44px;margin:0;padding:0 6px;border-radius:6px;' +
 			'font-size:15px;font-weight:bold;line-height:1;text-decoration:none!important;cursor:pointer;box-sizing:border-box;-webkit-tap-highlight-color:transparent;white-space:nowrap}' +
@@ -855,7 +856,27 @@
 		if (el) render(el);
 	}
 
-	window.GaeyouGnb = { menus: MENUS, init: init, track: track, made: made, pageView: pageView, share: share, shareButtons: shareButtons, toast: toast, copyBox: copyBox, dlog: dlog };
+	// 애드센스 한 칸 (2026-11-19 덕능·월드컵·심리테스트 결과 화면, 사용자 결정). 서비스가 결과를 그린 뒤 GaeyouGnb.ad(빈 칸, 원래 주소)
+	// 깨알테스트(tview)는 서버가 직접 넣는다. 켜고 끄기·신고된 콘텐츠 제외는 서비스 서버가 정해서(data.ads) 부를지 말지로
+	// url → data-page-url: 애드센스가 ?번호를 떼고 기록하면 단가가 낮았다(tview/CLAUDE.md). gaeyou.com이 아니면(로컬·e2e) 그리지 않음
+	var AD_CLIENT = 'ca-pub-2760623096296279', AD_SLOT = '7510070164';
+	function ad(box, url) {
+		if (!box || box.getAttribute('data-gy-ad') || !/(^|\.)gaeyou\.com$/.test(location.hostname)) return;
+		box.setAttribute('data-gy-ad', '1');
+		if (!document.getElementById('gyAdJs')) {
+			var s = document.createElement('script');
+			s.id = 'gyAdJs'; s.async = true; s.crossOrigin = 'anonymous';
+			s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + AD_CLIENT;
+			document.head.appendChild(s);
+		}
+		box.className += ' gy-ad';
+		box.setAttribute('aria-label', '광고');
+		box.innerHTML = '<small>광고</small><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="' + AD_CLIENT +
+			'" data-ad-slot="' + AD_SLOT + '"' + (url ? ' data-page-url="' + esc(url) + '"' : '') + '></ins>';
+		try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+	}
+
+	window.GaeyouGnb = { menus: MENUS, ad: ad, init: init, track: track, made: made, pageView: pageView, share: share, shareButtons: shareButtons, toast: toast, copyBox: copyBox, dlog: dlog };
 	init();
 	if (!document.getElementById('gyGnb') && document.readyState === 'loading') {
 		document.addEventListener('DOMContentLoaded', init);
