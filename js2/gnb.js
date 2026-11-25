@@ -73,7 +73,25 @@
 		return false;
 	}
 
+	// 운영자(대표·Claude) 접속은 통계에서 뺀다 (2026-11-26 사용자 요청).
+	// - 대표 기기: 브라우저마다 한 번 아무 깨유 주소 뒤에 ?gy_staff=1 (끄기 ?gy_staff=0) → localStorage 'gyStaff'
+	//   (사파리·X 앱 안 브라우저·크롬은 저장소가 따로라 각각 한 번씩)
+	// - 자동 브라우저(Playwright·Puppeteer 등 navigator.webdriver)는 늘 뺀다
+	// 켜져 있으면 gtag를 넣지 않고, 화면에 직접 박힌 gtag도 ga-disable 표시로 막는다.
+	function gaStaff() {
+		var q = /[?&]gy_staff=([01])/.exec(window.location.search), on;
+		try {
+			if (q) {
+				if (q[1] === '1') window.localStorage.setItem('gyStaff', '1'); else window.localStorage.removeItem('gyStaff');
+				setTimeout(function () { toast(q[1] === '1' ? '이 브라우저는 통계에서 빠져요' : '이 브라우저도 다시 통계에 들어가요'); }, 600);
+			}
+			on = window.localStorage.getItem('gyStaff') === '1';
+		} catch (x) { on = false; }
+		return on || navigator.webdriver === true;
+	}
+
 	function gaInit() {
+		if (gaStaff()) { window['ga-disable-' + GA_ID] = true; gaBase = {}; return; }   // gaBase를 채워 두어 다시 부르지 않게
 		var cur = detectCurrent() || 'etc';
 		var file = window.location.pathname.split('/').pop();
 		var m = /^\?(\d+)/.exec(window.location.search) || /[?&](?:id|idx)=(\d+)/.exec(window.location.search) || /^#(\d+)/.exec(window.location.hash);
