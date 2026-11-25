@@ -76,7 +76,7 @@
 	// 운영자(대표·Claude) 접속은 통계에서 뺀다 (2026-11-26 사용자 요청).
 	// - 대표 기기: 브라우저마다 한 번 아무 깨유 주소 뒤에 ?gy_staff=1 (끄기 ?gy_staff=0) → localStorage 'gyStaff'
 	//   (사파리·X 앱 안 브라우저·크롬은 저장소가 따로라 각각 한 번씩)
-	// - 자동 브라우저(Playwright·Puppeteer 등 navigator.webdriver)는 늘 뺀다
+	// - 자동 브라우저(navigator.webdriver·HeadlessChrome 글자)는 늘 뺀다. 모바일 UA로 바꾼 헤드리스는 못 알아봄 → GA 관리의 내부 트래픽(맥 회선 IP)으로 거름
 	// 켜져 있으면 gtag를 넣지 않고, 화면에 직접 박힌 gtag도 ga-disable 표시로 막는다.
 	function gaStaff() {
 		var q = /[?&]gy_staff=([01])/.exec(window.location.search), on;
@@ -87,7 +87,7 @@
 			}
 			on = window.localStorage.getItem('gyStaff') === '1';
 		} catch (x) { on = false; }
-		return on || navigator.webdriver === true;
+		return on || navigator.webdriver === true || /HeadlessChrome/.test(navigator.userAgent);
 	}
 
 	function gaInit() {
