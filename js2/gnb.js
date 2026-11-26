@@ -541,8 +541,46 @@
 	// 오늘의 운세 배너 (2026-10-28): 공유 버튼 바로 아래. 깨알테스트는 덕능 배너 자리라 빼고, 덕능·루모·운세 자기 화면도 뺀다.
 	// shareButtons()로 그리는 화면은 거기 붙고, 공유 버튼이 HTML에 박혀 있는 화면(이름궁합 등)은 addFortuneBanner()가 첫 공유 줄 아래에 붙인다.
 	var FT_BANNER_ON = ['m', 'mbti', 'apps/mbti', 'w', 'novel', 'game', 'merit', 's'];
+
+	// 외국어 방문자 (2026-11-26 대표): 영어·일본어로 들어온 사람은 애드센스·우리 배너 대신 덕스팟 배너(그 언어, 600x300)만.
+	// 판단은 D·log(cal/src/i18n.php)와 같은 규칙: 첫 언어 ko → 한국어, ja → 일본어, 목록에 ko가 있으면 한국어, 나머지 영어.
+	// 깨알테스트는 서버가 Accept-Language로 같은 판단(tview/src/view.php tv_foreign). 미리보기: 주소에 &gy_lang=en|ja|ko
+	var FL = null;
+	function foreignLang() {
+		if (FL !== null) return FL;
+		var m = /[?&]gy_lang=(ko|en|ja)(&|$)/.exec(location.search);
+		if (m) return (FL = m[1] === 'ko' ? '' : m[1]);
+		var ls = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+		var first = String(ls[0] || '').toLowerCase();
+		if (!first || first.indexOf('ko') === 0) return (FL = '');
+		if (first.indexOf('ja') === 0) return (FL = 'ja');
+		for (var i = 1; i < ls.length; i++) if (String(ls[i]).toLowerCase().indexOf('ko') === 0) return (FL = '');
+		return (FL = 'en');
+	}
+	var SPOT_ALT = { en: 'Deokspot - K-pop birthday cafés, pop-ups & collabs in Korea, all on one map', ja: 'ドクスポット - 韓国のセンイルカフェ・ポップアップ・コラボを地図でチェック' };
+	function spotBanner(slot) {
+		var l = foreignLang();
+		if (!l) return '';
+		return '<a class="gy-ftbn gy-spotbn" href="/cal/?spot&amp;hl=' + l + '&amp;in=fbn" data-gy-promo="spot_banner_' + l + '" data-gy-slot="' + esc(slot || detectCurrent() || '') + '">' +
+			'<img src="' + IMG + 'spot_banner_' + l + '.jpg?v=20261126" width="600" height="300" alt="' + esc(SPOT_ALT[l]) + '" loading="lazy"></a>';
+	}
+	// 서비스가 HTML에 직접 넣은 우리 배너(.gy-ftbn — 이름궁합 첫 화면 등)를 덕스팟 배너 하나로
+	function spotSwap() {
+		if (!foreignLang()) return;
+		var list = document.querySelectorAll('a.gy-ftbn:not(.gy-spotbn)'), has = document.querySelector('.gy-spotbn'), i, box;
+		for (i = 0; i < list.length; i++) {
+			if (!has) {
+				box = document.createElement('div');
+				box.innerHTML = spotBanner();
+				has = box.firstChild;
+				list[i].parentNode.replaceChild(has, list[i]);
+			} else list[i].parentNode.removeChild(list[i]);
+		}
+	}
+
 	function fortuneBanner() {
 		var cur = detectCurrent() || '';
+		if (foreignLang()) return cur === 'cal' || cur === 't' ? '' : spotBanner(cur);   // 깨알테스트는 서버가 배너 자리에 직접
 		// 교류 콘텐츠(서비스가 body에 data-gy-fr-banner="출처" — 지금은 월드컵)는 운세 대신 깨친소 배너 (2026-11-15 사용자)
 		var fr = document.body && document.body.getAttribute('data-gy-fr-banner');
 		if (fr) return '<a class="gy-ftbn" href="/fr/?in=bn&amp;from=' + esc(fr) + '" data-gy-promo="fr_banner" data-gy-slot="' + esc(cur) + '">' +
@@ -552,6 +590,7 @@
 			'<img src="//romeoh.github.io/app/img/ft_banner.gif?v=20261028" width="600" height="200" alt="오늘의 운세 — 촉냥이가 오늘의 카드를 뽑아 줘요" loading="lazy"></a>';
 	}
 	function addFortuneBanner() {
+		spotSwap();
 		var sh = document.querySelector('.gy-share'), html = fortuneBanner(), box;
 		if (!sh || !html || document.querySelector('.gy-ftbn')) return;
 		box = document.createElement('div');
@@ -879,6 +918,7 @@
 	// url → data-page-url: 애드센스가 ?번호를 떼고 기록하면 단가가 낮았다(tview/CLAUDE.md). gaeyou.com이 아니면(로컬·e2e) 그리지 않음
 	var AD_CLIENT = 'ca-pub-2760623096296279', AD_SLOT = '7510070164';
 	function ad(box, url) {
+		if (box && foreignLang()) { box.style.display = 'none'; return; }   // 외국어 방문자는 광고 대신 덕스팟 배너(위)
 		if (!box || box.getAttribute('data-gy-ad') || !/(^|\.)gaeyou\.com$/.test(location.hostname)) return;
 		box.setAttribute('data-gy-ad', '1');
 		if (!document.getElementById('gyAdJs')) {
@@ -894,7 +934,7 @@
 		try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
 	}
 
-	window.GaeyouGnb = { menus: MENUS, ad: ad, init: init, track: track, made: made, pageView: pageView, share: share, shareButtons: shareButtons, toast: toast, copyBox: copyBox, dlog: dlog };
+	window.GaeyouGnb = { menus: MENUS, ad: ad, init: init, track: track, made: made, pageView: pageView, share: share, shareButtons: shareButtons, toast: toast, copyBox: copyBox, dlog: dlog, foreign: foreignLang, spotBanner: spotBanner, spotSwap: spotSwap };
 	init();
 	if (!document.getElementById('gyGnb') && document.readyState === 'loading') {
 		document.addEventListener('DOMContentLoaded', init);
