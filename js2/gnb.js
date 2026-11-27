@@ -40,7 +40,7 @@
 		{ id: 'lumo',      name: '루모',       href: '/lumo/', hidden: true }, // 2026-10-30 종료(메뉴에서 뺌, /lumo/는 지난 결과만). 2026-10-26 강조(accent) 뺌
 		{ id: 'gpt',       name: '고민상담소', href: '/gpt/', header: ['#ffb13b', '#ff7e45', '#e88f2a'], hidden: true }, // 2026-10-28 내림 → /gpt/는 오늘의 운세로 넘김
 		{ id: 'saju',      name: '사주운세',   href: '/saju/', hidden: true }, // 2026-10-28 내림(앱 회원 0, 웹 사주 결과 2월 이후 0) → /saju/는 오늘의 운세로 넘김
-		{ id: 'iq',        name: '아이큐테스트', href: '/iq/', hidden: true } // 수리 후 hidden 제거
+		{ id: 'iq',        name: '아이큐테스트', href: '/iq/', hidden: true } // 2026-11-27 대표 결정으로 내림 → /iq/는 깨임(/game/)으로 넘김
 	];
 	// more: true = 메뉴 줄에 안 보이고 맨 끝 '더보기'를 누르면 펼쳐지는 칸에 (2026-10-28 사용자 결정: 메뉴가 너무 많아 어수선 — 최근 28일 이용 수십 명 수준인 코너들).
 	// 그 메뉴 화면에 있을 때는 메뉴 줄 끝('더보기' 앞)에 회색 칸으로 보인다. 메뉴 줄로 다시 올리려면 more를 지운다.
