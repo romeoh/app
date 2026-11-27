@@ -36,7 +36,7 @@
 		{ id: 'fortune',   name: '오늘의 운세', href: '/fortune/', header: ['#3b35a6', '#6d5bd0', '#2e2a8a'] }, // 2026-10-28 사주운세 대신 오픈
 		{ id: 'merit',     name: '나의장점',   href: '/merit/' }, // 2026-11-09 새 화면 전환과 함께 깨임 앞으로(사용자 요청)
 		{ id: 'novel',     name: '깨썰',       href: '/novel/', header: ['#2c3a9e', '#4f5fe0', '#24308a'] }, // AI랑 같이 이어 쓰는 썰(주소·id는 novel). 2026-11-04 맨 앞·빨간 밑줄 → 2026-11-09 반응이 약해 밑줄 빼고 원래 자리(깨임 다음)로
-		{ id: 's',         name: '깨위바위보', href: '/s/add.html' },
+		{ id: 's',         name: '깨위바위보', href: '/s/add.html', hidden: true }, // 2026-11-27 대표 결정으로 내림 → /s/는 깨임(/game/)으로 넘김
 		{ id: 'lumo',      name: '루모',       href: '/lumo/', hidden: true }, // 2026-10-30 종료(메뉴에서 뺌, /lumo/는 지난 결과만). 2026-10-26 강조(accent) 뺌
 		{ id: 'gpt',       name: '고민상담소', href: '/gpt/', header: ['#ffb13b', '#ff7e45', '#e88f2a'], hidden: true }, // 2026-10-28 내림 → /gpt/는 오늘의 운세로 넘김
 		{ id: 'saju',      name: '사주운세',   href: '/saju/', hidden: true }, // 2026-10-28 내림(앱 회원 0, 웹 사주 결과 2월 이후 0) → /saju/는 오늘의 운세로 넘김
